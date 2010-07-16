@@ -51,7 +51,7 @@ class Testee_mcp {
 		// Load our glamorous assistants.
 		$this->_ee->load->helper('form');
 		$this->_ee->load->library('table');
-		$this->_ee->load->model('testee');
+		$this->_ee->load->model('testee_model');
 		
 		/**
 		 * Load the module CSS.
@@ -75,7 +75,8 @@ class Testee_mcp {
 	{
 		$vars = array(
 			'base_test_url'		=> $this->_base_url .AMP .'method=run_test' .AMP .'test_path=',
-			'cp_page_title'		=> $this->_ee->lang->line('testee_module_name')
+			'cp_page_title'		=> $this->_ee->lang->line('testee_module_name'),
+			'tests'				=> $this->_ee->testee_model->get_tests()
 		);
 		
 		return $this->_ee->load->view('tests_index', $vars, TRUE);
