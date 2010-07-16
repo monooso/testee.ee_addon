@@ -82,6 +82,49 @@ class Testee_mcp {
 		return $this->_ee->load->view('tests_index', $vars, TRUE);
 	}
 	
+	
+	/**
+	 * Handles a 'run_test' request.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function run_test()
+	{
+		$test_path = urldecode($this->_ee->input->get('test_path'));
+		
+		if ( ! file_exists($test_path))
+		{
+			$this->_ee->functions->redirect($this->_base_url);
+			return;
+		}
+		
+		// Load the SimpleTest libraries, so the tests don't have to.
+		require_once(BASEPATH .'simpletest/unit_tester' .EXT);
+		require_once(BASEPATH .'simpletest/reporter' .EXT);
+		
+		// Load the custom reporter.
+		require_once(PATH_THIRD .'testee/classes/reporter' .EXT);
+		
+		// Create the Test Suite.
+		$test_suite =& new TestSuite('Testee Test Suite');
+		
+		// Add the test file.
+		$test_suite->addFile($test_path);
+		
+		// Prepare the view variables.
+		ob_start();
+		$test_suite->run(new Testee_reporter());
+		$test_results = ob_get_clean();
+		
+		$vars = array(
+			'cp_page_title'	=> 'Testee Test Results',
+			'test_results'	=> $test_results
+		);
+		
+		return $this->_ee->load->view('test_results', $vars, TRUE);
+	}
+	
 }
 
 

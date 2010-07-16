@@ -14,7 +14,7 @@ if ($tests)
 		$this->table->add_row(
 			$test['addon_name'],
 			$test['test_name'],
-			$base_test_url .urlencode($test['test_path'])
+			'<a href="' .$base_test_url .urlencode($test['test_path']) .'" title="Run tests">Run tests</a>'
 		);
 	}
 	

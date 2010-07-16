@@ -63,6 +63,32 @@ class Testee_model extends CI_Model {
 	
 	
 	/**
+	 * Returns the child sub-directories of the specified directory.
+	 *
+	 * @access	public
+	 * @param 	string 		$dir_path 		The directory to examine.
+	 * @return	array
+	 */
+	public function get_directory_names($dir_path = '')
+	{
+		return $this->_get_directory_contents($dir_path, 'DIRECTORY');
+	}
+	
+	
+	/**
+	 * Returns the child files of the specified directory.
+	 *
+	 * @access	public
+	 * @param	string		$dir_path		The directory to examine.
+	 * @return	array
+	 */
+	public function get_file_names($dir_path = '')
+	{
+		return $this->_get_directory_contents($dir_path, 'FILE');
+	}
+	
+	
+	/**
 	 * Returns the package name.
 	 *
 	 * @access	public
@@ -100,13 +126,10 @@ class Testee_model extends CI_Model {
 		 * @todo omit add-ons that are not installed.
 		 */
 		
-		// Load the file helper.
-		$this->_ee->load->helper('file');
-		
 		$tests	= array();
 		
 		// Retrieve the contents of the third-party add-ons directory.
-		if ( ! $all_addons = get_filenames(PATH_THIRD))
+		if ( ! $all_addons = $this->get_directory_names(PATH_THIRD))
 		{
 			return $tests;
 		}
@@ -114,7 +137,8 @@ class Testee_model extends CI_Model {
 		foreach ($all_addons AS $addon)
 		{
 			$test_dir_path = PATH_THIRD .$addon .DIRECTORY_SEPARATOR .'tests';
-			if ( ! $all_tests = get_filenames($test_dir_path))
+			
+			if ( ! $all_tests = $this->get_file_names($test_dir_path))
 			{
 				continue;
 			}
@@ -141,6 +165,63 @@ class Testee_model extends CI_Model {
 		}
 		
 		return $tests;
+	}
+	
+	
+	
+	/* --------------------------------------------------------------
+	 * PRIVATE METHODS
+	 * ------------------------------------------------------------ */
+	
+	/**
+	 * Returns the contents of a directory.
+	 *
+	 * @access	private
+	 * @param	string		$dir_path		The directory to examine.
+	 * @param	string		$item_type		The item type to return ('DIRECTORY', or 'FILE').
+	 * @return	void
+	 */
+	private function _get_directory_contents($dir_path = '', $item_type = 'DIRECTORY')
+	{
+		$return = array();
+		$item_type = strtoupper($item_type);
+		
+		if ($dir_handle = @opendir($dir_path))
+		{
+			$dir_path = rtrim(realpath($dir_path), DIRECTORY_SEPARATOR) .DIRECTORY_SEPARATOR;
+			
+			while (($dir_item = readdir($dir_handle)) !== FALSE)
+			{
+				// Ignore any hidden files or directories.
+				if (substr($dir_item, 0, 1) == '.')
+				{
+					continue;
+				}
+				
+				switch ($item_type)
+				{
+					case 'DIRECTORY':
+						if (is_dir($dir_path .$dir_item))
+						{
+							$return[] = $dir_item;
+						}
+						break;
+						
+					case 'FILE':
+						if (is_file($dir_path .$dir_item))
+						{
+							$return[] = $dir_item;
+						}
+						break;
+						
+					default:
+						continue;
+						break;
+				}
+			}
+		}
+		
+		return $return;
 	}
 	
 }
