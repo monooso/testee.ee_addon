@@ -17,7 +17,7 @@ class Testee_reporter extends HtmlReporter {
 	 */
 	public function __construct($character_set = 'utf-8')
 	{
-		parent::HtmlReporter();
+		parent::HtmlReporter($character_set);
 	}
 	
 	
@@ -30,17 +30,17 @@ class Testee_reporter extends HtmlReporter {
 	 */
 	public function paintFooter($test_name = '')
 	{
-		$class = ($this->getFailCount() + $this->getExceptionCount() > 0)
-			? 'failure'
-			: 'success';
-			
-		echo '<div class="' .$class .'">';
-		echo '<p class="test_summary">';
-		echo $this->getTestCaseProgress() .' of ' .$this->getTestCaseCount() .' test case(s) complete. ';
-		echo '<span class="pass_summary">' .$this->getPassCount() .' passes</span>, ';
-		echo '<span class="fail_summary">' .$this->getFailCount() .' fails</span>, and ';
-		echo '<span class="exception_summary">' .$this->getExceptionCount() .' exceptions</span>.';
+		echo '<div class="test_result">';
+		echo '<div class="summary">';
+		
+		echo '<p>';
+		echo $this->getTestCaseProgress() .' of ' .$this->getTestCaseCount() .' test(s) completed. ';
+		echo '<span class="summary_pass">' .$this->getPassCount() .' passes</span>, ';
+		echo '<span class="summary_fail">' .$this->getFailCount() .' fails</span>, and ';
+		echo '<span class="summary_exception">' .$this->getExceptionCount() .' exceptions</span>.';
 		echo '</p>';
+		
+		echo '</div>';
 		echo '</div>';
 	}
 	

@@ -9,6 +9,8 @@
  * @version		0.1.0
  */
 
+require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
+
 class Testee_model extends CI_Model {
 	
 	/* --------------------------------------------------------------
@@ -38,6 +40,15 @@ class Testee_model extends CI_Model {
 	 * @var		string
 	 */
 	private $_package_version;
+	
+	/**
+	 * The package 'theme' folder URL.
+	 *
+	 * @access	private
+	 * @var		string
+	 */
+	private $_theme_folder_url;
+	
 	
 	
 
@@ -148,6 +159,8 @@ class Testee_model extends CI_Model {
 			 * test_my_test_name.php
 			 */
 			
+			$addon_tests = array();
+			
 			foreach ($all_tests AS $test)
 			{
 				if ( ! preg_match('/^test_([^.]*)' .EXT .'$/i', $test))
@@ -155,16 +168,44 @@ class Testee_model extends CI_Model {
 					continue;
 				}
 				
-				$tests[] = array(
-					'addon_name'	=> $addon,
-					'test_name'		=> $test,
-					'test_path'		=> $test_dir_path .DIRECTORY_SEPARATOR .$test
-				);
+				$addon_tests[] = new Testee_test(array(
+					'file_name' => $test,
+					'file_path' => $test_dir_path .DIRECTORY_SEPARATOR .$test
+				));
 			}
 			
+			if ($addon_tests)
+			{
+				$tests[] = new Testee_addon(array(
+					'name'	=> $addon,
+					'tests'	=> $addon_tests
+				));
+			}
 		}
 		
 		return $tests;
+	}
+	
+	
+	/**
+	 * Returns the `theme` folder URL.
+	 *
+	 * @access	public
+	 * @return	string
+	 */
+	public function get_theme_url()
+	{
+		if ( ! $this->_theme_folder_url)
+		{
+			$this->_theme_folder_url = $this->_ee->config->item('theme_folder_url');
+			$this->_theme_folder_url .= substr($this->_theme_folder_url, -1) == '/'
+				? 'third_party/'
+				: '/third_party/';
+				
+			$this->_theme_folder_url .= strtolower($this->get_package_name()) .'/';
+		}
+
+		return $this->_theme_folder_url;
 	}
 	
 	

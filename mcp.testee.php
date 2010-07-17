@@ -15,6 +15,14 @@ class Testee_mcp {
 	 * ------------------------------------------------------------ */
 	
 	/**
+	 * Base module query string.
+	 *
+	 * @access	private
+	 * @var		string
+	 */
+	private $_base_qs = '';
+	
+	/**
 	 * Base module URL.
 	 *
 	 * @access	private
@@ -45,20 +53,12 @@ class Testee_mcp {
 	 */
 	public function __construct($switch = TRUE)
 	{
-		$this->_ee =& get_instance();
-		$this->_base_url = BASE .AMP .'C=addons_modules' .AMP .'M=show_module_cp' .AMP .'module=testee';
+		$this->_ee 			=& get_instance();
+		$this->_base_qs 	= 'C=addons_modules' .AMP .'M=show_module_cp' .AMP .'module=testee';
+		$this->_base_url	= BASE .AMP .$this->_base_qs;
 		
-		// Load our glamorous assistants.
-		$this->_ee->load->helper('form');
-		$this->_ee->load->library('table');
+		// Load the model.
 		$this->_ee->load->model('testee_model');
-		
-		/**
-		 * Load the module CSS.
-		 *
-		 * @todo Move everything to themes/third_party/testee/ folder instead.
-		 */
-		$this->_ee->cp->load_package_css('testee');
 		
 		// Add a base breadcrumb.
 		$this->_ee->cp->set_breadcrumb($this->_base_url, $this->_ee->lang->line('testee_module_name'));
@@ -73,8 +73,22 @@ class Testee_mcp {
 	 */
 	public function index()
 	{
+		// Load our glamorous assistants.
+		$this->_ee->load->helper('form');
+		$this->_ee->load->library('table');
+		
+		// Retrieve the theme folder URL.
+		$theme_url = $this->_ee->testee_model->get_theme_url();
+		
+		// Include the main JS file.
+		$this->_ee->cp->add_to_foot('<script type="text/javascript" src="' .$theme_url .'js/cp.js"></script>');
+		$this->_ee->javascript->compile();
+
+		// Include the CSS.
+		$this->_ee->cp->add_to_foot('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
+		
 		$vars = array(
-			'base_test_url'		=> $this->_base_url .AMP .'method=run_test' .AMP .'test_path=',
+			'form_action'		=> $this->_base_qs .AMP .'method=run_test',
 			'cp_page_title'		=> $this->_ee->lang->line('testee_module_name'),
 			'tests'				=> $this->_ee->testee_model->get_tests()
 		);
@@ -91,9 +105,8 @@ class Testee_mcp {
 	 */
 	public function run_test()
 	{
-		$test_path = urldecode($this->_ee->input->get('test_path'));
-		
-		if ( ! file_exists($test_path))
+		if ( ! $test_path = $this->_ee->input->post('tests')
+			OR ! is_array($test_path))
 		{
 			$this->_ee->functions->redirect($this->_base_url);
 			return;
@@ -104,13 +117,19 @@ class Testee_mcp {
 		require_once(BASEPATH .'simpletest/reporter' .EXT);
 		
 		// Load the custom reporter.
-		require_once(PATH_THIRD .'testee/classes/reporter' .EXT);
+		require_once(PATH_THIRD .'testee/classes/Testee_reporter' .EXT);
 		
 		// Create the Test Suite.
 		$test_suite =& new TestSuite('Testee Test Suite');
 		
-		// Add the test file.
-		$test_suite->addFile($test_path);
+		// Add the test files.
+		foreach ($test_path AS $path)
+		{
+			if (file_exists($path))
+			{
+				$test_suite->addFile($path);
+			}
+		}
 		
 		// Prepare the view variables.
 		ob_start();

@@ -1,0 +1,80 @@
+/**
+ * Test-driven add-on development module.
+ *
+ * @package		Testee
+ * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
+ * @copyright	Experience Internet
+ */
+
+/* =addons_index
+ -------------------------------------------------------------*/
+.addons_index {
+border-top : 1px solid rgba(0, 0, 0, 0.1);
+line-height : 20px;
+text-shadow : 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.addons_index input[type='checkbox'] {margin-right : 3px;}
+
+.addons_index label {
+display : block;
+line-height : 20px;
+margin : 0;
+padding : 5px 0;
+}
+
+.addons_index li {border-bottom : 1px solid rgba(0, 0, 0, 0.1);}
+
+
+/* =addon_title
+ -------------------------------------------------------------*/
+.addon_title {
+padding-left : 22px;
+position : relative;
+}
+
+.addon_title a {
+background-color : transparent;
+background-image : url('../img/arrow.png');
+background-repeat : no-repeat;
+height : 9px;
+left : 0px;
+padding : 10px 5px 11px;
+position : absolute;
+text-indent : -9999em;
+top : 0px;
+width : 9px;
+}
+
+.collapsed .addon_title a {background-position : 5px 10px;}
+
+.expanded .addon_title a {background-position : -15px 10px;}
+
+.addon_title label span {
+color : rgb(153, 153, 153);
+font-size : 0.9em;
+font-weight : normal;
+}
+
+
+/* =addon_tests
+ -------------------------------------------------------------*/
+.addon_tests {
+background : rgba(255, 255, 255, 0.75);
+border-top : 1px solid rgba(0, 0, 0, 0.1);
+padding-left : 40px;
+}
+
+.collapsed .addon_tests {display : none;}
+
+.addon_tests label {font-weight : normal;}
+
+.addon_tests li {border-bottom-style : dotted;}
+
+
+/* =submit_wrapper
+ -------------------------------------------------------------*/
+.submit_wrapper {
+padding : 1.5em 5px 1.5em 22px;
+text-align : left;
+}
