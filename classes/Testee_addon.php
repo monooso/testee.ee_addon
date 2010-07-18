@@ -1,16 +1,15 @@
 <?php if ( ! defined('BASEPATH')) exit('Invalid file request');
 
 /**
- * Test-driven add-on development module.
- *
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
  */
 
+require_once PATH_THIRD .'testee/classes/Testee_base' .EXT;
 require_once PATH_THIRD .'testee/classes/Testee_test' .EXT;
 
-class Testee_addon {
+class Testee_addon extends Testee_base {
 	
 	/* --------------------------------------------------------------
 	 * PROTECTED PROPERTIES
@@ -47,27 +46,7 @@ class Testee_addon {
 	 */
 	public function __construct(Array $props = array())
 	{
-		foreach ($props AS $id => $val)
-		{
-			$this->$id = $val;
-		}
-	}
-	
-	
-	/**
-	 * Retrieves a private property, if it exists.
-	 *
-	 * @access	public
-	 * @param	string		$prop_name		The property name.
-	 * @return	void
-	 */
-	public function __get($prop_name = '')
-	{
-		$private_prop_name = '_' .$prop_name;
-		
-		return property_exists($this, $private_prop_name)
-			? $this->$private_prop_name
-			: NULL;
+		parent::__construct($props);
 	}
 	
 	
@@ -81,33 +60,26 @@ class Testee_addon {
 	 */
 	public function __set($prop_name = '', $prop_value = '')
 	{
-		$private_prop_name = '_' .$prop_name;
-		
-		// We need to ensure that the tests are valid test objects.
-		if ($private_prop_name == '_tests')
+		if ($prop_name != 'tests')
 		{
-			if ( ! is_array($prop_value))
-			{
-				$prop_value = array($prop_value);
-			}
-			
-			foreach ($prop_value AS $test)
-			{
-				$this->add_test($test);
-			}
-			
-			return $this->$prop_name;
+			return parent::__set($prop_name, $prop_value);
 		}
 		
-		// Everything else.
-		if (property_exists($this, $private_prop_name))
+		/**
+		 * We need to ensure that the tests are valid test objects.
+		 */
+		
+		if ( ! is_array($prop_value))
 		{
-			$this->$private_prop_name = $prop_value;
-			return $this->$prop_name;
+			$prop_value = array($prop_value);
 		}
 		
-		// Unknown property.
-		return NULL;
+		foreach ($prop_value AS $test)
+		{
+			$this->add_test($test);
+		}
+			
+		return $this->$prop_name;
 	}
 	
 	

@@ -1,14 +1,14 @@
 <?php if ( ! defined('BASEPATH')) exit('Invalid file request');
 
 /**
- * Test-driven add-on development module.
- *
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
  */
 
-class Testee_test {
+require_once PATH_THIRD .'testee/classes/Testee_base' .EXT;
+
+class Testee_test extends Testee_base {
 	
 	/* --------------------------------------------------------------
 	 * PROTECTED PROPERTIES
@@ -45,50 +45,7 @@ class Testee_test {
 	 */
 	public function __construct(Array $props = array())
 	{
-		foreach ($props AS $id => $val)
-		{
-			$this->$id = $val;
-		}
-	}
-	
-	
-	/**
-	 * Retrieves a private property, if it exists.
-	 *
-	 * @access	public
-	 * @param	string		$prop_name		The property name.
-	 * @return	void
-	 */
-	public function __get($prop_name = '')
-	{
-		$private_prop_name = '_' .$prop_name;
-		
-		return property_exists($this, $private_prop_name)
-			? $this->$private_prop_name
-			: NULL;
-	}
-	
-	
-	/**
-	 * Sets a private property, if it exists.
-	 *
-	 * @access	public
-	 * @param	string		$prop_name		The property name.
-	 * @param	string		$prop_value		The property value.
-	 * @return	mixed
-	 */
-	public function __set($prop_name = '', $prop_value = '')
-	{
-		$private_prop_name = '_' .$prop_name;
-		
-		if (property_exists($this, $private_prop_name))
-		{
-			$this->$private_prop_name = $prop_value;
-			return $this->$prop_name;
-		}
-		
-		// Unknown property.
-		return NULL;
+		parent::__construct($props);
 	}
 	
 }
