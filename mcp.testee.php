@@ -113,8 +113,10 @@ class Testee_mcp {
 		}
 		
 		// Load the SimpleTest libraries, so the tests don't have to.
-		require_once(BASEPATH .'simpletest/unit_tester' .EXT);
-		require_once(BASEPATH .'simpletest/reporter' .EXT);
+		$simpletest_path = $this->_ee->testee_model->get_simpletest_path();
+		
+		require_once($simpletest_path .'unit_tester' .EXT);
+		require_once($simpletest_path .'reporter' .EXT);
 		
 		// Load the custom reporter.
 		require_once(PATH_THIRD .'testee/classes/Testee_reporter' .EXT);

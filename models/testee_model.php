@@ -124,6 +124,18 @@ class Testee_model extends CI_Model {
 	
 	
 	/**
+	 * Returns the path to the SimpleTest directory.
+	 *
+	 * @access	public
+	 * @return	string
+	 */
+	public function get_simpletest_path()
+	{
+		return BASEPATH .'simpletest/';
+	}
+	
+	
+	/**
 	 * Returns an array of all the available tests. Testee assumes that
 	 * each add-on will define its own tests, in a /third_party/add_on/tests/
 	 * directory.
