@@ -6,9 +6,9 @@
 <?php foreach ($tests AS $addon): ?>
 	<li class="expanded">
 		<div class="addon_title">
-			<a href="#addon_<?=strtolower($addon->name); ?>" title="Jump to the <?=ucfirst($addon->name); ?> tests">Jump to the <?=ucfirst($addon->name); ?> tests</a>
+			<a href="#addon_<?=strtolower($addon->name); ?>"><?=str_replace('%addon_name%', ucfirst($addon->name), lang('addon_anchor')); ?></a>
 			<label><input type="checkbox" /> <?=ucfirst($addon->name); ?>
-				<span>(<?=count($addon->tests) .' ' .(count($addon->tests) === 1 ? 'test' : 'tests'); ?>)</span>
+				<span>(<?=count($addon->tests) .' ' .(count($addon->tests) === 1 ? lang('test') : lang('tests')); ?>)</span>
 			</label>
 		</div>
 
@@ -21,11 +21,11 @@
 <?php endforeach; ?>
 </ul><!-- /.addons_index -->
 
-<div class="submit_wrapper"><?=form_submit(array('name' => 'submit', 'value' => 'Run Selected Tests', 'class' => 'submit')); ?></div>
+<div class="submit_wrapper"><?=form_submit(array('name' => 'submit', 'value' => lang('run_tests'), 'class' => 'submit')); ?></div>
 <?=form_close(); ?>
 
 <?php else: ?>
 
-<p>No tests!</p>
+<p><?=lang('no_tests'); ?></p>
 
 <?php endif; ?>

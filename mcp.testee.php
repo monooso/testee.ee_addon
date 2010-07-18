@@ -85,7 +85,7 @@ class Testee_mcp {
 		$this->_ee->javascript->compile();
 
 		// Include the CSS.
-		$this->_ee->cp->add_to_foot('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
+		$this->_ee->cp->add_to_head('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
 		
 		$vars = array(
 			'form_action'		=> $this->_base_qs .AMP .'method=run_test',
@@ -135,6 +135,12 @@ class Testee_mcp {
 		ob_start();
 		$test_suite->run(new Testee_reporter());
 		$test_results = ob_get_clean();
+		
+		// Retrieve the theme folder URL.
+		$theme_url = $this->_ee->testee_model->get_theme_url();
+		
+		// Include the CSS.
+		$this->_ee->cp->add_to_head('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
 		
 		$vars = array(
 			'cp_page_title'	=> 'Testee Test Results',
