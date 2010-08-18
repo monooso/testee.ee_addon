@@ -61,16 +61,79 @@ class Testee_db {
 	
 	
 	/**
-	 * Returns the row count of the specified table.
+	 * Overrides the `count_all` method. 
 	 *
 	 * @access	public
-	 * @param	string		$table_name		The table name.
+	 * @param	string		$table			The table name.
 	 * @return	int
 	 */
-	public function count_all($table_name = '')
-	{
-		return 0;
-	}
+	public function count_all($table) {}
+	
+	
+	/**
+	 * Overrides the `count_all_results` method.
+	 *
+	 * @access	public
+	 * @param	string		$table			The table name.
+	 * @return	void
+	 */
+	public function count_all_results($table) {}
+
+
+	/**
+	 * Overrides the `delete` method.
+	 *
+	 * @access	public
+	 * @param	string			$table		The table name.
+	 * @param	array|string	$where		The where clause.
+	 * @return	void
+	 */
+	public function delete($table) {}
+
+
+	/**
+	 * Overrides the `empty_table` method.
+	 *
+	 * @access	public
+	 * @param	string		$table			The table name.
+	 * @return	void
+	 */
+	public function empty_table($table) {}
+
+
+	/**
+	 * Overrides the `get` method.
+	 *
+	 * @access	public
+	 * @param	string		$table			The table name.
+	 * @param	int			$limit			Limit to x records.
+	 * @param	int			$offset			Offset to x records.
+	 * @return	void
+	 */
+	public function get($table) {}
+
+
+	/**
+	 * Overrides the `get_where` method.
+	 *
+	 * @access	public
+	 * @param	string		$table			The table name.
+	 * @param	array		$where			The `where` clauses.
+	 * @param	int			$limit			Limit to x records.
+	 * @param	int			$offset			Offset by x records.
+	 * @return	void
+	 */
+	public function get_where($table, $where, $limit, $offset) {}
+
+	/**
+	 * Overrides the `insert` method.
+	 *
+	 * @access	public
+	 * @param 	string		$table			The table name.
+	 * @param	array		$data			The data to insert.
+	 * @return	void
+	 */
+	public function insert($table, $data) {}
 	
 	
 	/**
@@ -78,13 +141,9 @@ class Testee_db {
 	 *
 	 * @access	public
 	 * @param	string		$sql		The SQL to run.
-	 * @return 	mixed
+	 * @return 	void
 	 */
-	public function query($sql = '')
-	{
-		error_log('The fools wish to run this SQL: ' .$sql);
-		return TRUE;
-	}
+	public function query($sql) {}
 	
 	
 	/**
@@ -92,25 +151,32 @@ class Testee_db {
 	 *
 	 * @access	public
 	 * @param	string	$sql	The SQL to run.
-	 * @return	bool
+	 * @return	void
 	 */
-	public function simple_query($sql = '')
-	{
-		return TRUE;
-	}
+	public function simple_query($sql) {}
 	
+
 	/**
-	 * count_all_results
-	 * get
-	 * get_where
-	 * insert
-	 * update
-	 * delete
-	 * empty_table
-	 * truncate
+	 * Overrides the `truncate` method.
+	 *
+	 * @access	public
+	 * @param	string		$table		The table name.
+	 * @return	void
 	 */
-	
-	
+	public function truncate($table) {}
+
+
+	/**
+	 * Overrides the `update` method.
+	 *
+	 * @access	public
+	 * @param	string			$table		The table name.
+	 * @param	array			$data		The data to update.
+	 * @param	array|string	$where		The where clause.
+	 * @return	void
+	 */
+	public function update($table, $data, $where) {}
+
 }
 
 /* End of file		: Testee_db.php */
