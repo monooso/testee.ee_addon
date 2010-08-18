@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test-driven add-on development module.
+ * Tests for the Testee_addon class.
  *
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
@@ -10,22 +10,72 @@
 
 require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
 
-class Test_testee_addon extends UnitTestCase {
-	
+Mock::generatePartial(
+	'Testee_db',
+	'Mock_db',
+	array('get')
+);
+
+class Test_testee_addon extends Testee_unit_test_case {
+
+	/* --------------------------------------------------------------
+	 * PRIVATE PROPERTIES
+	 * ------------------------------------------------------------ */
+
+	/**
+	 * The `add-on` class.
+	 *
+	 * @access	private
+	 * @var		Testee_addon
+	 */
 	private $_addon;
 	
+
+	
+	/* --------------------------------------------------------------
+	 * PUBLIC METHODS
+	 * ------------------------------------------------------------ */
+
+	/**
+	 * Runs before each test.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	function setUp()
 	{
 		$this->_addon = new Testee_addon();
+
+		/**
+		 * This would make much more sense in the constructor.
+		 * 
+		 * Unfortunately, that won't work, because SimpleTest
+		 * needs to know which test is running when the mock
+		 * object is created.
+		 */
+
+		$this->_ee->db =& new Mock_db($this);
+		$this->_ee->db->setReturnReference('get', new stdClass());
+		$this->_ee->db->__construct(parent::$_db);
 	}
 	
-	
+
+	/**
+	 * Runs after each test.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
 	function tearDown()
 	{
 		// Do nothing.
 	}
 	
 	
+	/* --------------------------------------------------------------
+	 * TEST METHODS
+	 * ------------------------------------------------------------ */
+
 	function test_construct()
 	{
 		$addon = new Testee_addon(array(

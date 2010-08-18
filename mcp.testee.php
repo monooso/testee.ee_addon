@@ -112,14 +112,11 @@ class Testee_mcp {
 			return;
 		}
 		
-		// Load the SimpleTest libraries, so the tests don't have to.
-		$simpletest_path = $this->_ee->testee_model->get_simpletest_path();
-		
-		require_once($simpletest_path .'unit_tester' .EXT);
-		require_once($simpletest_path .'reporter' .EXT);
+		// Load the unit tester base class, so the tests don't have to.
+		require_once PATH_THIRD .'testee/classes/Testee_unit_test_case' .EXT;
 		
 		// Load the custom reporter.
-		require_once(PATH_THIRD .'testee/classes/Testee_reporter' .EXT);
+		require_once PATH_THIRD .'testee/classes/Testee_reporter' .EXT;
 		
 		// Create the Test Suite.
 		$test_suite =& new TestSuite('Testee Test Suite');

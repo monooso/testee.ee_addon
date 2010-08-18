@@ -8,7 +8,7 @@
  * @copyright	Experience Internet
  */
 
-require_once BASEPATH .'simpletest/scorer' .EXT;
+require_once PATH_THIRD .'testee/simpletest/scorer' .EXT;
 
 class Testee_reporter extends SimpleReporter {
 	
@@ -193,4 +193,5 @@ class Testee_reporter extends SimpleReporter {
 	
 }
 
-?>
+/* End of file		: Testee_reporter.php */
+/* File location	: third_party/testee/classes/Testee_reporter.php */
