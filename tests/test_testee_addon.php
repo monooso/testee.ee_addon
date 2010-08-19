@@ -10,12 +10,6 @@
 
 require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
 
-Mock::generatePartial(
-	'Testee_db',
-	'Mock_db',
-	array('get')
-);
-
 class Test_testee_addon extends Testee_unit_test_case {
 
 	/* --------------------------------------------------------------
@@ -45,18 +39,6 @@ class Test_testee_addon extends Testee_unit_test_case {
 	function setUp()
 	{
 		$this->_addon = new Testee_addon();
-
-		/**
-		 * This would make much more sense in the constructor.
-		 * 
-		 * Unfortunately, that won't work, because SimpleTest
-		 * needs to know which test is running when the mock
-		 * object is created.
-		 */
-
-		$this->_ee->db =& new Mock_db($this);
-		$this->_ee->db->setReturnReference('get', new stdClass());
-		$this->_ee->db->__construct(parent::$_db);
 	}
 	
 
