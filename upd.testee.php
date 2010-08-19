@@ -66,14 +66,7 @@ class Testee_upd {
 	 */
 	public function install()
 	{
-		$this->_ee->db->insert('modules', array(
-			'has_cp_backend'		=> 'y',
-			'has_publish_fields'	=> 'n',
-			'module_name'			=> $this->_ee->testee_model->get_package_name(),
-			'module_version'		=> $this->version
-		));
-		
-		return TRUE;
+		return $this->_ee->testee_model->install_module();
 	}
 	
 	
@@ -85,8 +78,7 @@ class Testee_upd {
 	 */
 	public function uninstall()
 	{
-		$this->_ee->db->delete('modules', array('module_name' => $this->_ee->testee_model->get_package_name()));
-		return TRUE;
+		return $this->_ee->testee_model->uninstall_module();
 	}
 	
 	
@@ -99,7 +91,7 @@ class Testee_upd {
 	 */
 	public function update($current_version = '')
 	{
-		return ($current_version == $this->version);
+		return $this->_ee->testee_model->update_module($current_version);
 	}
 	
 }

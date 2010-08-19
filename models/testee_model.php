@@ -219,6 +219,71 @@ class Testee_model extends CI_Model {
 
 		return $this->_theme_folder_url;
 	}
+
+
+	/**
+	 * Installs the module.
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function install_module()
+	{
+		$this->_ee->db->insert(
+			'modules',
+			array(
+				'has_cp_backend'		=> 'y',
+				'has_publish_fields'	=> 'n',
+				'module_name'			=> $this->get_package_name(),
+				'module_version'		=> $this->get_package_version()
+			)
+		);
+
+		return TRUE;
+	}
+
+
+	/**
+	 * Uninstalls the module.
+	 *
+	 * @access	public
+	 * @return	bool
+	 */
+	public function uninstall_module()
+	{
+		$db_module = $this->_ee->db
+			->select('module_id')
+			->get_where('modules', array('module_name' => $this->get_package_name()));
+
+		$this->_ee->db->delete(
+			'module_member_groups',
+			array('module_id' => $db_module->row()->module_id)
+		);
+
+		$this->_ee->db->delete(
+			'modules',
+			array('module_name' => $this->get_package_name())
+		);
+
+		return TRUE;
+	}
+
+
+	/**
+	 * Updates the module.
+	 *
+	 * @access	public
+	 * @param	string		$current_version		The installed version.
+	 * @return	bool
+	 */
+	public function update_module($current_version = '')
+	{
+		return version_compare(
+			$this->get_package_version(),
+			$current_version,
+			'=='
+		);
+	}
 	
 	
 	
