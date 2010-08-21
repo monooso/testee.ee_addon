@@ -6,10 +6,10 @@
 <?php foreach ($tests AS $addon): ?>
 	<li class="expanded">
 		<div class="addon_title">
-			<a href="#addon_<?=strtolower($addon->name); ?>"><?=str_replace('%addon_name%', ucfirst($addon->name), lang('addon_anchor')); ?></a>
-			<label><?=ucfirst($addon->name); ?>
+			<a href="#addon_<?=strtolower($addon->name); ?>">
+				<?=ucfirst($addon->name); ?>
 				<span>(<?=count($addon->tests) .' ' .(count($addon->tests) === 1 ? lang('test') : lang('tests')); ?>)</span>
-			</label>
+			</a>
 		</div>
 
 		<ul class="addon_tests" id="addon_testee">

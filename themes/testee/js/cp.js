@@ -14,9 +14,3 @@ $('.addon_title a').click(function(e) {
 	
 	e.preventDefault();
 });
-
-$('.addon_title :checkbox').click(function() {
-	$(this).attr('checked')
-		? $(this).closest('.addon_title').next('.addon_tests').find(':checkbox').attr('checked', 'checked')
-		: $(this).closest('.addon_title').next('.addon_tests').find(':checkbox').removeAttr('checked')
-});
