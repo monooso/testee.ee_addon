@@ -10,12 +10,6 @@
 
 require_once PATH_THIRD .'testee/models/testee_model' .EXT;
 
-Mock::generatePartial(
-	'Testee_db',
-	'Mock_db',
-	array('get')
-);
-
 class Test_testee_model extends Testee_unit_test_case {
 
 	/* --------------------------------------------------------------
@@ -30,20 +24,8 @@ class Test_testee_model extends Testee_unit_test_case {
 	 */
 	public function setUp()
 	{
+		parent::setUp();
 		$this->_model = $this->_ee->load->model('testee_model');
-
-		/**
-		 * This would make much more sense in the constructor.
-		 * 
-		 * Unfortunately, that won't work, because SimpleTest
-		 * needs to know which test is running when the mock
-		 * object is created.
-		 */
-
-		$this->_ee->db =& new Mock_db($this);
-		$this->_ee->db->setReturnReference('get', new stdClass());
-		$this->_ee->db->__construct(parent::$_db);
-
 	}
 
 
@@ -75,15 +57,6 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_get_simpletest_path()
-	{
-		$this->assertPattern(
-			'/^[\/\-\._a-z0-9]+$/i',
-			$this->_ee->testee_model->get_simpletest_path()
-		);
-	}
-
-
 	function get_tests()
 	{
 		$this->assertIsA(
@@ -109,8 +82,18 @@ class Test_testee_model extends Testee_unit_test_case {
 
 	function test_install_module()
 	{
+		$db =& $this->_ee->db;
+		$model =& $this->_ee->testee_model;
+		
+		$db->expectOnce('insert', array('modules', array(
+			'has_cp_backend'		=> 'y',
+			'has_publish_fields'	=> 'n',
+			'module_name'			=> $model->get_package_name(),
+			'module_version'		=> $model->get_package_version()
+		)));
+		
 		$this->assertIdentical(
-			$this->_ee->testee_model->install_module(),
+			$model->install_module(),
 			TRUE
 		);
 	}
@@ -118,8 +101,34 @@ class Test_testee_model extends Testee_unit_test_case {
 
 	function test_uninstall_module()
 	{
+		// Shortcuts.
+		$db =& $this->_ee->db;
+		$model =& $this->_ee->testee_model;
+		
+		// Mock query row.
+		$result_row = new StdClass();
+		$result_row->module_id = 'test';
+		
+		// Mock query object.
+		$module_result =& new Mock_query();
+		$module_result->expectOnce('row');
+		$module_result->setReturnReference('row', $result_row);
+		
+		// $db->select
+		$db->setReturnReference('select', $db);
+		
+		// $db->get_where
+		$db->expectOnce('get_where', array('modules', array('module_name' => $model->get_package_name())));
+		$db->setReturnReference('get_where', $module_result);
+		
+		// $db->delete
+		$db->expectCallCount('delete', 2);
+		$db->expectAt(0, 'delete', array('module_member_groups', array('module_id' => $result_row->module_id)));
+		$db->expectAt(1, 'delete', array('modules', array('module_name' => $model->get_package_name())));
+		
+		// Run.
 		$this->assertIdentical(
-			$this->_ee->testee_model->uninstall_module(),
+			$model->uninstall_module(),
 			TRUE
 		);
 	}
@@ -127,13 +136,15 @@ class Test_testee_model extends Testee_unit_test_case {
 
 	function test_update_module()
 	{
+		$model =& $this->_ee->testee_model;
+		
 		$this->assertIdentical(
-			$this->_ee->testee_model->update_module($this->_ee->testee_model->get_package_version()),
+			$model->update_module($model->get_package_version()),
 			TRUE
 		);
 
 		$this->assertIdentical(
-			$this->_ee->testee_model->update_module('wibble'),
+			$model->update_module('wibble'),
 			FALSE
 		);
 	}

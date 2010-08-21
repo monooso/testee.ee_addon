@@ -9,7 +9,7 @@
  * @version		0.1.0
  */
 
-require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
+require_once PATH_THIRD .'testee/libraries/Testee_addon' .EXT;
 
 class Testee_model extends CI_Model {
 	
@@ -120,18 +120,6 @@ class Testee_model extends CI_Model {
 	public function get_package_version()
 	{
 		return $this->_package_version;
-	}
-	
-	
-	/**
-	 * Returns the path to the SimpleTest directory.
-	 *
-	 * @access	public
-	 * @return	string
-	 */
-	public function get_simpletest_path()
-	{
-		return BASEPATH .'simpletest/';
 	}
 	
 	

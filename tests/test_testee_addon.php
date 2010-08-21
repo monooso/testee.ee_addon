@@ -8,14 +8,14 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
+require_once PATH_THIRD .'testee/libraries/Testee_addon' .EXT;
 
 class Test_testee_addon extends Testee_unit_test_case {
 
 	/* --------------------------------------------------------------
 	 * PRIVATE PROPERTIES
 	 * ------------------------------------------------------------ */
-
+	
 	/**
 	 * The `add-on` class.
 	 *
@@ -24,7 +24,7 @@ class Test_testee_addon extends Testee_unit_test_case {
 	 */
 	private $_addon;
 	
-
+	
 	
 	/* --------------------------------------------------------------
 	 * PUBLIC METHODS
@@ -38,6 +38,7 @@ class Test_testee_addon extends Testee_unit_test_case {
 	 */
 	function setUp()
 	{
+		parent::setUp();
 		$this->_addon = new Testee_addon();
 	}
 	
