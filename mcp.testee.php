@@ -142,8 +142,11 @@ class Testee_mcp {
 		$this->_ee->cp->add_to_head('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
 		
 		$vars = array(
-			'cp_page_title'	=> 'Testee Test Results',
-			'test_results'	=> $test_results
+			'form_action'		=> $this->_base_qs .AMP .'method=run_test',
+			'tests_index_url'	=> $this->_base_url,
+			'cp_page_title'		=> 'Testee Test Results',
+			'test_results'		=> $test_results,
+			'tests'				=> $test_path
 		);
 		
 		return $this->_ee->load->view('test_results', $vars, TRUE);

@@ -21,12 +21,16 @@ $lang = array(
  * ------------------------------------------------------------ */
 'addon_anchor'	=> 'Jump to the tests for the %addon_name% add-on',
 'no_tests'		=> 'No add-on tests were found.',
+'or'			=> 'or',
+'retest'		=> 'Repeat Tests',
 'run_tests'		=> 'Run Selected Tests',
+'start_over'	=> 'start over',
 'test'			=> 'test',
 'tests'			=> 'tests',
 
-
+// All done.
 '' => ''
+
 );
 
 /* End of file		: lang.testee.php */
