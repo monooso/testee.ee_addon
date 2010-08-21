@@ -14,12 +14,12 @@ $lang = array(
  * REQUIRED LANGUAGE STRINGS
  * ------------------------------------------------------------ */
 'testee_module_name'		=> 'Testee',
-'testee_module_description'	=> 'Test-driven add-on development module.',
+'testee_module_description'	=> 'Pain-free unit testing for ExpressionEngine add-ons.',
 
 /* --------------------------------------------------------------
  * ADDONS INDEX
  * ------------------------------------------------------------ */
-'addon_anchor'	=> 'Jump to the tests for the %addon_name% add-on',
+'test_link_title' => 'See the %addon_name% add-on tests',
 'no_tests'		=> 'No add-on tests were found.',
 'or'			=> 'or',
 'retest'		=> 'Repeat Tests',

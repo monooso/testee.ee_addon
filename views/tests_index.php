@@ -6,7 +6,7 @@
 <?php foreach ($tests AS $addon): ?>
 	<li class="expanded">
 		<div class="addon_title">
-			<a href="#addon_<?=strtolower($addon->name); ?>">
+			<a href="#addon_<?=strtolower($addon->name); ?>" title="<?=str_replace('%addon_name%', ucfirst($addon->name), lang('test_link_title')); ?>">
 				<?=ucfirst($addon->name); ?>
 				<span>(<?=count($addon->tests) .' ' .(count($addon->tests) === 1 ? lang('test') : lang('tests')); ?>)</span>
 			</a>
