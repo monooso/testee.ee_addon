@@ -1,9 +1,7 @@
 <?=$test_results; ?>
 
 <?=form_open($form_action); ?>
-	<?php foreach ($tests AS $test): ?>
-	<?=form_hidden('tests[]', $test); ?>
-	<?php endforeach; ?>
+	<?=form_hidden('test', $test); ?>
 	
 	<div class="submit_wrapper">
 		<?=form_submit(array('name' => 'submit', 'value' => lang('retest'), 'class' => 'submit')); ?>
