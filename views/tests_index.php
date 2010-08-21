@@ -7,14 +7,14 @@
 	<li class="expanded">
 		<div class="addon_title">
 			<a href="#addon_<?=strtolower($addon->name); ?>"><?=str_replace('%addon_name%', ucfirst($addon->name), lang('addon_anchor')); ?></a>
-			<label><input type="checkbox" /> <?=ucfirst($addon->name); ?>
+			<label><?=ucfirst($addon->name); ?>
 				<span>(<?=count($addon->tests) .' ' .(count($addon->tests) === 1 ? lang('test') : lang('tests')); ?>)</span>
 			</label>
 		</div>
 
 		<ul class="addon_tests" id="addon_testee">
 			<?php foreach ($addon->tests AS $test): ?>
-			<li><label><?=form_checkbox('tests[]', $test->file_path, FALSE); ?> <?=$test->file_name; ?></label></li>
+			<li><label><?=form_radio('test', $test->file_path, FALSE); ?> <?=$test->file_name; ?></label></li>
 			<?php endforeach; ?>
 		</ul>
 	</li>
