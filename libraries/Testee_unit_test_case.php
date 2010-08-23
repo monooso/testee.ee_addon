@@ -88,22 +88,26 @@ class Testee_unit_test_case extends UnitTestCase {
 		 * Create the mock objects.
 		 */
 		
+		// Used to avoid 'redeclared class' errors when generating mock object classes.
+		$class_prefix = get_class($this);
+		
 		// Database.
 		$methods = isset($mock_methods['db']) && is_array($mock_methods['db'])
 			? $mock_methods['db']
 			: array();
 			
-		Mock::generate('Testee_mock_db', 'Mock_db', $methods);
+		Mock::generate('Testee_mock_db', $class_prefix .'_mock_db', $methods);
 		
 		// Query result.
 		$methods = isset($mock_methods['query']) && is_array($mock_methods['query'])
 			? $mock_methods['query']
 			: array();
 			
-		Mock::generate('Testee_mock_db_query', 'Mock_query', $methods);
+		Mock::generate('Testee_mock_db_query', $class_prefix .'_mock_query', $methods);
 		
 		// Assign the mock database object to the EE superglobal.
-		$this->_ee->db =& new Mock_db();
+		$mock_db_name = $class_prefix .'_mock_db';
+		$this->_ee->db =& new $mock_db_name();
 	}
 	
 }

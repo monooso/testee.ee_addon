@@ -14,7 +14,7 @@ line-height : 20px;
 text-shadow : 0 1px 0 rgba(255, 255, 255, 1);
 }
 
-.addons_index input[type='radio'] {margin-right : 3px;}
+.addons_index input[type='checkbox'] {margin-right : 3px;}
 
 .addons_index label {
 display : block;
@@ -28,6 +28,7 @@ padding : 5px 0;
 
 /* =addon_title
  -------------------------------------------------------------*/
+.addon_title {padding : 0 10px;}
 
 /* Pseudo classes are required to override EE styles, bizarrely */
 .addon_title a,
@@ -36,20 +37,21 @@ padding : 5px 0;
 background-color : transparent;
 background-image : url('../img/arrow.png');
 background-repeat : no-repeat;
-color : rgb(102, 102, 102);
-display : block;
-font-weight : bold;
-padding : 4px 5px 5px 25px;
+display : inline-block;
+margin-right : 5px;
+padding : 5px 0;
 text-decoration : none;
+text-indent : -9999em;
+width : 10px;
 }
 
-.addon_title a:hover {color : rgb(80, 80, 80);}
+.collapsed .addon_title a {background-position : 0 10px;}
 
-.collapsed .addon_title a {background-position : 10px 10px;}
+.expanded .addon_title a {background-position : -3000px 10px;}
 
-.expanded .addon_title a {background-position : -2992px 10px;}
+.addons_index .addon_title label {display : inline-block;}
 
-.addon_title a span {
+.addon_title label span {
 color : rgb(153, 153, 153);
 font-size : 0.9em;
 font-weight : normal;
@@ -61,7 +63,7 @@ font-weight : normal;
 .addon_tests {
 background : rgba(255, 255, 255, 0.75);
 border-top : 1px solid rgba(0, 0, 0, 0.1);
-padding-left : 20px;
+padding-left : 28px;
 }
 
 .collapsed .addon_tests {display : none;}
