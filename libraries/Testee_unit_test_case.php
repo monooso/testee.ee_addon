@@ -106,8 +106,32 @@ class Testee_unit_test_case extends UnitTestCase {
 		Mock::generate('Testee_mock_db_query', $class_prefix .'_mock_query', $methods);
 		
 		// Assign the mock database object to the EE superglobal.
-		$mock_db_name = $class_prefix .'_mock_db';
-		$this->_ee->db =& new $mock_db_name();
+		$this->_ee->db = $this->_get_mock('db');
+	}
+	
+	
+	
+	/* --------------------------------------------------------------
+	 * PRIVATE & PROTECTED METHODS
+	 * ------------------------------------------------------------ */
+	
+	/**
+	 * Returns a mock object of the specified type.
+	 *
+	 * @access	protected
+	 * @param	string		$class		The class of mock object to return (e.g. 'db', or 'query').
+	 * @return	bool|object
+	 */
+	protected function _get_mock($class = '')
+	{
+		$class_name = get_class($this) .'_mock_' .$class;
+		
+		if (class_exists($class_name))
+		{
+			return new $class_name();
+		}
+		
+		return FALSE;
 	}
 	
 }
