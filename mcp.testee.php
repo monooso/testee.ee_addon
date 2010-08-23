@@ -105,7 +105,7 @@ class Testee_mcp {
 	 */
 	public function run_test()
 	{
-		if ( ! $test_path = $this->_ee->input->post('test'))
+		if ( ! $test_path = $this->_ee->input->post('tests') OR ! is_array($test_path))
 		{
 			$this->_ee->functions->redirect($this->_base_url);
 			return;
@@ -120,10 +120,14 @@ class Testee_mcp {
 		// Create the Test Suite.
 		$test_suite =& new TestSuite('Testee Test Suite');
 		
-		// Add the test file.
-		if (file_exists($test_path))
+		// Add the test files.
+		foreach ($test_path AS $path)
 		{
-			$test_suite->addFile($test_path);
+			// Add the test file.
+			if (file_exists($path))
+			{
+				$test_suite->addFile($path);
+			}
 		}
 		
 		// Prepare the view variables.
@@ -142,7 +146,7 @@ class Testee_mcp {
 			'tests_index_url'	=> $this->_base_url,
 			'cp_page_title'		=> 'Testee Test Results',
 			'test_results'		=> $test_results,
-			'test'				=> $test_path
+			'tests'				=> $test_path
 		);
 		
 		return $this->_ee->load->view('test_results', $vars, TRUE);
