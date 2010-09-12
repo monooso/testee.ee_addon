@@ -123,6 +123,19 @@ class Testee_mcp {
 		// Add the test files.
 		foreach ($test_path AS $path)
 		{
+			// Extract the package name.
+			$pattern = '#^' .preg_quote(PATH_THIRD, '#') .'([\w\d\-]+)/tests/#i';
+			preg_match($pattern, $path, $matches);
+			
+			if ( ! isset($matches[1]))
+			{
+				continue;
+			}
+			
+			// Automatically load the add-on package path. Note that EE isn't smart
+			// enough to add the slash to the end of the path, so we need to do it.
+			$this->_ee->load->add_package_path(PATH_THIRD .$matches[1] .'/');
+			
 			// Add the test file.
 			if (file_exists($path))
 			{
