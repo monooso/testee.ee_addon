@@ -152,7 +152,8 @@ class Testee_mcp {
 		 * mock objects during testing.
 		 */
 		
-		$real_db = $this->_ee->db;
+		$real_db 	= $this->_ee->db;
+		$real_lang	= $this->_ee->lang;
 		
 		// Prepare the view variables.
 		ob_start();
@@ -160,7 +161,9 @@ class Testee_mcp {
 		$test_results = ob_get_clean();
 		
 		// Reinstate the real EE objects.
-		$this->_ee->db = $real_db;
+		$this->_ee->db 		= $real_db;
+		$this->_ee->lang	= $real_lang;
+		
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();

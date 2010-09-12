@@ -13,6 +13,7 @@ require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
 require_once PATH_THIRD .'testee/libraries/mocks/Testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/libraries/mocks/Testee_mock_db_query' .EXT;
+require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_lang' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
@@ -78,8 +79,15 @@ class Testee_unit_test_case extends UnitTestCase {
 			
 		Mock::generate('Testee_mock_db_query', $class_prefix .'_mock_query', $methods);
 		
+		// Language.
+		$methods = isset($mock_methods['lang']) && is_array($mock_methods['lang'])
+			? $mock_methods['lang']
+			: array();
+			
+		Mock::generate('Testee_mock_lang', $class_prefix .'_mock_lang', $methods);
+		
 		// Assign the mock database object to the EE superglobal.
-		$this->_ee->db = $this->_get_mock('db');
+		$this->_ee->lang = $this->_get_mock('lang');
 	}
 	
 	
