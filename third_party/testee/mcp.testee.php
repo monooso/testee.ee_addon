@@ -123,6 +123,10 @@ class Testee_mcp {
 		// Add the test files.
 		foreach ($test_path AS $path)
 		{
+			/**
+			 * @todo : remove the `add_package_path` code. We should be mocking the EE->load object anyway.
+			 */
+			
 			// Extract the package name.
 			$pattern = '#^' .preg_quote(PATH_THIRD, '#') .'([\w\d\-]+)/tests/#i';
 			preg_match($pattern, $path, $matches);
