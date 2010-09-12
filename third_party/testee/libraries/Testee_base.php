@@ -104,5 +104,5 @@ class Testee_base {
 	
 }
 
-/* End of file		: Testee_base.php */
-/* File location	: /system/expressionengine/third_party/testee/libraries/Testee_base.php */
+/* End of file		: testee_base.php */
+/* File location	: /system/expressionengine/third_party/testee/libraries/testee_base.php */

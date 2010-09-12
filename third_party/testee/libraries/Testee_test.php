@@ -6,7 +6,7 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/libraries/Testee_base' .EXT;
+require_once PATH_THIRD .'testee/libraries/testee_base' .EXT;
 
 class Testee_test extends Testee_base {
 	
@@ -50,5 +50,5 @@ class Testee_test extends Testee_base {
 	
 }
 
-/* End of file		: Testee_test.php */
-/* File location	: /system/expressionengine/third_party/testee/libraries/Testee_test.php */
+/* End of file		: testee_test.php */
+/* File location	: /system/expressionengine/third_party/testee/libraries/testee_test.php */

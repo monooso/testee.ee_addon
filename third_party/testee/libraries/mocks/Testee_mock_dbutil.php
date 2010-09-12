@@ -23,5 +23,5 @@ class Testee_mock_dbutil {
 }
 
 
-/* End of file		: Testee_mock_dbutil.php */
-/* File location	: third_party/testee/libraries/Testee_mock_dbutil.php */
+/* End of file		: testee_mock_dbutil.php */
+/* File location	: third_party/testee/libraries/testee_mock_dbutil.php */

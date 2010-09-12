@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Test-driven add-on development module.
+ * Base Testee unit test case.
  *
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
@@ -11,8 +11,8 @@
 require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
-require_once PATH_THIRD .'testee/libraries/mocks/Testee_mock_db' .EXT;
-require_once PATH_THIRD .'testee/libraries/mocks/Testee_mock_db_query' .EXT;
+require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_db' .EXT;
+require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_db_query' .EXT;
 require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_lang' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
@@ -117,5 +117,5 @@ class Testee_unit_test_case extends UnitTestCase {
 	
 }
 
-/* End of file		: Testee_unit_tester.php */
-/* File location	: third_party/testee/libraries/Testee_unit_tester.php */
+/* End of file		: testee_unit_test_case.php */
+/* File location	: third_party/testee/libraries/testee_unit_test_case.php */

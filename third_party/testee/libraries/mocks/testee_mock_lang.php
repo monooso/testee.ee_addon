@@ -11,7 +11,7 @@
  * @copyright	Experience Internet
  */
 
-class Testee_language {
+class Testee_lang {
 	
 	/* --------------------------------------------------------------
 	 * PUBLIC PROPERTIES
@@ -36,5 +36,5 @@ class Testee_language {
 }
 
 
-/* End of file		: Testee_mock_db.php */
-/* File location	: third_party/testee/libraries/Testee_mock_db.php */
+/* End of file		: testee_mock_lang.php */
+/* File location	: third_party/testee/libraries/testee_mock_lang.php */

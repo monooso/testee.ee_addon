@@ -13,6 +13,23 @@
 class Testee_mock_db {
 	
 	/* --------------------------------------------------------------
+	 * PUBLIC PROPERTIES
+	 * @see http://codeigniter.com/user_guide/database/call_function.html
+	 * --------------------------------------------------------------
+		$conn_id
+	 * ------------------------------------------------------------ */
+	
+	// Magic methods to access properties.
+	public function __get($prop_name) {}
+	public function __set($prop_name, $prop_value) {}
+	
+	
+	
+	/* --------------------------------------------------------------
+	 * PUBLIC METHODS
+	 * ------------------------------------------------------------ */
+	
+	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/queries.html
 	 * ------------------------------------------------------------ */
 	public function escape() {}
@@ -119,9 +136,8 @@ class Testee_mock_db {
 	public function trans_status() {}
 	public function trans_strict() {}
 	
-	
 }
 
 
-/* End of file		: Testee_mock_db.php */
-/* File location	: third_party/testee/libraries/Testee_mock_db.php */
+/* End of file		: testee_mock_db.php */
+/* File location	: third_party/testee/libraries/testee_mock_db.php */

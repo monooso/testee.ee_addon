@@ -13,6 +13,22 @@
 class Testee_mock_db_query {
 	
 	/* --------------------------------------------------------------
+	 * PUBLIC PROPERTIES
+	 * @see http://codeigniter.com/user_guide/database/call_function.html
+	 * --------------------------------------------------------------
+		$result_id
+	 * ------------------------------------------------------------ */
+	
+	// Magic methods to access properties.
+	public function __get($prop_name) {}
+	public function __set($prop_name, $prop_value) {}
+	
+	
+	/* --------------------------------------------------------------
+	 * PUBLIC METHODS
+	 * ------------------------------------------------------------ */
+	
+	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/results.html
 	 * ------------------------------------------------------------ */
 	public function free_result() {}
@@ -28,15 +44,8 @@ class Testee_mock_db_query {
 	public function next_row() {}
 	public function previous_row() {}
 	
-	
-	/* --------------------------------------------------------------
-	 * @see http://codeigniter.com/user_guide/database/call_function.html
-	 * ------------------------------------------------------------ */
-	public $result_id;
-	
-	
 }
 
 
-/* End of file		: Testee_mock_db_query.php */
-/* File location	: third_party/testee/libraries/Testee_mock_db_query.php */
+/* End of file		: testee_mock_db_query.php */
+/* File location	: third_party/testee/libraries/testee_mock_db_query.php */
