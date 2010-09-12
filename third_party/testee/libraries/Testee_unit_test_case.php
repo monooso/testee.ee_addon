@@ -87,7 +87,8 @@ class Testee_unit_test_case extends UnitTestCase {
 		Mock::generate('Testee_mock_lang', $class_prefix .'_mock_lang', $methods);
 		
 		// Assign the mock database object to the EE superglobal.
-		$this->_ee->lang = $this->_get_mock('lang');
+		$this->_ee->db 		= $this->_get_mock('db');
+		$this->_ee->lang 	= $this->_get_mock('lang');
 	}
 	
 	
