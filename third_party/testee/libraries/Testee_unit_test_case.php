@@ -35,6 +35,19 @@ class Testee_unit_test_case extends UnitTestCase {
 	 * ------------------------------------------------------------ */
 	
 	/**
+	 * Constructor.
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function __construct()
+	{
+		// Retrieve the EE superglobal. Sorry, Singleton. Ahem.
+		$this->_ee =& get_instance();
+	}
+	
+	
+	/**
 	 * Get things ready for the test.
 	 *
 	 * @access	public
@@ -44,9 +57,6 @@ class Testee_unit_test_case extends UnitTestCase {
 	 */
 	public function setUp(Array $mock_methods = array())
 	{
-		// Retrieve the EE superglobal. Sorry, Singleton. Ahem.
-		$this->_ee =& get_instance();
-		
 		/**
 		 * Create the mock objects.
 		 */
