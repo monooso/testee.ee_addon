@@ -21,15 +21,6 @@ class Testee_unit_test_case extends UnitTestCase {
 	 * ------------------------------------------------------------ */
 	
 	/**
-	 * 'Proper' database.
-	 *
-	 * @static
-	 * @access	protected
-	 * @var		object
-	 */
-	protected static $_db;
-	
-	/**
 	 * ExpressionEngine instance.
 	 *
 	 * @access	protected
@@ -44,37 +35,6 @@ class Testee_unit_test_case extends UnitTestCase {
 	 * ------------------------------------------------------------ */
 	
 	/**
-	 * Constructor.
-	 *
-	 * @access	public
-	 * @return	void
-	 */
-	public function __construct()
-	{
-		// Retrieve the EE superglobal. Sorry, Singleton. Ahem.
-		$this->_ee =& get_instance();
-		
-		// Assign the 'real' database object to a static property.
-		if ( ! isset(self::$_db))
-		{
-			self::$_db = $this->_ee->db;
-		}
-	}
-	
-	
-	/**
-	 * Destructor.
-	 *
-	 * @access	public
-	 * @return	void
-	 */
-	public function __destruct()
-	{
-		$this->_ee->db = self::$_db;
-	}
-	
-	
-	/**
 	 * Get things ready for the test.
 	 *
 	 * @access	public
@@ -84,6 +44,9 @@ class Testee_unit_test_case extends UnitTestCase {
 	 */
 	public function setUp(Array $mock_methods = array())
 	{
+		// Retrieve the EE superglobal. Sorry, Singleton. Ahem.
+		$this->_ee =& get_instance();
+		
 		/**
 		 * Create the mock objects.
 		 */

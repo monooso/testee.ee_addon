@@ -130,10 +130,20 @@ class Testee_mcp {
 			}
 		}
 		
+		/**
+		 * Make a note of the real EE objects. These are replaced by
+		 * mock objects during testing.
+		 */
+		
+		$real_db = $this->_ee->db;
+		
 		// Prepare the view variables.
 		ob_start();
 		$test_suite->run(new Testee_reporter());
 		$test_results = ob_get_clean();
+		
+		// Reinstate the real EE objects.
+		$this->_ee->db = $real_db;
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();
