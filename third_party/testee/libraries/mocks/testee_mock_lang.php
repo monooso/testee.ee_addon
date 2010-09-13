@@ -11,7 +11,7 @@
  * @copyright	Experience Internet
  */
 
-class Testee_lang {
+class Testee_mock_lang {
 	
 	/* --------------------------------------------------------------
 	 * PUBLIC PROPERTIES
