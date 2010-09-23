@@ -25,7 +25,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	public function setUp()
 	{
 		parent::setUp();
-		$this->_model = $this->_ee->load->model('testee_model');
+		$this->_model = new Testee_model();
 	}
 
 
@@ -37,12 +37,12 @@ class Test_testee_model extends Testee_unit_test_case {
 	function test_get_package_name()
 	{
 		$this->assertEqual(
-			strtolower($this->_ee->testee_model->get_package_name()),
+			strtolower($this->_model->get_package_name()),
 			'testee'
 		);
 		
 		$this->assertNotEqual(
-			strtolower($this->_ee->testee_model->get_package_name()),
+			strtolower($this->_model->get_package_name()),
 			'wibble'
 		);
 	}
@@ -52,7 +52,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	{
 		$this->assertPattern(
 			'/^[0-9abcdehlprtv\.]+$/i',
-			$this->_ee->testee_model->get_package_version()
+			$this->_model->get_package_version()
 		);
 	}
 
@@ -60,12 +60,12 @@ class Test_testee_model extends Testee_unit_test_case {
 	function get_tests()
 	{
 		$this->assertIsA(
-			$this->_ee->testee_model->get_tests(),
+			$this->_model->get_tests(),
 			'array'
 		);
 
 		$this->assertIsNotA(
-			$this->_ee->testee_model->get_tests(),
+			$this->_model->get_tests(),
 			'string'
 		);
 	}
@@ -78,25 +78,24 @@ class Test_testee_model extends Testee_unit_test_case {
 		
 		$this->assertPattern(
 			'#^path/to/themes/third_party/[a-z\-_]+/$#i',
-			$this->_ee->testee_model->get_theme_url()
+			$this->_model->get_theme_url()
 		);
 	}
 
 
 	function test_install_module()
 	{
-		$db =& $this->_ee->db;
-		$model =& $this->_ee->testee_model;
+		$db = $this->_ee->db;
 		
 		$db->expectOnce('insert', array('modules', array(
 			'has_cp_backend'		=> 'y',
 			'has_publish_fields'	=> 'n',
-			'module_name'			=> $model->get_package_name(),
-			'module_version'		=> $model->get_package_version()
+			'module_name'			=> $this->_model->get_package_name(),
+			'module_version'		=> $this->_model->get_package_version()
 		)));
 		
 		$this->assertIdentical(
-			$model->install_module(),
+			$this->_model->install_module(),
 			TRUE
 		);
 	}
@@ -105,8 +104,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	function test_uninstall_module()
 	{
 		// Shortcuts.
-		$db =& $this->_ee->db;
-		$model =& $this->_ee->testee_model;
+		$db = $this->_ee->db;
 		
 		// Mock query row.
 		$result_row = new StdClass();
@@ -121,17 +119,17 @@ class Test_testee_model extends Testee_unit_test_case {
 		$db->setReturnReference('select', $db);
 		
 		// $db->get_where
-		$db->expectOnce('get_where', array('modules', array('module_name' => $model->get_package_name())));
+		$db->expectOnce('get_where', array('modules', array('module_name' => $this->_model->get_package_name())));
 		$db->setReturnReference('get_where', $module_result);
 		
 		// $db->delete
 		$db->expectCallCount('delete', 2);
 		$db->expectAt(0, 'delete', array('module_member_groups', array('module_id' => $result_row->module_id)));
-		$db->expectAt(1, 'delete', array('modules', array('module_name' => $model->get_package_name())));
+		$db->expectAt(1, 'delete', array('modules', array('module_name' => $this->_model->get_package_name())));
 		
 		// Run.
 		$this->assertIdentical(
-			$model->uninstall_module(),
+			$this->_model->uninstall_module(),
 			TRUE
 		);
 	}
@@ -139,15 +137,13 @@ class Test_testee_model extends Testee_unit_test_case {
 
 	function test_update_module()
 	{
-		$model =& $this->_ee->testee_model;
-		
 		$this->assertIdentical(
-			$model->update_module($model->get_package_version()),
+			$this->_model->update_module($this->_model->get_package_version()),
 			TRUE
 		);
 
 		$this->assertIdentical(
-			$model->update_module('wibble'),
+			$this->_model->update_module('wibble'),
 			FALSE
 		);
 	}
