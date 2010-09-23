@@ -153,6 +153,7 @@ class Testee_mcp {
 		 */
 		
 		$real_db 	= $this->_ee->db;
+		$real_input = $this->_ee->input;
 		$real_lang	= $this->_ee->lang;
 		
 		// Prepare the view variables.
@@ -162,6 +163,7 @@ class Testee_mcp {
 		
 		// Reinstate the real EE objects.
 		$this->_ee->db 		= $real_db;
+		$this->_ee->input 	= $real_input;
 		$this->_ee->lang	= $real_lang;
 		
 		
