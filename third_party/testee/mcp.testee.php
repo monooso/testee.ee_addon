@@ -152,6 +152,7 @@ class Testee_mcp {
 		 * mock objects during testing.
 		 */
 		
+		$real_config		= $this->_ee->config;
 		$real_db 			= $this->_ee->db;
 		$real_extensions	= $this->_ee->extensions;
 		$real_functions		= $this->_ee->functions;
@@ -165,6 +166,7 @@ class Testee_mcp {
 		$test_results = ob_get_clean();
 		
 		// Reinstate the real EE objects.
+		$this->_ee->config		= $real_config;
 		$this->_ee->db 			= $real_db;
 		$this->_ee->extensions	= $real_extensions;
 		$this->_ee->functions	= $real_functions;

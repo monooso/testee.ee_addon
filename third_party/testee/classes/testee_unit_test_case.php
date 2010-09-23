@@ -11,6 +11,7 @@
 require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_config' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
@@ -69,6 +70,13 @@ class Testee_unit_test_case extends UnitTestCase {
 		// Used to avoid 'redeclared class' errors when generating mock object classes.
 		$class_prefix = get_class($this);
 		
+		// Output.
+		$methods = isset($mock_methods['config']) && is_array($mock_methods['config'])
+			? $mock_methods['config']
+			: array();
+			
+		Mock::generate('Testee_mock_config', $class_prefix .'_mock_config', $methods);
+		
 		// Database.
 		$methods = isset($mock_methods['db']) && is_array($mock_methods['db'])
 			? $mock_methods['db']
@@ -119,6 +127,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		Mock::generate('Testee_mock_output', $class_prefix .'_mock_output', $methods);
 		
 		// Assign the mock database object to the EE superglobal.
+		$this->_ee->config		= $this->_get_mock('config');
 		$this->_ee->db 			= $this->_get_mock('db');
 		$this->_ee->extensions	= $this->_get_mock('extensions');
 		$this->_ee->functions	= $this->_get_mock('functions');

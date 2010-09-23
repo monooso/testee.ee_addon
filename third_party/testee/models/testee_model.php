@@ -41,17 +41,8 @@ class Testee_model extends CI_Model {
 	 */
 	private $_package_version;
 	
-	/**
-	 * The package 'theme' folder URL.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
-	private $_theme_folder_url;
 	
 	
-	
-
 	/* --------------------------------------------------------------
 	 * PUBLIC METHODS
 	 * ------------------------------------------------------------ */
@@ -195,20 +186,17 @@ class Testee_model extends CI_Model {
 	 */
 	public function get_theme_url()
 	{
-		if ( ! $this->_theme_folder_url)
-		{
-			$this->_theme_folder_url = $this->_ee->config->item('theme_folder_url');
-			$this->_theme_folder_url .= substr($this->_theme_folder_url, -1) == '/'
-				? 'third_party/'
-				: '/third_party/';
-				
-			$this->_theme_folder_url .= strtolower($this->get_package_name()) .'/';
-		}
-
-		return $this->_theme_folder_url;
+		$url = $this->_ee->config->item('theme_folder_url');
+		$url .= substr($url, -1) == '/'
+			? 'third_party/'
+			: '/third_party/';
+			
+		$url .= strtolower($this->get_package_name()) .'/';
+		
+		return $url;
 	}
-
-
+	
+	
 	/**
 	 * Installs the module.
 	 *

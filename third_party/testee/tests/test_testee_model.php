@@ -73,8 +73,11 @@ class Test_testee_model extends Testee_unit_test_case {
 
 	function test_get_theme_url()
 	{
+		$this->_ee->config->expectOnce('item', array('theme_folder_url'));
+		$this->_ee->config->setReturnValue('item', 'path/to/themes/', array('theme_folder_url'));
+		
 		$this->assertPattern(
-			'/^[a-z0-9:\/\.\-_]+$/i',
+			'#^path/to/themes/third_party/[a-z\-_]+/$#i',
 			$this->_ee->testee_model->get_theme_url()
 		);
 	}
