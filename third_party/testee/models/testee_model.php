@@ -9,7 +9,7 @@
  * @version		0.1.0
  */
 
-require_once PATH_THIRD .'testee/libraries/Testee_addon' .EXT;
+require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
 
 class Testee_model extends CI_Model {
 	

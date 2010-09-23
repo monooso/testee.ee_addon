@@ -37,4 +37,4 @@ class Testee_mock_lang {
 
 
 /* End of file		: testee_mock_lang.php */
-/* File location	: third_party/testee/libraries/testee_mock_lang.php */
+/* File location	: third_party/testee/classes/testee_mock_lang.php */

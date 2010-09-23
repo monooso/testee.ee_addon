@@ -8,7 +8,7 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/libraries/Testee_addon' .EXT;
+require_once PATH_THIRD .'testee/classes/Testee_addon' .EXT;
 
 class Test_testee_addon extends Testee_unit_test_case {
 

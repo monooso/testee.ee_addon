@@ -6,8 +6,8 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/libraries/testee_base' .EXT;
-require_once PATH_THIRD .'testee/libraries/testee_test' .EXT;
+require_once PATH_THIRD .'testee/classes/testee_base' .EXT;
+require_once PATH_THIRD .'testee/classes/testee_test' .EXT;
 
 class Testee_addon extends Testee_base {
 	
@@ -111,4 +111,4 @@ class Testee_addon extends Testee_base {
 }
 
 /* End of file		: testee_addon.php */
-/* File location	: /system/expressionengine/third_party/testee/libraries/testee_addon.php */
+/* File location	: /system/expressionengine/third_party/testee/classes/testee_addon.php */

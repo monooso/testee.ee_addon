@@ -11,9 +11,9 @@
 require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
-require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_db' .EXT;
-require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_db_query' .EXT;
-require_once PATH_THIRD .'testee/libraries/mocks/testee_mock_lang' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
@@ -119,4 +119,4 @@ class Testee_unit_test_case extends UnitTestCase {
 }
 
 /* End of file		: testee_unit_test_case.php */
-/* File location	: third_party/testee/libraries/testee_unit_test_case.php */
+/* File location	: third_party/testee/classes/testee_unit_test_case.php */

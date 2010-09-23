@@ -194,4 +194,4 @@ class Testee_reporter extends SimpleReporter {
 }
 
 /* End of file		: testee_reporter.php */
-/* File location	: third_party/testee/libraries/testee_reporter.php */
+/* File location	: third_party/testee/classes/testee_reporter.php */

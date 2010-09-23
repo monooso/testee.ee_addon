@@ -112,10 +112,10 @@ class Testee_mcp {
 		}
 		
 		// Load the unit tester base class, so the tests don't have to.
-		require_once PATH_THIRD .'testee/libraries/testee_unit_test_case' .EXT;
+		require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
 		
 		// Load the custom reporter.
-		require_once PATH_THIRD .'testee/libraries/testee_reporter' .EXT;
+		require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
 		
 		// Create the Test Suite.
 		$test_suite =& new TestSuite('Testee Test Suite');

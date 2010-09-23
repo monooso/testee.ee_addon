@@ -48,4 +48,4 @@ class Testee_mock_db_query {
 
 
 /* End of file		: testee_mock_db_query.php */
-/* File location	: third_party/testee/libraries/testee_mock_db_query.php */
+/* File location	: third_party/testee/classes/testee_mock_db_query.php */
