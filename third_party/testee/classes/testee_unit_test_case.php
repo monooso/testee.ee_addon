@@ -13,6 +13,7 @@ require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
@@ -78,8 +79,15 @@ class Testee_unit_test_case extends UnitTestCase {
 		$methods = isset($mock_methods['query']) && is_array($mock_methods['query'])
 			? $mock_methods['query']
 			: array();
-			
+		
 		Mock::generate('Testee_mock_db_query', $class_prefix .'_mock_query', $methods);
+		
+		// Extensions.
+		$methods = isset($mock_methods['extensions']) && is_array($mock_methods['extensions'])
+			? $mock_methods['extensions']
+			: array();
+			
+		Mock::generate('Testee_mock_extensions', $class_prefix .'_mock_extensions', $methods);
 		
 		// Input.
 		$methods = isset($mock_methods['input']) && is_array($mock_methods['input'])

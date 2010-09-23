@@ -152,10 +152,11 @@ class Testee_mcp {
 		 * mock objects during testing.
 		 */
 		
-		$real_db 		= $this->_ee->db;
-		$real_input 	= $this->_ee->input;
-		$real_lang		= $this->_ee->lang;
-		$real_output	= $this->_ee->output;
+		$real_db 			= $this->_ee->db;
+		$real_extensions	= $this->_ee->extensions;
+		$real_input 		= $this->_ee->input;
+		$real_lang			= $this->_ee->lang;
+		$real_output		= $this->_ee->output;
 		
 		// Prepare the view variables.
 		ob_start();
@@ -163,10 +164,11 @@ class Testee_mcp {
 		$test_results = ob_get_clean();
 		
 		// Reinstate the real EE objects.
-		$this->_ee->db 		= $real_db;
-		$this->_ee->input 	= $real_input;
-		$this->_ee->lang	= $real_lang;
-		$this->_ee->output	= $real_output;
+		$this->_ee->db 			= $real_db;
+		$this->_ee->extensions	= $real_extensions;
+		$this->_ee->input 		= $real_input;
+		$this->_ee->lang		= $real_lang;
+		$this->_ee->output		= $real_output;
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();
