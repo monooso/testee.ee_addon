@@ -19,6 +19,7 @@ require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_session' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
@@ -126,6 +127,13 @@ class Testee_unit_test_case extends UnitTestCase {
 			
 		Mock::generate('Testee_mock_output', $class_prefix .'_mock_output', $methods);
 		
+		// Session.
+		$methods = isset($mock_methods['session']) && is_array($mock_methods['session'])
+			? $mock_methods['session']
+			: array();
+			
+		Mock::generate('Testee_mock_session', $class_prefix .'_mock_session', $methods);
+		
 		// Assign the mock database object to the EE superglobal.
 		$this->_ee->config		= $this->_get_mock('config');
 		$this->_ee->db 			= $this->_get_mock('db');
@@ -134,6 +142,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		$this->_ee->input 		= $this->_get_mock('input');
 		$this->_ee->lang 		= $this->_get_mock('lang');
 		$this->_ee->output 		= $this->_get_mock('output');
+		$this->_ee->session		= $this->_get_mock('session');
 	}
 	
 	

@@ -159,6 +159,7 @@ class Testee_mcp {
 		$real_input 		= $this->_ee->input;
 		$real_lang			= $this->_ee->lang;
 		$real_output		= $this->_ee->output;
+		$real_session		= $this->_ee->session;
 		
 		// Prepare the view variables.
 		ob_start();
@@ -173,6 +174,7 @@ class Testee_mcp {
 		$this->_ee->input 		= $real_input;
 		$this->_ee->lang		= $real_lang;
 		$this->_ee->output		= $real_output;
+		$this->_ee->session		= $real_session;
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();
