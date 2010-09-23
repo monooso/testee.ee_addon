@@ -113,7 +113,7 @@ class Test_testee_model extends Testee_unit_test_case {
 		$result_row->module_id = 'test';
 		
 		// Mock query object.
-		$module_result =& $this->_get_mock('query');
+		$module_result =& $this->_get_mock('db_query');
 		$module_result->expectOnce('row');
 		$module_result->setReturnReference('row', $result_row);
 		

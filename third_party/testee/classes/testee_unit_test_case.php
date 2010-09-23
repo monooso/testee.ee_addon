@@ -65,74 +65,32 @@ class Testee_unit_test_case extends UnitTestCase {
 	public function setUp(Array $mock_methods = array())
 	{
 		/**
-		 * Create the mock objects.
+		 * Create the mock objects. A class prefix is used to avoid 'redeclared class'
+		 * errors when generating mock object classes.
 		 */
 		
-		// Used to avoid 'redeclared class' errors when generating mock object classes.
 		$class_prefix = get_class($this);
 		
-		// Output.
-		$methods = isset($mock_methods['config']) && is_array($mock_methods['config'])
-			? $mock_methods['config']
-			: array();
-			
-		Mock::generate('Testee_mock_config', $class_prefix .'_mock_config', $methods);
+		$mocks = array(
+			'config',
+			'db',
+			'db_query',
+			'extensions',
+			'functions',
+			'input',
+			'lang',
+			'output',
+			'session'
+		);
 		
-		// Database.
-		$methods = isset($mock_methods['db']) && is_array($mock_methods['db'])
-			? $mock_methods['db']
-			: array();
-			
-		Mock::generate('Testee_mock_db', $class_prefix .'_mock_db', $methods);
-		
-		// Query result.
-		$methods = isset($mock_methods['query']) && is_array($mock_methods['query'])
-			? $mock_methods['query']
-			: array();
-		
-		Mock::generate('Testee_mock_db_query', $class_prefix .'_mock_query', $methods);
-		
-		// Extensions.
-		$methods = isset($mock_methods['extensions']) && is_array($mock_methods['extensions'])
-			? $mock_methods['extensions']
-			: array();
-			
-		Mock::generate('Testee_mock_extensions', $class_prefix .'_mock_extensions', $methods);
-		
-		// Functions.
-		$methods = isset($mock_methods['functions']) && is_array($mock_methods['functions'])
-			? $mock_methods['functions']
-			: array();
-			
-		Mock::generate('Testee_mock_functions', $class_prefix .'_mock_functions', $methods);
-		
-		// Input.
-		$methods = isset($mock_methods['input']) && is_array($mock_methods['input'])
-			? $mock_methods['input']
-			: array();
-			
-		Mock::generate('Testee_mock_input', $class_prefix .'_mock_input', $methods);
-		
-		// Language.
-		$methods = isset($mock_methods['lang']) && is_array($mock_methods['lang'])
-			? $mock_methods['lang']
-			: array();
-			
-		Mock::generate('Testee_mock_lang', $class_prefix .'_mock_lang', $methods);
-		
-		// Output.
-		$methods = isset($mock_methods['output']) && is_array($mock_methods['output'])
-			? $mock_methods['output']
-			: array();
-			
-		Mock::generate('Testee_mock_output', $class_prefix .'_mock_output', $methods);
-		
-		// Session.
-		$methods = isset($mock_methods['session']) && is_array($mock_methods['session'])
-			? $mock_methods['session']
-			: array();
-			
-		Mock::generate('Testee_mock_session', $class_prefix .'_mock_session', $methods);
+		foreach ($mocks AS $mock)
+		{
+			$methods = isset($mock_methods[$mock]) && is_array($mock_methods[$mock])
+				? $mock_methods[$mock]
+				: array();
+
+			Mock::generate('Testee_mock_' .$mock, $class_prefix .'_mock_' .$mock, $methods);
+		}
 		
 		// Assign the mock database object to the EE superglobal.
 		$this->_ee->config		= $this->_get_mock('config');
