@@ -154,6 +154,7 @@ class Testee_mcp {
 		
 		$real_db 			= $this->_ee->db;
 		$real_extensions	= $this->_ee->extensions;
+		$real_functions		= $this->_ee->functions;
 		$real_input 		= $this->_ee->input;
 		$real_lang			= $this->_ee->lang;
 		$real_output		= $this->_ee->output;
@@ -166,6 +167,7 @@ class Testee_mcp {
 		// Reinstate the real EE objects.
 		$this->_ee->db 			= $real_db;
 		$this->_ee->extensions	= $real_extensions;
+		$this->_ee->functions	= $real_functions;
 		$this->_ee->input 		= $real_input;
 		$this->_ee->lang		= $real_lang;
 		$this->_ee->output		= $real_output;

@@ -14,6 +14,7 @@ require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
@@ -89,6 +90,13 @@ class Testee_unit_test_case extends UnitTestCase {
 			
 		Mock::generate('Testee_mock_extensions', $class_prefix .'_mock_extensions', $methods);
 		
+		// Functions.
+		$methods = isset($mock_methods['functions']) && is_array($mock_methods['functions'])
+			? $mock_methods['functions']
+			: array();
+			
+		Mock::generate('Testee_mock_functions', $class_prefix .'_mock_functions', $methods);
+		
 		// Input.
 		$methods = isset($mock_methods['input']) && is_array($mock_methods['input'])
 			? $mock_methods['input']
@@ -111,10 +119,12 @@ class Testee_unit_test_case extends UnitTestCase {
 		Mock::generate('Testee_mock_output', $class_prefix .'_mock_output', $methods);
 		
 		// Assign the mock database object to the EE superglobal.
-		$this->_ee->db 		= $this->_get_mock('db');
-		$this->_ee->input 	= $this->_get_mock('input');
-		$this->_ee->lang 	= $this->_get_mock('lang');
-		$this->_ee->output 	= $this->_get_mock('output');
+		$this->_ee->db 			= $this->_get_mock('db');
+		$this->_ee->extensions	= $this->_get_mock('extensions');
+		$this->_ee->functions	= $this->_get_mock('functions');
+		$this->_ee->input 		= $this->_get_mock('input');
+		$this->_ee->lang 		= $this->_get_mock('lang');
+		$this->_ee->output 		= $this->_get_mock('output');
 	}
 	
 	
