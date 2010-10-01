@@ -161,6 +161,7 @@ class Testee_mcp {
 		
 		$real_config		= $this->_ee->config;
 		$real_db 			= $this->_ee->db;
+		$real_dbforge		= (isset($this->_ee->dbforge)) ? $this->_ee->dbforge : FALSE;
 		$real_extensions	= $this->_ee->extensions;
 		$real_functions		= $this->_ee->functions;
 		$real_input 		= $this->_ee->input;
@@ -177,6 +178,7 @@ class Testee_mcp {
 		// Reinstate the real EE objects.
 		$this->_ee->config		= $real_config;
 		$this->_ee->db 			= $real_db;
+		$this->_ee->dbforge 	= ($real_dbforge) ? $real_dbforge : NULL;
 		$this->_ee->extensions	= $real_extensions;
 		$this->_ee->functions	= $real_functions;
 		$this->_ee->input 		= $real_input;

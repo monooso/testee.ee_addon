@@ -101,6 +101,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		// Assign the mock objects to the EE superglobal.
 		$this->_ee->config		= $this->_get_mock('config');
 		$this->_ee->db 			= $this->_get_mock('db');
+		$this->_ee->dbforge 	= $this->_get_mock('dbforge');
 		$this->_ee->extensions	= $this->_get_mock('extensions');
 		$this->_ee->functions	= $this->_get_mock('functions');
 		$this->_ee->input 		= $this->_get_mock('input');

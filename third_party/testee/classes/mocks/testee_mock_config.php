@@ -51,6 +51,11 @@ class Testee_mock_config {
 	public function disable_tracking() {}
 	public function divination($which) {}
 	public function update_site_prefs($new_values = array(), $site_id = FALSE, $find = '', $replace = '') {}
+	
+	/* --------------------------------------------------------------
+	 * TBC EXPRESSIONENGINE METHODS
+	 * ------------------------------------------------------------ */
+	public function _update_config($new_values = array(), $delete_values = array()) {}
 }
 
 /* End of file		: testee_mock_config.php */
