@@ -118,7 +118,8 @@ class Testee_mcp {
 		require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
 		
 		// Create the Test Suite.
-		$test_suite =& new TestSuite('Testee Test Suite');
+		$ts = new TestSuite('Testee Test Suite');
+		$test_suite =& $ts;
 		
 		// Add the test files.
 		foreach ($test_path AS $path)
