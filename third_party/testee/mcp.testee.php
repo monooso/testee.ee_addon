@@ -111,6 +111,12 @@ class Testee_mcp {
 			return;
 		}
 		
+		// Before we start running anything, get rid of E_DEPRECATION errors
+		// for anybody using PHP5.3.
+		if (phpversion() >= 5.3) { 
+			error_reporting(error_reporting() & ~E_DEPRECATED);
+		}
+		
 		// Load the unit tester base class, so the tests don't have to.
 		require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
 		
