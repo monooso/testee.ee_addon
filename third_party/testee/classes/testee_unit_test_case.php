@@ -38,6 +38,15 @@ class Testee_unit_test_case extends UnitTestCase {
 	 */
 	protected $_ee;
 	
+	/**
+	 * Methods to return $this->db from in the 
+	 * database mock (for EE compat)
+	 *
+	 * @var string
+	 */
+	protected $_db_chaining_methods = array(
+		'distinct', 'from', 'group_by', 'having', 'join', 'like', 'limit', 'not_like', 'or_having', 'or_like', 'or_not_like', 'or_where', 'or_where_in', 'or_where_not_in', 'order_by', 'select', 'select_avg', 'select_max', 'select_min', 'select_sum', 'set', 'where', 'where_in', 'where_not_in'
+	);
 	
 	
 	/* --------------------------------------------------------------
@@ -109,6 +118,9 @@ class Testee_unit_test_case extends UnitTestCase {
 		$this->_ee->load		= $this->_get_mock('loader');
 		$this->_ee->output 		= $this->_get_mock('output');
 		$this->_ee->session		= $this->_get_mock('session');
+		
+		// EE compatibility layer
+		$this->_set_ee_mock_methods();
 	}
 	
 	
@@ -134,6 +146,18 @@ class Testee_unit_test_case extends UnitTestCase {
 		}
 		
 		return FALSE;
+	}
+	
+	/**
+	 * Set EE compatibility mock methods
+	 *
+	 * @return void
+	 * @author Jamie Rumbelow
+	 */
+	protected function _set_ee_mock_methods() {
+		foreach ($this->_db_chaining_methods as $method) {
+			$this->_ee->db->setReturnValue($method, $this->_ee->db);
+		}
 	}
 	
 }

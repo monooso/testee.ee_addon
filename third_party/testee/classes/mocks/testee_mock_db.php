@@ -58,15 +58,21 @@ class Testee_mock_db {
 	/* public function count_all() {} // already declared above. */
 	public function count_all_results() {}
 	public function delete() {}
-	public function distinct() {}
+	
 	public function empty_table() {}
 	public function flush_cache() {}
-	public function from() {}
 	public function get() {}
 	public function get_where() {}
+	public function insert() {}
+	public function start_cache() {}
+	public function stop_cache() {}
+	public function truncate() {}
+	public function update() {}	
+	
+	public function distinct() {}
+	public function from() {}
 	public function group_by() {}
 	public function having() {}
-	public function insert() {}
 	public function join() {}
 	public function like() {}
 	public function limit() {}
@@ -84,10 +90,6 @@ class Testee_mock_db {
 	public function select_min() {}
 	public function select_sum() {}
 	public function set() {}
-	public function start_cache() {}
-	public function stop_cache() {}
-	public function truncate() {}
-	public function update() {}
 	public function where() {}
 	public function where_in() {}
 	public function where_not_in() {}
