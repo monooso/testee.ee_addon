@@ -8,7 +8,7 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/classes/Testee_test' .EXT;
+if (!class_exists('Testee_test')) { require_once PATH_THIRD.'testee/classes/Testee_test'.EXT; }
 
 class Test_testee_test extends Testee_unit_test_case {
 	

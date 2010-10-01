@@ -111,81 +111,8 @@ class Testee_mcp {
 			return;
 		}
 		
-		// Before we start running anything, get rid of E_DEPRECATION errors
-		// for anybody using PHP5.3.
-		if (phpversion() >= 5.3) { 
-			error_reporting(error_reporting() & ~E_DEPRECATED);
-		}
-		
-		// Load the unit tester base class, so the tests don't have to.
-		require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
-		
-		// Load the custom reporter.
-		require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
-		
-		// Create the Test Suite.
-		$ts = new TestSuite('Testee Test Suite');
-		$test_suite =& $ts;
-		
-		// Add the test files.
-		foreach ($test_path AS $path)
-		{
-			/**
-			 * @todo : remove the `add_package_path` code. We should be mocking the EE->load object anyway.
-			 */
-			
-			// Extract the package name.
-			$pattern = '#^' .preg_quote(PATH_THIRD, '#') .'([\w\d\-]+)/tests/#i';
-			preg_match($pattern, $path, $matches);
-			
-			if ( ! isset($matches[1]))
-			{
-				continue;
-			}
-			
-			// Automatically load the add-on package path. Note that EE isn't smart
-			// enough to add the slash to the end of the path, so we need to do it.
-			$this->_ee->load->add_package_path(PATH_THIRD .$matches[1] .'/');
-			
-			// Add the test file.
-			if (file_exists($path))
-			{
-				$test_suite->addFile($path);
-			}
-		}
-		
-		/**
-		 * Make a note of the real EE objects. These are replaced by
-		 * mock objects during testing.
-		 */
-		
-		$real_config		= $this->_ee->config;
-		$real_db 			= $this->_ee->db;
-		$real_dbforge		= (isset($this->_ee->dbforge)) ? $this->_ee->dbforge : FALSE;
-		$real_extensions	= $this->_ee->extensions;
-		$real_functions		= $this->_ee->functions;
-		$real_input 		= $this->_ee->input;
-		$real_lang			= $this->_ee->lang;
-		$real_loader		= $this->_ee->load;
-		$real_output		= $this->_ee->output;
-		$real_session		= $this->_ee->session;
-		
-		// Prepare the view variables.
-		ob_start();
-		$test_suite->run(new Testee_reporter());
-		$test_results = ob_get_clean();
-		
-		// Reinstate the real EE objects.
-		$this->_ee->config		= $real_config;
-		$this->_ee->db 			= $real_db;
-		$this->_ee->dbforge 	= ($real_dbforge) ? $real_dbforge : NULL;
-		$this->_ee->extensions	= $real_extensions;
-		$this->_ee->functions	= $real_functions;
-		$this->_ee->input 		= $real_input;
-		$this->_ee->lang		= $real_lang;
-		$this->_ee->load		= $real_loader;
-		$this->_ee->output		= $real_output;
-		$this->_ee->session		= $real_session;
+		// Run the tests
+		$test_results = $this->_ee->testee_model->run_tests($test_path);
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();
