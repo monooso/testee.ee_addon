@@ -54,8 +54,9 @@ class Testee_mock_db {
 	
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/active_record.html
+	 *
+	 * Note: count_all is already declared above.
 	 * ------------------------------------------------------------ */
-	/* public function count_all() {} // already declared above. */
 	public function count_all_results() {}
 	public function delete() {}
 	
@@ -113,7 +114,6 @@ class Testee_mock_db {
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/call_function.html
 	 * ------------------------------------------------------------ */
-	public $conn_id;
 	public function call_function() {}
 	
 	
