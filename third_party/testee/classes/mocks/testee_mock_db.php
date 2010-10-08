@@ -11,24 +11,24 @@
  */
 
 class Testee_mock_db {
-	
+
 	/* --------------------------------------------------------------
 	 * PUBLIC PROPERTIES
 	 * @see http://codeigniter.com/user_guide/database/call_function.html
 	 * --------------------------------------------------------------
 		$conn_id
 	 * ------------------------------------------------------------ */
-	
+
 	// Magic methods to access properties.
 	public function __get($prop_name) {}
 	public function __set($prop_name, $prop_value) {}
-	
-	
-	
+
+
+
 	/* --------------------------------------------------------------
 	 * PUBLIC METHODS
 	 * ------------------------------------------------------------ */
-	
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/queries.html
 	 * ------------------------------------------------------------ */
@@ -37,8 +37,8 @@ class Testee_mock_db {
 	public function escape_str() {}
 	public function query() {}
 	public function simple_query() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/helpers.html
 	 * ------------------------------------------------------------ */
@@ -50,23 +50,30 @@ class Testee_mock_db {
 	public function platform() {}
 	public function update_string() {}
 	public function version() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/active_record.html
+	 *
+	 * Note: count_all is already declared, above.
 	 * ------------------------------------------------------------ */
-	/* public function count_all() {} // already declared above. */
 	public function count_all_results() {}
 	public function delete() {}
-	public function distinct() {}
+
 	public function empty_table() {}
 	public function flush_cache() {}
-	public function from() {}
 	public function get() {}
 	public function get_where() {}
+	public function insert() {}
+	public function start_cache() {}
+	public function stop_cache() {}
+	public function truncate() {}
+	public function update() {}	
+
+	public function distinct() {}
+	public function from() {}
 	public function group_by() {}
 	public function having() {}
-	public function insert() {}
 	public function join() {}
 	public function like() {}
 	public function limit() {}
@@ -84,37 +91,32 @@ class Testee_mock_db {
 	public function select_min() {}
 	public function select_sum() {}
 	public function set() {}
-	public function start_cache() {}
-	public function stop_cache() {}
-	public function truncate() {}
-	public function update() {}
 	public function where() {}
 	public function where_in() {}
 	public function where_not_in() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/table_data.html
 	 * ------------------------------------------------------------ */
 	public function list_tables() {}
 	public function table_exists() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/fields.html
 	 * ------------------------------------------------------------ */
 	public function field_data() {}
 	public function field_exists() {}
 	public function list_fields() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/call_function.html
 	 * ------------------------------------------------------------ */
-	public $conn_id;
 	public function call_function() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/caching.html
 	 * ------------------------------------------------------------ */
@@ -123,8 +125,8 @@ class Testee_mock_db {
 	public function cache_off() {}
 	public function cache_on() {}
 	public function close() {}
-	
-	
+
+
 	/* --------------------------------------------------------------
 	 * @see http://codeigniter.com/user_guide/database/transactions.html
 	 * ------------------------------------------------------------ */
@@ -135,7 +137,7 @@ class Testee_mock_db {
 	public function trans_start() {}
 	public function trans_status() {}
 	public function trans_strict() {}
-	
+
 }
 
 
