@@ -105,14 +105,23 @@ class Testee_mcp {
 	 */
 	public function run_test()
 	{
-		if ( ! $test_path = $this->_ee->input->post('tests') OR ! is_array($test_path))
+		$test_path = $this->_ee->input->post('tests') OR ! is_array($test_path);
+		
+		/**
+		 * Run the tests.
+		 *
+		 * @todo create custom Testee Exception class(?)
+		 */
+		
+		try
+		{
+			$test_results = $this->_ee->testee_model->run_tests($test_path);
+		}
+		catch (Exception $e)
 		{
 			$this->_ee->functions->redirect($this->_base_url);
 			return;
 		}
-		
-		// Run the tests
-		$test_results = $this->_ee->testee_model->run_tests($test_path);
 		
 		// Retrieve the theme folder URL.
 		$theme_url = $this->_ee->testee_model->get_theme_url();
