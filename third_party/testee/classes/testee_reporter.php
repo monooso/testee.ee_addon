@@ -42,7 +42,7 @@ class Testee_reporter extends SimpleReporter {
 	 */
 	public function __construct()
 	{
-		parent::SimpleReporter();
+		parent::__construct();
 	}
 	
 	
