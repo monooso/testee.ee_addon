@@ -154,7 +154,7 @@ class Testee_model extends CI_Model {
 			
 			foreach ($all_tests AS $test)
 			{
-				if ( ! preg_match('/^test_([^.]*)' .EXT .'$/i', $test))
+				if ( ! preg_match('/^test[_|\.]([^\.]*)' .EXT .'$/i', $test))
 				{
 					continue;
 				}
