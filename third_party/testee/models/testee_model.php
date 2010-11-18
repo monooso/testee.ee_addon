@@ -6,7 +6,7 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		0.1.0
+ * @version		0.9.0
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
@@ -60,7 +60,7 @@ class Testee_model extends CI_Model {
 		$this->_ee =& get_instance();
 		
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '0.1.0';
+		$this->_package_version = '0.9.0';
 	}
 	
 	
@@ -212,24 +212,15 @@ class Testee_model extends CI_Model {
 		foreach ($test_path AS $path)
 		{
 			/**
-			 * @todo : remove the `add_package_path` code. We should be mocking the EE->load object anyway.
+			 * Handle Windows paths correctly.
+			 *
+			 * @author	Bjørn Børresen (http://twitter.com/bjornbjorn)
+			 * @since 	0.9.0
 			 */
-		
-			// Extract the package name.
-			$pattern = '#^' .preg_quote(PATH_THIRD, '#') .'([\w\d\-]+)/tests/#i';
-			preg_match($pattern, $path, $matches);
-		
-			if ( ! isset($matches[1]))
-			{
-				continue;
-			}
-		
-			// Automatically load the add-on package path. Note that EE isn't smart
-			// enough to add the slash to the end of the path, so we need to do it.
-			$this->_ee->load->add_package_path(PATH_THIRD .$matches[1] .'/');
-		
-			// Add the test file.
-			if (file_exists($path))
+			
+			$package_path = explode(DIRECTORY_SEPARATOR, str_replace(PATH_THIRD, '', $path));
+			
+			if (count($package_path) == 3 && $package_path[1] == 'tests' && file_exists($path))
 			{
 				$test_suite->addFile($path);
 			}
