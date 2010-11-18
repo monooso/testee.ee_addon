@@ -335,16 +335,20 @@ class Testee_model extends CI_Model {
 	 * Updates the module.
 	 *
 	 * @access	public
-	 * @param	string		$current_version		The installed version.
+	 * @param	string		$installed_version		The installed version.
+	 * @param	string		$package_version		The package version.
 	 * @return	bool
 	 */
-	public function update_module($current_version = '')
+	public function update_module($installed_version = '', $package_version = '')
 	{
-		return version_compare(
-			$this->get_package_version(),
-			$current_version,
-			'=='
-		);
+		// Get out early.
+		if ( ! $installed_version OR ! $package_version
+			OR version_compare($installed_version, $package_version, '>='))
+		{
+			return FALSE;
+		}
+		
+		return TRUE;
 	}
 	
 	

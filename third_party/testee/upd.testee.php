@@ -86,12 +86,12 @@ class Testee_upd {
 	 * Module updater.
 	 *
 	 * @access	public
-	 * @param	string	$current_version	The pre-update version number.
+	 * @param	string		$installed_version		The installed version.
 	 * @return	bool
 	 */
-	public function update($current_version = '')
+	public function update($installed_version = '')
 	{
-		return $this->_ee->testee_model->update_module($current_version);
+		return $this->_ee->testee_model->update_module($installed_version, $this->_ee->testee_model->get_package_version());
 	}
 	
 }

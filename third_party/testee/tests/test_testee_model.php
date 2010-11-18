@@ -34,7 +34,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	 * TEST METHODS
 	 * ------------------------------------------------------------ */
 	
-	function test_get_package_name()
+	public function test_get_package_name()
 	{
 		$this->assertEqual(
 			strtolower($this->_model->get_package_name()),
@@ -48,7 +48,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_get_package_version()
+	public function test_get_package_version()
 	{
 		$this->assertPattern(
 			'/^[0-9abcdehlprtv\.]+$/i',
@@ -57,7 +57,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function get_tests()
+	public function get_tests()
 	{
 		$this->assertIsA(
 			$this->_model->get_tests(),
@@ -71,7 +71,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_get_theme_url()
+	public function test_get_theme_url()
 	{
 		$this->_ee->config->expectOnce('item', array('theme_folder_url'));
 		$this->_ee->config->setReturnValue('item', 'path/to/themes/', array('theme_folder_url'));
@@ -83,7 +83,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_install_module()
+	public function test_install_module()
 	{
 		$db = $this->_ee->db;
 		
@@ -101,7 +101,7 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_uninstall_module()
+	public function test_uninstall_module()
 	{
 		// Shortcuts.
 		$db = $this->_ee->db;
@@ -135,17 +135,47 @@ class Test_testee_model extends Testee_unit_test_case {
 	}
 
 
-	function test_update_module()
+	public function test_update_module__no_update()
 	{
-		$this->assertIdentical(
-			$this->_model->update_module($this->_model->get_package_version()),
-			TRUE
-		);
-
-		$this->assertIdentical(
-			$this->_model->update_module('wibble'),
-			FALSE
-		);
+		// Dummy values.
+		$installed_version	= '1.0.0';
+		$package_version	= '1.0.0';
+		
+		// Tests.
+		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
+	}
+	
+	
+	public function test_update_module__update()
+	{
+		// Dummy values.
+		$installed_version	= '1.0.0b1';
+		$package_version	= '1.0.0b2';
+		
+		// Tests.
+		$this->assertIdentical(TRUE, $this->_model->update_module($installed_version, $package_version));
+	}
+	
+	
+	public function test_update_module__not_installed()
+	{
+		// Dummy values.
+		$installed_version	= '';
+		$package_version	= '1.0.0';
+		
+		// Tests.
+		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
+	}
+	
+	
+	public function test_update_module__no_package_version()
+	{
+		// Dummy values.
+		$installed_version	= '1.0.0';
+		$package_version	= '';
+		
+		// Tests.
+		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
 	}
 
 }
