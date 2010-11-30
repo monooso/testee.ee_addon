@@ -23,6 +23,7 @@ require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_loader' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_session' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_template' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
@@ -39,13 +40,19 @@ class Testee_unit_test_case extends UnitTestCase {
 	protected $_ee;
 	
 	/**
-	 * Methods to return $this->db from in the 
-	 * database mock (for EE compat)
+	 * The following methods return a reference to the $this->_ee->db object, to enable active
+	 * record chaining.
 	 *
-	 * @var string
+	 * @access	protected
+	 * @var 	array
 	 */
 	protected $_db_chaining_methods = array(
-		'distinct', 'from', 'group_by', 'having', 'join', 'like', 'limit', 'not_like', 'or_having', 'or_like', 'or_not_like', 'or_where', 'or_where_in', 'or_where_not_in', 'order_by', 'select', 'select_avg', 'select_max', 'select_min', 'select_sum', 'set', 'where', 'where_in', 'where_not_in'
+		'distinct', 'from', 'group_by', 'having',
+		'join', 'like', 'limit', 'not_like', 'or_having',
+		'or_like', 'or_not_like', 'or_where', 'or_where_in',
+		'or_where_not_in', 'order_by', 'select', 'select_avg',
+		'select_max', 'select_min', 'select_sum', 'set', 'where',
+		'where_in', 'where_not_in'
 	);
 	
 	
@@ -95,7 +102,8 @@ class Testee_unit_test_case extends UnitTestCase {
 			'lang',
 			'loader',
 			'output',
-			'session'
+			'session',
+			'template'
 		);
 		
 		foreach ($mocks AS $mock)
@@ -118,6 +126,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		$this->_ee->load		= $this->_get_mock('loader');
 		$this->_ee->output 		= $this->_get_mock('output');
 		$this->_ee->session		= $this->_get_mock('session');
+		$this->_ee->TMPL		= $this->_get_mock('template');
 		
 		// EE compatibility layer
 		$this->_set_ee_mock_methods();
