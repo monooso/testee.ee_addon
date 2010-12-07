@@ -6,7 +6,7 @@
 	<?php endforeach; ?>
 	
 	<div class="submit_wrapper">
-		<?=form_submit(array('name' => 'submit', 'value' => lang('retest'), 'class' => 'submit')); ?>
+		<?=form_submit(array('class' => 'submit', 'id' => 'retest_submit', 'name' => 'retest_submit', 'value' => lang('retest'))); ?>
 		&nbsp;&nbsp;<?=lang('or'); ?> <a href="<?=$tests_index_url; ?>" title="<?=lang('start_over'); ?>"><?=lang('start_over'); ?></a>.
 	</div>
 <?=form_close(); ?>

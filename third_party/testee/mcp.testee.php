@@ -107,12 +107,9 @@ class Testee_mcp {
 	{
 		$test_path = $this->_ee->input->post('tests') OR ! is_array($test_path);
 		
-		/**
-		 * Run the tests.
-		 *
-		 * @todo create custom Testee Exception class(?)
-		 */
+		/* @todo : create custom Testee Exception class(?) */
 		
+		// Run the tests.
 		try
 		{
 			$test_results = $this->_ee->testee_model->run_tests($test_path);
@@ -128,6 +125,10 @@ class Testee_mcp {
 		
 		// Include the CSS.
 		$this->_ee->cp->add_to_head('<link media="screen, projection" rel="stylesheet" type="text/css" href="' .$theme_url .'css/cp.css" />');
+		
+		// Include the JavaScript.
+		$this->_ee->cp->add_to_foot('<script type="text/javascript" src="' .$theme_url .'js/cp.js"></script>');
+		$this->_ee->javascript->compile();
 		
 		$vars = array(
 			'form_action'		=> $this->_base_qs .AMP .'method=run_test',
