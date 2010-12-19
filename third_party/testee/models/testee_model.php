@@ -232,6 +232,7 @@ class Testee_model extends CI_Model {
 		 */
 	
 		$real_config		= $this->_ee->config;
+		$real_cp			= $this->_ee->cp;
 		$real_db 			= $this->_ee->db;
 		$real_dbforge		= (isset($this->_ee->dbforge)) ? $this->_ee->dbforge : FALSE;
 		$real_extensions	= $this->_ee->extensions;
@@ -250,6 +251,7 @@ class Testee_model extends CI_Model {
 	
 		// Reinstate the real EE objects.
 		$this->_ee->config		= $real_config;
+		$this->_ee->cp			= $real_cp;
 		$this->_ee->db 			= $real_db;
 		$this->_ee->dbforge 	= ($real_dbforge) ? $real_dbforge : NULL;
 		$this->_ee->extensions	= $real_extensions;

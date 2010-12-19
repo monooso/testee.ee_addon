@@ -12,6 +12,7 @@ require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_config' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_cp' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbforge' .EXT;
@@ -92,6 +93,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		
 		$mocks = array(
 			'config',
+			'cp',
 			'db',
 			'db_query',
 			'dbforge',
@@ -117,6 +119,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		
 		// Assign the mock objects to the EE superglobal.
 		$this->_ee->config		= $this->_get_mock('config');
+		$this->_ee->cp			= $this->_get_mock('cp');
 		$this->_ee->db 			= $this->_get_mock('db');
 		$this->_ee->dbforge 	= $this->_get_mock('dbforge');
 		$this->_ee->extensions	= $this->_get_mock('extensions');
