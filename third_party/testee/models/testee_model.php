@@ -6,7 +6,7 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		1.0.2
+ * @version		1.0.3
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
@@ -60,7 +60,7 @@ class Testee_model extends CI_Model {
 		$this->_ee =& get_instance();
 		
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '1.0.2';
+		$this->_package_version = '1.0.3';
 	}
 	
 	
@@ -243,6 +243,7 @@ class Testee_model extends CI_Model {
 		$real_output		= $this->_ee->output;
 		$real_session		= $this->_ee->session;
 		$real_template		= (isset($this->_ee->TMPL)) ? $this->_ee->TMPL : FALSE;
+		$real_uri			= $this->_ee->uri;
 	
 		// Prepare the view variables.
 		ob_start();
@@ -262,6 +263,7 @@ class Testee_model extends CI_Model {
 		$this->_ee->output		= $real_output;
 		$this->_ee->session		= $real_session;
 		$this->_ee->TMPL		= $real_template;
+		$this->_ee->uri			= $real_uri;
 	
 		// Done!
 		return $test_results;

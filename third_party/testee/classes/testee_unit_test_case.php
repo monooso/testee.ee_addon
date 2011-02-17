@@ -25,6 +25,7 @@ require_once PATH_THIRD .'testee/classes/mocks/testee_mock_loader' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_session' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_template' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_uri' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
@@ -105,7 +106,8 @@ class Testee_unit_test_case extends UnitTestCase {
 			'loader',
 			'output',
 			'session',
-			'template'
+			'template',
+			'uri'
 		);
 		
 		foreach ($mocks AS $mock)
@@ -130,6 +132,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		$this->_ee->output 		= $this->_get_mock('output');
 		$this->_ee->session		= $this->_get_mock('session');
 		$this->_ee->TMPL		= $this->_get_mock('template');
+		$this->_ee->uri			= $this->_get_mock('uri');
 		
 		// EE compatibility layer
 		$this->_set_ee_mock_methods();
