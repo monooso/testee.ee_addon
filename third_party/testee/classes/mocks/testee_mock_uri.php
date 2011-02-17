@@ -37,16 +37,16 @@ class Testee_mock_uri {
 
 	public function assoc_to_uri($array) {}
 	public function rsegment($n, $no_result = FALSE) {}
-	public function rsegment_array()
-	public function ruri_string()
+	public function rsegment_array() {}
+	public function ruri_string() {}
 	public function ruri_to_assoc($n = 3, $default = array()) {}
 	public function segment($n, $no_result = FALSE) {}
-	public function segment_array()
+	public function segment_array() {}
 	public function slash_rsegment($n, $where = 'trailing') {}
 	public function slash_segment($n, $where = 'trailing') {}
-	public function total_rsegments()
-	public function total_segments()
-	public function uri_string()
+	public function total_rsegments() {}
+	public function total_segments() {}
+	public function uri_string() {}
 	public function uri_to_assoc($n = 3, $default = array()) {}
 
 }
