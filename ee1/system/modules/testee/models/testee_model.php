@@ -6,39 +6,15 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		1.0.0
+ * @version		1.1.0
  */
 
 require_once PATH_MOD .'testee/classes/testee_addon' .EXT;
 
 class Testee_model {
 	
-	/* --------------------------------------------------------------
-	 * PRIVATE PROPERTIES
-	 * ------------------------------------------------------------ */
-	
-	/**
-	 * Package name.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
 	private $_package_name;
-	
-	/**
-	 * Package version.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
 	private $_package_version;
-	
-	/**
-	 * The package 'theme' folder URL.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
 	private $_theme_folder_url;
 	
 	
@@ -56,7 +32,7 @@ class Testee_model {
 	public function __construct()
 	{
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '1.0.0';
+		$this->_package_version = '1.1.0';
 	}
 	
 	

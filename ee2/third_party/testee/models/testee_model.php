@@ -6,39 +6,15 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		1.0.3
+ * @version		1.1.0
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
 
 class Testee_model extends CI_Model {
 	
-	/* --------------------------------------------------------------
-	 * PRIVATE PROPERTIES
-	 * ------------------------------------------------------------ */
-	
-	/**
-	 * ExpressionEngine singleton.
-	 *
-	 * @access	private
-	 * @var		object
-	 */
 	private $_ee;
-	
-	/**
-	 * Package name.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
 	private $_package_name;
-	
-	/**
-	 * Package version.
-	 *
-	 * @access	private
-	 * @var		string
-	 */
 	private $_package_version;
 	
 	
@@ -60,7 +36,7 @@ class Testee_model extends CI_Model {
 		$this->_ee =& get_instance();
 		
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '1.0.3';
+		$this->_package_version = '1.1.0';
 	}
 	
 	
