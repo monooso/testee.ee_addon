@@ -39,6 +39,9 @@ class Testee_mock_session {
 	// Magic methods to access properties.
 	public function __get($prop_name) {}
 	public function __set($prop_name, $prop_value) {}
+
+    // The cache should always be an array.
+    public $cache = array();
 	
 	
 	/* --------------------------------------------------------------
