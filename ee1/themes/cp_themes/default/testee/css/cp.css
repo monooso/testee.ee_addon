@@ -1,0 +1,154 @@
+/**
+ * Test-driven add-on development module.
+ *
+ * @package		Testee
+ * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
+ * @copyright	Experience Internet
+ */
+
+/* =headings
+ -------------------------------------------------------------*/
+h1 span {
+color : rgb(153, 153, 153);
+font-size : 11px;
+font-weight : normal;
+}
+
+/* =addons_index
+ -------------------------------------------------------------*/
+.addons_index {
+border-top : 1px solid rgba(0, 0, 0, 0.1);
+line-height : 20px;
+list-style : none;
+margin-bottom : 0;
+padding-left : 0;
+text-shadow : 0 1px 0 rgba(255, 255, 255, 1);
+}
+
+.addons_index input[type='checkbox'] {margin-right : 3px;}
+
+.addons_index label {
+display : block;
+line-height : 20px;
+margin : 0;
+padding : 5px 0;
+}
+
+.addons_index li {
+border-bottom : 1px solid rgba(0, 0, 0, 0.1);
+list-style : none;
+}
+
+
+/* =addon_title
+ -------------------------------------------------------------*/
+.addon_title {padding : 0 10px;}
+
+/* Pseudo classes are required to override EE styles, bizarrely */
+.addon_title a,
+.addon_title a:link,
+.addon_title a:hover {
+background-color : transparent;
+background-image : url('../img/arrow.png');
+background-repeat : no-repeat;
+display : inline-block;
+margin-right : 5px;
+padding : 5px 0;
+text-decoration : none;
+text-indent : -9999em;
+width : 10px;
+}
+
+.collapsed .addon_title a {background-position : 0 10px;}
+
+.expanded .addon_title a {background-position : -3000px 10px;}
+
+.addons_index .addon_title label {display : inline-block;}
+
+.addon_title label span {
+color : rgb(153, 153, 153);
+font-size : 0.9em;
+font-weight : normal;
+}
+
+
+/* =addon_tests
+ -------------------------------------------------------------*/
+.addon_tests {
+background : rgba(255, 255, 255, 0.75);
+border-top : 1px solid rgba(0, 0, 0, 0.1);
+padding-left : 28px;
+}
+
+.collapsed .addon_tests {display : none;}
+
+.addon_tests label {font-weight : normal;}
+
+.addon_tests li {border-bottom-style : dotted;}
+
+
+/* =submit_wrapper
+ -------------------------------------------------------------*/
+.submit_wrapper {
+padding : 1.5em 5px 1.5em 10px;
+text-align : left;
+}
+
+
+/* =test_result_summary
+ -------------------------------------------------------------*/
+.test_result_summary {
+-moz-border-radius : 3px;
+-webkit-border-radius : 3px;
+background-color : rgb(102, 102, 102);
+border-radius : 3px;
+color : rgb(255, 255, 255);
+font-weight : bold;
+line-height : 20px;
+margin : 0;
+padding : 5px 10px;
+}
+
+.test_result_summary p {
+color : rgb(255, 255, 255);
+margin : 0;
+}
+
+.test_result_success {background-color : rgb(0, 153, 0);}
+
+.test_result_failure {background-color : rgb(220, 0, 0);}
+
+
+/* =test_result
+ -------------------------------------------------------------*/
+.test_result {
+border-bottom : 1px dotted rgba(0, 0, 0, 0.1);
+margin : 0 0 1em !important;
+padding-bottom : 5px;
+padding-left : 100px;
+}
+
+.badge {
+-moz-border-radius : 3px;
+-webkit-border-radius : 3px;
+background : rgba(0, 0, 0, 0.5);
+border-radius : 3px;
+border-top : 1px solid rgba(0, 0, 0, 0.25);
+color : rgb(255, 255, 255);
+float : left;
+font-size : 10px;
+font-weight : bold;
+margin-left : -100px;
+margin-right : 10px;
+padding : 4px 10px 5px;
+text-transform : uppercase;
+}
+
+.test_result_details {
+font-family : Menlo, Inconsolata, 'Courier New', monospace;
+font-size : 11px;
+line-height : 1.5;
+margin-bottom : 1.5em;
+}
+
+.test_result_details strong {display : block;}
