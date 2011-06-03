@@ -20,8 +20,8 @@ class Testee_mock_regex {
 	 * ------------------------------------------------------------ */
 	
 	// Magic methods to access properties.
-	public public function __get($prop_name) {}
-	public public function __set($prop_name, $prop_value) {}
+	public function __get($prop_name) {}
+	public function __set($prop_name, $prop_value) {}
 	
 	
 	
