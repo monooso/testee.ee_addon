@@ -6,7 +6,7 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		1.1.1
+ * @version		1.1.2
  */
 
 require_once PATH_MOD .'testee/classes/testee_addon' .EXT;
@@ -32,7 +32,7 @@ class Testee_model {
 	public function __construct()
 	{
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '1.1.1';
+		$this->_package_version = '1.1.2';
 	}
 	
 	
