@@ -6,7 +6,7 @@
  * @package		Testee
  * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright	Experience Internet
- * @version		1.1.2
+ * @version		1.1.3
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
@@ -36,7 +36,7 @@ class Testee_model extends CI_Model {
 		$this->_ee =& get_instance();
 		
 		$this->_package_name	= 'Testee';
-		$this->_package_version = '1.1.2';
+		$this->_package_version = '1.1.3';
 	}
 	
 	
@@ -211,6 +211,7 @@ class Testee_model extends CI_Model {
 		$real_cp			= $this->_ee->cp;
 		$real_db 			= $this->_ee->db;
 		$real_dbforge		= (isset($this->_ee->dbforge)) ? $this->_ee->dbforge : FALSE;
+        $real_email         = (isset($this->_ee->email)) ? $this->_ee->email : FALSE;
 		$real_extensions	= $this->_ee->extensions;
 		$real_functions		= $this->_ee->functions;
 		$real_input 		= $this->_ee->input;
@@ -231,6 +232,7 @@ class Testee_model extends CI_Model {
 		$this->_ee->cp			= $real_cp;
 		$this->_ee->db 			= $real_db;
 		$this->_ee->dbforge 	= ($real_dbforge) ? $real_dbforge : NULL;
+        $this->_ee->email       = ($real_email) ? $real_email : NULL;
 		$this->_ee->extensions	= $real_extensions;
 		$this->_ee->functions	= $real_functions;
 		$this->_ee->input 		= $real_input;
