@@ -100,6 +100,7 @@ class Testee_unit_test_case extends UnitTestCase {
 			'db_query',
 			'dbforge',
 			'dbutil',
+            'email',
 			'extensions',
 			'functions',
 			'input',
@@ -125,6 +126,7 @@ class Testee_unit_test_case extends UnitTestCase {
 		$this->_ee->cp			= $this->_get_mock('cp');
 		$this->_ee->db 			= $this->_get_mock('db');
 		$this->_ee->dbforge 	= $this->_get_mock('dbforge');
+		$this->_ee->email 	    = $this->_get_mock('email');
 		$this->_ee->extensions	= $this->_get_mock('extensions');
 		$this->_ee->functions	= $this->_get_mock('functions');
 		$this->_ee->input 		= $this->_get_mock('input');
