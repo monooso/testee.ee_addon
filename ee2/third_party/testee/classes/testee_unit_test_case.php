@@ -17,6 +17,7 @@ require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbforge' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbutil' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_email' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
