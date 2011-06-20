@@ -12,28 +12,28 @@ require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
 // Core.
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_config' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_loader' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_uri' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.config' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.input' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.lang' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.loader' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.output' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.uri' .EXT;
 
 // Database.
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbforge' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbutil' .EXT;
+require_once PATH_THIRD .'testee/mocks/database/mock.db' .EXT;
+require_once PATH_THIRD .'testee/mocks/database/mock.db_query' .EXT;
+require_once PATH_THIRD .'testee/mocks/database/mock.dbforge' .EXT;
+require_once PATH_THIRD .'testee/mocks/database/mock.dbutil' .EXT;
 
 // Helpers.
 
 // Libraries.
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_cp' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_email' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_session' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_template' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.cp' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.email' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.extensions' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.functions' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.session' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.template' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
