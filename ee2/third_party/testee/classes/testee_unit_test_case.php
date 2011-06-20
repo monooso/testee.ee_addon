@@ -11,22 +11,29 @@
 require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
 require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
 
+// Core.
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_config' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_cp' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbforge' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbutil' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_email' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_input' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_lang' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_loader' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_output' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_uri' .EXT;
+
+// Database.
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_db_query' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbforge' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_dbutil' .EXT;
+
+// Helpers.
+
+// Libraries.
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_cp' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_email' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_extensions' .EXT;
+require_once PATH_THIRD .'testee/classes/mocks/testee_mock_functions' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_session' .EXT;
 require_once PATH_THIRD .'testee/classes/mocks/testee_mock_template' .EXT;
-require_once PATH_THIRD .'testee/classes/mocks/testee_mock_uri' .EXT;
 
 class Testee_unit_test_case extends UnitTestCase {
 	
