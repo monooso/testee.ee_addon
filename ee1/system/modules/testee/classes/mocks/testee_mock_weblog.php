@@ -11,8 +11,6 @@
 
 class Testee_mock_weblog {
 
-    public $sql;
-
     /* --------------------------------------------------------------
      * PUBLIC PROPERTIES
      * --------------------------------------------------------------
@@ -67,6 +65,8 @@ class Testee_mock_weblog {
 	    $misc
      * ------------------------------------------------------------ */
 
+    public function __get($prop_name) {}
+    public function __set($prop_name, $prop_value) {}
 
     /* --------------------------------------------------------------
      * PUBLIC METHODS
