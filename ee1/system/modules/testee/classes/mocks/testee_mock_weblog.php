@@ -11,6 +11,8 @@
 
 class Testee_mock_weblog {
 
+    public $sql;
+
     /* --------------------------------------------------------------
      * PUBLIC PROPERTIES
      * --------------------------------------------------------------
@@ -64,10 +66,6 @@ class Testee_mock_weblog {
 	    $sql_cache_dir
 	    $misc
      * ------------------------------------------------------------ */
-
-    // Magic methods to access properties.
-    public function __get($prop_name) {}
-    public function __set($prop_name, $prop_value) {}
 
 
     /* --------------------------------------------------------------
