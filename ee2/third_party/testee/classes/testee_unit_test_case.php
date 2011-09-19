@@ -8,32 +8,33 @@
  * @copyright	Experience Internet
  */
 
-require_once PATH_THIRD .'testee/simpletest/unit_tester' .EXT;
-require_once PATH_THIRD .'testee/simpletest/mock_objects' .EXT;
+require_once PATH_THIRD .'testee/classes/testee_equal_without_whitespace_expectation.php';
+require_once PATH_THIRD .'testee/simpletest/unit_tester.php';
+require_once PATH_THIRD .'testee/simpletest/mock_objects.php';
 
 // Core.
-require_once PATH_THIRD .'testee/mocks/core/mock.config' .EXT;
-require_once PATH_THIRD .'testee/mocks/core/mock.input' .EXT;
-require_once PATH_THIRD .'testee/mocks/core/mock.lang' .EXT;
-require_once PATH_THIRD .'testee/mocks/core/mock.loader' .EXT;
-require_once PATH_THIRD .'testee/mocks/core/mock.output' .EXT;
-require_once PATH_THIRD .'testee/mocks/core/mock.uri' .EXT;
+require_once PATH_THIRD .'testee/mocks/core/mock.config.php';
+require_once PATH_THIRD .'testee/mocks/core/mock.input.php';
+require_once PATH_THIRD .'testee/mocks/core/mock.lang.php';
+require_once PATH_THIRD .'testee/mocks/core/mock.loader.php';
+require_once PATH_THIRD .'testee/mocks/core/mock.output.php';
+require_once PATH_THIRD .'testee/mocks/core/mock.uri.php';
 
 // Database.
-require_once PATH_THIRD .'testee/mocks/database/mock.db' .EXT;
-require_once PATH_THIRD .'testee/mocks/database/mock.db_query' .EXT;
-require_once PATH_THIRD .'testee/mocks/database/mock.dbforge' .EXT;
-require_once PATH_THIRD .'testee/mocks/database/mock.dbutil' .EXT;
+require_once PATH_THIRD .'testee/mocks/database/mock.db.php';
+require_once PATH_THIRD .'testee/mocks/database/mock.db_query.php';
+require_once PATH_THIRD .'testee/mocks/database/mock.dbforge.php';
+require_once PATH_THIRD .'testee/mocks/database/mock.dbutil.php';
 
 // Helpers.
 
 // Libraries.
-require_once PATH_THIRD .'testee/mocks/libraries/mock.cp' .EXT;
-require_once PATH_THIRD .'testee/mocks/libraries/mock.email' .EXT;
-require_once PATH_THIRD .'testee/mocks/libraries/mock.extensions' .EXT;
-require_once PATH_THIRD .'testee/mocks/libraries/mock.functions' .EXT;
-require_once PATH_THIRD .'testee/mocks/libraries/mock.session' .EXT;
-require_once PATH_THIRD .'testee/mocks/libraries/mock.template' .EXT;
+require_once PATH_THIRD .'testee/mocks/libraries/mock.cp.php';
+require_once PATH_THIRD .'testee/mocks/libraries/mock.email.php';
+require_once PATH_THIRD .'testee/mocks/libraries/mock.extensions.php';
+require_once PATH_THIRD .'testee/mocks/libraries/mock.functions.php';
+require_once PATH_THIRD .'testee/mocks/libraries/mock.session.php';
+require_once PATH_THIRD .'testee/mocks/libraries/mock.template.php';
 
 class Testee_unit_test_case extends UnitTestCase {
 	
