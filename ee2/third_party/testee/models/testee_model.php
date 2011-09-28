@@ -216,6 +216,7 @@ class Testee_model extends CI_Model {
         $real_functions     = $this->_ee->functions;
         $real_input         = $this->_ee->input;
         $real_lang          = $this->_ee->lang;
+        $real_layout        = $this->_ee->layout;
         $real_loader        = $this->_ee->load;
         $real_output        = $this->_ee->output;
         $real_session       = $this->_ee->session;
@@ -237,6 +238,7 @@ class Testee_model extends CI_Model {
         $this->_ee->functions   = $real_functions;
         $this->_ee->input       = $real_input;
         $this->_ee->lang        = $real_lang;
+        $this->_ee->layout      = $real_layout;
         $this->_ee->load        = $real_loader;
         $this->_ee->output      = $real_output;
         $this->_ee->session     = $real_session;
