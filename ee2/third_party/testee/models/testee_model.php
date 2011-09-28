@@ -6,7 +6,7 @@
  * @package     Testee
  * @author      Stephen Lewis <stephen@experienceinternet.co.uk>
  * @copyright   Experience Internet
- * @version     1.1.5
+ * @version     1.1.6
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
@@ -36,7 +36,7 @@ class Testee_model extends CI_Model {
         $this->_ee =& get_instance();
         
         $this->_package_name    = 'Testee';
-        $this->_package_version = '1.1.5';
+        $this->_package_version = '1.1.6';
     }
     
     
@@ -207,20 +207,30 @@ class Testee_model extends CI_Model {
          * mock objects during testing.
          */
     
-        $real_config        = $this->_ee->config;
-        $real_cp            = $this->_ee->cp;
-        $real_db            = $this->_ee->db;
-        $real_dbforge       = (isset($this->_ee->dbforge)) ? $this->_ee->dbforge : FALSE;
-        $real_email         = (isset($this->_ee->email)) ? $this->_ee->email : FALSE;
-        $real_extensions    = $this->_ee->extensions;
-        $real_functions     = $this->_ee->functions;
-        $real_input         = $this->_ee->input;
-        $real_lang          = $this->_ee->lang;
-        $real_loader        = $this->_ee->load;
-        $real_output        = $this->_ee->output;
-        $real_session       = $this->_ee->session;
-        $real_template      = (isset($this->_ee->TMPL)) ? $this->_ee->TMPL : FALSE;
-        $real_uri           = $this->_ee->uri;
+        $real_config      = $this->_ee->config;
+        $real_cp          = $this->_ee->cp;
+        $real_db          = $this->_ee->db;
+        $real_extensions  = $this->_ee->extensions;
+        $real_functions   = $this->_ee->functions;
+        $real_input       = $this->_ee->input;
+        $real_lang        = $this->_ee->lang;
+        $real_loader      = $this->_ee->load;
+        $real_output      = $this->_ee->output;
+        $real_session     = $this->_ee->session;
+        $real_uri         = $this->_ee->uri;
+
+        // May not be set...
+        $real_dbforge = (isset($this->_ee->dbforge))
+          ? $this->_ee->dbforge : FALSE;
+
+        $real_email = (isset($this->_ee->email))
+          ? $this->_ee->email : FALSE;
+
+        $real_layout = (isset($this->_ee->layout))
+          ? $this->_ee->layout : FALSE;
+
+        $real_template = (isset($this->_ee->TMPL))
+          ? $this->_ee->TMPL : FALSE;
     
         // Prepare the view variables.
         ob_start();
@@ -231,8 +241,6 @@ class Testee_model extends CI_Model {
         $this->_ee->config      = $real_config;
         $this->_ee->cp          = $real_cp;
         $this->_ee->db          = $real_db;
-        $this->_ee->dbforge     = ($real_dbforge) ? $real_dbforge : NULL;
-        $this->_ee->email       = ($real_email) ? $real_email : NULL;
         $this->_ee->extensions  = $real_extensions;
         $this->_ee->functions   = $real_functions;
         $this->_ee->input       = $real_input;
@@ -240,8 +248,13 @@ class Testee_model extends CI_Model {
         $this->_ee->load        = $real_loader;
         $this->_ee->output      = $real_output;
         $this->_ee->session     = $real_session;
-        $this->_ee->TMPL        = $real_template;
         $this->_ee->uri         = $real_uri;
+
+        // Optional.
+        if ($real_dbforge)      $this->_ee->dbforge = $real_dbforge;
+        if ($real_email)        $this->_ee->email   = $real_email;
+        if ($real_layout)       $this->_ee->layout  = $real_layout;
+        if ($real_template)     $this->_ee->TMPL    = $real_template;
     
         // Done!
         return $test_results;
