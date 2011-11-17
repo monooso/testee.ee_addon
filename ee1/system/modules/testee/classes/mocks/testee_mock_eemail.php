@@ -96,10 +96,8 @@ class Testee_mock_eemail {
 	public function validate_email($email) {}
 	public function word_wrap($str, $charlim = '') {}
 	public function write_header_string() {}
-	public function 
-	public function 
-	public function 
 	
+
 }
 
 
