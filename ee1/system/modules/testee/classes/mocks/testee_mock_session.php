@@ -33,10 +33,23 @@ class Testee_mock_session {
 	    $gc_probability
 	    $cache
 	 * ------------------------------------------------------------ */
-	
+
 	// Magic methods to access properties.
-	public function __get($prop_name) {}
-	public function __set($prop_name, $prop_value) {}
+  
+  /**
+   * Ran into loads of problems with the getters / setters and the `cache`
+   * property. In short, any attempt to do $SESS->cache['my_thing'] = 'blah'
+   * fails, because `cache` is an overloaded property.
+   *
+   * Worse, you can't declare a public (or private) property within a
+   * SimpleTest mock object.
+   *
+   * Ultimately, the only solution is to disable the getter and setter methods,
+   * which may yet result in all manner of legacy issues. Stupid EE1.
+   */
+
+	// public function __get($prop_name) {}
+	// public function __set($prop_name, $prop_value) {}
 	
 	
 	/* --------------------------------------------------------------
