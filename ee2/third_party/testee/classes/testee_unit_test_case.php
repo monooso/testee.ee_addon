@@ -34,7 +34,6 @@ require_once PATH_THIRD .'testee/mocks/libraries/mock.email.php';
 require_once PATH_THIRD .'testee/mocks/libraries/mock.extensions.php';
 require_once PATH_THIRD .'testee/mocks/libraries/mock.functions.php';
 require_once PATH_THIRD .'testee/mocks/libraries/mock.layout.php';
-require_once PATH_THIRD .'testee/mocks/libraries/mock.session.php';
 require_once PATH_THIRD .'testee/mocks/libraries/mock.template.php';
 
 
@@ -82,7 +81,7 @@ class Testee_unit_test_case extends UnitTestCase {
    * @access  public
    * @param array   $mock_methods   Additional 'ad hoc' methods for the mock
    *                                objects. e.g. array('db' => array(
-   *                                  'new_method_a', 'new_method_b'));
+   *                                'new_method_a', 'new_method_b'));
    * @return  void
    */
   public function setUp(Array $mock_methods = array())
@@ -96,7 +95,7 @@ class Testee_unit_test_case extends UnitTestCase {
     
     $mocks = array('config', 'cp', 'db', 'db_query', 'dbforge', 'dbutil',
       'email', 'extensions', 'functions', 'input', 'lang', 'layout',
-      'loader', 'output', 'session', 'template', 'uri');
+      'loader', 'output', 'template', 'uri');
     
     foreach ($mocks AS $mock)
     {
@@ -107,6 +106,7 @@ class Testee_unit_test_case extends UnitTestCase {
       Mock::generate('Testee_mock_' .$mock,
         $class_prefix .'_mock_' .$mock, $methods);
     }
+
     
     // Assign the mock objects to the EE superglobal.
     $this->_ee->config    = $this->_get_mock('config');
@@ -121,10 +121,16 @@ class Testee_unit_test_case extends UnitTestCase {
     $this->_ee->layout    = $this->_get_mock('layout');
     $this->_ee->load      = $this->_get_mock('loader');
     $this->_ee->output    = $this->_get_mock('output');
-    $this->_ee->session   = $this->_get_mock('session');
     $this->_ee->TMPL      = $this->_get_mock('template');
     $this->_ee->uri       = $this->_get_mock('uri');
     
+    // First step towards getting rid of the dummy mocks...
+    require_once BASEPATH .'libraries/Session.php';
+    Mock::generate('CI_Session', $class_prefix .'_mock_session');
+
+    $this->_ee->session = $this->_get_mock('session');
+    $this->_ee->session->cache = array();
+
     // EE compatibility layer
     $this->_set_ee_mock_methods();
   }
