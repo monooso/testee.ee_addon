@@ -6,7 +6,7 @@
  * @author      Stephen Lewis (http://github.com/experience/)
  * @copyright   Experience Internet
  * @package     Testee
- * @version     2.0.0
+ * @version     2.1.0
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
@@ -37,7 +37,7 @@ class Testee_model extends CI_Model {
 
     $this->EE               =& get_instance();
     $this->_package_name    = $package_name ? $package_name : 'Testee';
-    $this->_package_version = $package_version ? $package_version : '2.0.0';
+    $this->_package_version = $package_version ? $package_version : '2.1.0';
   }
   
   
