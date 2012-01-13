@@ -138,6 +138,7 @@ class Testee_unit_test_case extends UnitTestCase {
     $this->_ee->layout      = $this->_get_mock('layout');
     $this->_ee->load        = $this->_get_mock('loader');
     $this->_ee->output      = $this->_get_mock('output');
+    $this->_ee->session     = $this->_get_mock('session');
     $this->_ee->TMPL        = $this->_get_mock('template');
     $this->_ee->uri         = $this->_get_mock('uri');
     
