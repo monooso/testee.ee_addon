@@ -17,6 +17,7 @@ require_once BASEPATH .'database/DB_active_rec.php';
 require_once BASEPATH .'database/DB_forge.php';
 require_once BASEPATH .'database/DB_result.php';
 require_once BASEPATH .'database/DB_utility.php';
+require_once BASEPATH .'libraries/Javascript.php';
 
 require_once APPPATH .'core/EE_Config.php';
 require_once APPPATH .'core/EE_Input.php';
@@ -115,6 +116,7 @@ class Testee_unit_test_case extends UnitTestCase {
     Mock::generate('EE_Extensions', $class_prefix .'_mock_extensions');
     Mock::generate('EE_Functions',  $class_prefix .'_mock_functions');
     Mock::generate('EE_Input',      $class_prefix .'_mock_input');
+    Mock::generate('CI_Javascript', $class_prefix .'_mock_javascript');
     Mock::generate('EE_Lang',       $class_prefix .'_mock_lang');
     Mock::generate('Layout',        $class_prefix .'_mock_layout');
     Mock::generate('EE_Loader',     $class_prefix .'_mock_loader');
@@ -132,6 +134,7 @@ class Testee_unit_test_case extends UnitTestCase {
     $this->EE->extensions   = $this->_get_mock('extensions');
     $this->EE->functions    = $this->_get_mock('functions');
     $this->EE->input        = $this->_get_mock('input');
+    $this->EE->javascript   = $this->_get_mock('javascript');
     $this->EE->lang         = $this->_get_mock('lang');
     $this->EE->layout       = $this->_get_mock('layout');
     $this->EE->load         = $this->_get_mock('loader');
