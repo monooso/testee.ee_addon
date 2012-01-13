@@ -1,35 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('Invalid file request');
 
 /**
- * @package		Testee
- * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
- * @copyright	Experience Internet
+ * @author		  Stephen Lewis (http://github.com/experience/)
+ * @copyright	  Experience Internet
+ * @package		  Testee
  */
 
-require_once PATH_THIRD .'testee/classes/testee_base' .EXT;
+require_once PATH_THIRD .'testee/classes/testee_base.php';
 
 class Testee_test extends Testee_base {
 	
-	/* --------------------------------------------------------------
-	 * PROTECTED PROPERTIES
-	 * ------------------------------------------------------------ */
-	
-	/**
-	 * Test file name.
-	 *
-	 * @access	protected
-	 * @var		string
-	 */
 	protected $_file_name = '';
-	
-	/**
-	 * Test file path.
-	 *
-	 * @access	protected
-	 * @var		string
-	 */
 	protected $_file_path = '';
-	
 	
 	
 	/* --------------------------------------------------------------
@@ -47,8 +29,10 @@ class Testee_test extends Testee_base {
 	{
 		parent::__construct($props);
 	}
+
 	
 }
 
+
 /* End of file		: testee_test.php */
-/* File location	: /system/expressionengine/third_party/testee/classes/testee_test.php */
+/* File location	: third_party/testee/classes/testee_test.php */

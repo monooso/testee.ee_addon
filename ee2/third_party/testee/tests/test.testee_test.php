@@ -1,61 +1,58 @@
 <?php
 
 /**
- * Test-driven add-on development module.
+ * Tests for the Testee_test class.
  *
- * @package		Testee
- * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
- * @copyright	Experience Internet
+ * @author      Stephen Lewis (http://github.com/experience/)
+ * @copyright   Experience Internet
+ * @package     Testee
  */
 
-if (!class_exists('Testee_test')) { require_once PATH_THIRD.'testee/classes/Testee_test'.EXT; }
+require_once PATH_THIRD .'testee/classes/testee_test.php';
 
 class Test_testee_test extends Testee_unit_test_case {
-	
-	private $_test;
-	
-	function setUp()
-	{
-		$this->_test = new Testee_test();
-	}
-	
-	
-	function tearDown()
-	{
-		// Do nothing.
-	}
-	
-	
-	function test_construct()
-	{
-		$test = new Testee_test(array(
-			'file_name'	=> 'example_test.php',
-			'file_path'	=> '/path/to/test/example_test.php'
-		));
-		
-		$this->assertEqual($test->file_name, 'example_test.php');
-		$this->assertEqual($test->file_path, '/path/to/test/example_test.php');
-		$this->assertNotEqual($test->file_name, 'wibble');
-		$this->assertNotEqual($test->file_path, 'wibble');
-	}
-	
-	
-	function test_set_file_name()
-	{
-		$this->_test->file_name = 'example_test.php';
-		
-		$this->assertEqual($this->_test->file_name, 'example_test.php');
-		$this->assertNotEqual($this->_test->file_name, 'wibble');
-	}
-	
-	
-	function test_set_file_path()
-	{
-		$this->_test->file_path = '/path/to/test/example_test.php';
-		
-		$this->assertEqual($this->_test->file_path, '/path/to/test/example_test.php');
-		$this->assertNotEqual($this->_test->file_path, 'wibble');
-	}
+  
+  private $_props;
+  private $_subject;
+
+
+  /* --------------------------------------------------------------
+   * PUBLIC METHODS
+   * ------------------------------------------------------------ */
+  
+  public function setUp()
+  {
+    $this->_props = array(
+      'file_name' => 'example_file.php',
+      'file_path' => '/path/to/example_file.php'
+    );
+
+    $this->_subject = new Testee_test($this->_props);
+  }
+
+
+  public function test__file_name__implicit_getter_retrieves_private_property()
+  {
+    $this->assertIdentical($this->_props['file_name'],
+      $this->_subject->file_name);
+  }
+
+
+  public function test__file_path__implicit_getter_retrieves_private_property()
+  {
+    $this->assertIdentical($this->_props['file_path'],
+      $this->_subject->file_path);
+  }
+
+
+  public function test__getter__returns_null_for_unknown_private_property()
+  {
+    $this->assertIdentical(NULL, $this->_subject->invalid);
+  }
+  
+  
 }
 
-?>
+
+/* End of file      : test.testee_test.php */
+/* File location    : third_party/testee/tests/test.testee_test.php */
