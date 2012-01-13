@@ -40,7 +40,6 @@ require_once PATH_THIRD .'testee/simpletest/mock_objects.php';
 class Testee_unit_test_case extends UnitTestCase {
   
   protected $EE;
-  protected $_ee;
   
   // @see _initialize_active_record_methods
   protected $_active_record_methods = array(
@@ -73,8 +72,7 @@ class Testee_unit_test_case extends UnitTestCase {
    */
   public function __construct()
   {
-    // Retrieve the EE superglobal. Sorry, Singleton. Ahem.
-    $this->_ee =& get_instance();
+    $this->EE =& get_instance();
   }
   
   
@@ -126,21 +124,21 @@ class Testee_unit_test_case extends UnitTestCase {
     Mock::generate('EE_URI',        $class_prefix .'_mock_uri');
 
     // Assign the mock objects to the EE superglobal.
-    $this->_ee->config      = $this->_get_mock('config');
-    $this->_ee->cp          = $this->_get_mock('cp');
-    $this->_ee->db          = $this->_get_mock('db');
-    $this->_ee->dbforge     = $this->_get_mock('dbforge');
-    $this->_ee->email       = $this->_get_mock('email');
-    $this->_ee->extensions  = $this->_get_mock('extensions');
-    $this->_ee->functions   = $this->_get_mock('functions');
-    $this->_ee->input       = $this->_get_mock('input');
-    $this->_ee->lang        = $this->_get_mock('lang');
-    $this->_ee->layout      = $this->_get_mock('layout');
-    $this->_ee->load        = $this->_get_mock('loader');
-    $this->_ee->output      = $this->_get_mock('output');
-    $this->_ee->session     = $this->_get_mock('session');
-    $this->_ee->TMPL        = $this->_get_mock('template');
-    $this->_ee->uri         = $this->_get_mock('uri');
+    $this->EE->config       = $this->_get_mock('config');
+    $this->EE->cp           = $this->_get_mock('cp');
+    $this->EE->db           = $this->_get_mock('db');
+    $this->EE->dbforge      = $this->_get_mock('dbforge');
+    $this->EE->email        = $this->_get_mock('email');
+    $this->EE->extensions   = $this->_get_mock('extensions');
+    $this->EE->functions    = $this->_get_mock('functions');
+    $this->EE->input        = $this->_get_mock('input');
+    $this->EE->lang         = $this->_get_mock('lang');
+    $this->EE->layout       = $this->_get_mock('layout');
+    $this->EE->load         = $this->_get_mock('loader');
+    $this->EE->output       = $this->_get_mock('output');
+    $this->EE->session      = $this->_get_mock('session');
+    $this->EE->TMPL         = $this->_get_mock('template');
+    $this->EE->uri          = $this->_get_mock('uri');
     
     // EE compatibility layer
     $this->_initialize_active_record_methods();
@@ -185,7 +183,7 @@ class Testee_unit_test_case extends UnitTestCase {
   {
     foreach ($this->_active_record_methods AS $method)
     {
-      $this->_ee->db->setReturnReference($method, $this->_ee->db);
+      $this->EE->db->setReturnReference($method, $this->EE->db);
     }
   }
 
