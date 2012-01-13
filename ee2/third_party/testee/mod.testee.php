@@ -1,14 +1,18 @@
-<?php if ( ! defined('EXT')) exit('Invalid file request');
+<?php if ( ! defined('BASEPATH')) exit('Invalid file request');
 
 /**
  * Test-driven add-on development module.
  *
- * @package		Testee
- * @author		Stephen Lewis <stephen@experienceinternet.co.uk>
- * @copyright	Experience Internet
+ * @author      Stephen Lewis (http://github.com/experience/)
+ * @copyright   Experience Internet
+ * @package     Testee
  */
 
 class Testee {
+
+  /* --------------------------------------------------------------
+   * PUBLIC METHODS
+   * ------------------------------------------------------------ */
 
 	/**
 	 * Constructor.
@@ -20,9 +24,10 @@ class Testee {
 	{
 		// Does nothing.
 	}
+
 	
 }
 
 
 /* End of file		: mod.testee.php */
-/* File location	: /system/expressionengine/third_party/testee/mod.testee.php */
+/* File location	: third_party/testee/mod.testee.php */

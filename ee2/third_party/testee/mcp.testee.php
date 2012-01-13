@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('Invalid file request');
 
 /**
- * Test-driven add-on development module.
+ * Testee module control panel.
  *
  * @author      Stephen Lewis (http://github.com/experience/)
  * @copyright   Experience Internet
