@@ -3,14 +3,18 @@
 /**
  * Tests for the Testee_model class.
  *
- * @package			Testee
- * @author			Stephen Lewis <stephen@experienceinternet.co.uk>
+ * @author			Stephen Lewis (http://github.com/experience/)
  * @copyright		Experience Internet
+ * @package			Testee
  */
 
-require_once PATH_THIRD .'testee/models/testee_model' .EXT;
+require_once PATH_THIRD .'testee/models/testee_model.php';
 
 class Test_testee_model extends Testee_unit_test_case {
+
+  private $_package_name;
+  private $_package_version;
+  private $_subject;
 
 	/* --------------------------------------------------------------
 	 * PUBLIC METHODS
@@ -25,7 +29,12 @@ class Test_testee_model extends Testee_unit_test_case {
 	public function setUp()
 	{
 		parent::setUp();
-		$this->_model = new Testee_model();
+
+    $this->_package_name    = 'example_package';
+    $this->_package_version = '1.2.3';
+
+    $this->_subject = new Testee_model($this->_package_name,
+      $this->_package_version);
 	}
 
 
@@ -34,151 +43,135 @@ class Test_testee_model extends Testee_unit_test_case {
 	 * TEST METHODS
 	 * ------------------------------------------------------------ */
 	
-	public function test_get_package_name()
+	public function test__get_package_name__returns_correct_package_name()
 	{
-		$this->assertEqual(
-			strtolower($this->_model->get_package_name()),
-			'testee'
-		);
+    $this->assertIdentical($this->_package_name,
+      $this->_subject->get_package_name());
+	}
+
+
+	public function tests__get_package_version__retrieves_valid_version_number()
+	{
+    $this->assertIdentical($this->_package_name,
+      $this->_subject->get_package_name());
+	}
+
+
+	public function test__get_theme_url__works_with_trailing_slash()
+	{
+    $themes_url = 'http://example.com/themes/';
+    $full_url   = $themes_url .'third_party/' .$this->_package_name .'/';
+
+		$this->EE->config->expectOnce('item', array('theme_folder_url'));
+		$this->EE->config->setReturnValue('item', $themes_url);
 		
-		$this->assertNotEqual(
-			strtolower($this->_model->get_package_name()),
-			'wibble'
-		);
+    $this->assertIdentical($full_url, $this->_subject->get_theme_url());
 	}
 
 
-	public function test_get_package_version()
+	public function test__get_theme_url__works_without_trailing_slash()
 	{
-		$this->assertPattern(
-			'/^[0-9abcdehlprtv\.]+$/i',
-			$this->_model->get_package_version()
-		);
-	}
+    $themes_url = 'http://example.com/themes';
+    $full_url   = $themes_url .'/third_party/' .$this->_package_name .'/';
 
-
-	public function get_tests()
-	{
-		$this->assertIsA(
-			$this->_model->get_tests(),
-			'array'
-		);
-
-		$this->assertIsNotA(
-			$this->_model->get_tests(),
-			'string'
-		);
-	}
-
-
-	public function test_get_theme_url()
-	{
-		$this->_ee->config->expectOnce('item', array('theme_folder_url'));
-		$this->_ee->config->setReturnValue('item', 'path/to/themes/', array('theme_folder_url'));
+		$this->EE->config->expectOnce('item', array('theme_folder_url'));
+		$this->EE->config->setReturnValue('item', $themes_url);
 		
-		$this->assertPattern(
-			'#^path/to/themes/third_party/[a-z\-_]+/$#i',
-			$this->_model->get_theme_url()
-		);
+    $this->assertIdentical($full_url, $this->_subject->get_theme_url());
 	}
 
 
-	public function test_install_module()
+	public function test__install_module__adds_module_to_db_and_returns_true()
 	{
-		$db = $this->_ee->db;
-		
-		$db->expectOnce('insert', array('modules', array(
-			'has_cp_backend'		=> 'y',
+    $module_data = array(
+			'has_cp_backend'		  => 'y',
 			'has_publish_fields'	=> 'n',
-			'module_name'			=> $this->_model->get_package_name(),
-			'module_version'		=> $this->_model->get_package_version()
-		)));
-		
-		$this->assertIdentical(
-			$this->_model->install_module(),
-			TRUE
-		);
+			'module_name'			    => $this->_subject->get_package_name(),
+			'module_version'		  => $this->_subject->get_package_version()
+    );
+
+		$this->EE->db->expectOnce('insert', array('modules', $module_data));
+		$this->assertIdentical(TRUE, $this->_subject->install_module());
 	}
 
 
-	public function test_uninstall_module()
+	public function test__uninstall_module__removes_module_from_db_and_returns_true()
 	{
-		// Shortcuts.
-		$db = $this->_ee->db;
+    $module_id  = '123';
+    $db_result  = $this->_get_mock('db_query');
+		$db_row     = (object) array('module_id' => $module_id);
 		
-		// Mock query row.
-		$result_row = new StdClass();
-		$result_row->module_id = 'test';
+    // Retrieve the module ID.
+    $this->EE->db->expectOnce('select', array('module_id'));
+
+    $this->EE->db->expectOnce('get_where', array('modules',
+      array('module_name' => $this->_package_name)));
+
+    $this->EE->db->setReturnReference('get_where', $db_result);
+
+    $db_result->expectOnce('num_rows');
+    $db_result->setReturnValue('num_rows', 1);
+
+		$db_result->expectOnce('row');
+		$db_result->setReturnReference('row', $db_row);
+
+    // Delete the module.
+    $this->EE->db->expectCallCount('delete', 2);
+
+    $this->EE->db->expectAt(0, 'delete', array('module_member_groups',
+      array('module_id' => $module_id)));
 		
-		// Mock query object.
-		$module_result =& $this->_get_mock('db_query');
-		$module_result->expectOnce('row');
-		$module_result->setReturnReference('row', $result_row);
-		
-		// $db->select
-		$db->setReturnReference('select', $db);
-		
-		// $db->get_where
-		$db->expectOnce('get_where', array('modules', array('module_name' => $this->_model->get_package_name())));
-		$db->setReturnReference('get_where', $module_result);
-		
-		// $db->delete
-		$db->expectCallCount('delete', 2);
-		$db->expectAt(0, 'delete', array('module_member_groups', array('module_id' => $result_row->module_id)));
-		$db->expectAt(1, 'delete', array('modules', array('module_name' => $this->_model->get_package_name())));
-		
-		// Run.
-		$this->assertIdentical(
-			$this->_model->uninstall_module(),
-			TRUE
-		);
-	}
+    $this->EE->db->expectAt(1, 'delete', array('modules',
+      array('module_name' => $this->_package_name)));
+
+		$this->assertIdentical(TRUE, $this->_subject->uninstall_module());
+  }
 
 
-	public function test_update_module__no_update()
-	{
-		// Dummy values.
-		$installed_version	= '1.0.0';
-		$package_version	= '1.0.0';
+  public function test__uninstall_module__returns_false_if_module_not_found()
+  {
+    $db_result = $this->_get_mock('db_query');
 		
-		// Tests.
-		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
-	}
-	
-	
-	public function test_update_module__update()
-	{
-		// Dummy values.
-		$installed_version	= '1.0.0b1';
-		$package_version	= '1.0.0b2';
-		
-		// Tests.
-		$this->assertIdentical(TRUE, $this->_model->update_module($installed_version, $package_version));
-	}
-	
-	
-	public function test_update_module__not_installed()
-	{
-		// Dummy values.
-		$installed_version	= '';
-		$package_version	= '1.0.0';
-		
-		// Tests.
-		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
-	}
-	
-	
-	public function test_update_module__no_package_version()
-	{
-		// Dummy values.
-		$installed_version	= '1.0.0';
-		$package_version	= '';
-		
-		// Tests.
-		$this->assertIdentical(FALSE, $this->_model->update_module($installed_version, $package_version));
-	}
+    // Retrieve the module ID.
+    $this->EE->db->expectOnce('select', array('module_id'));
 
+    $this->EE->db->expectOnce('get_where', array('modules',
+      array('module_name' => $this->_package_name)));
+
+    $this->EE->db->setReturnReference('get_where', $db_result);
+
+    $db_result->expectOnce('num_rows');
+    $db_result->setReturnValue('num_rows', 0);
+		$db_result->expectNever('row');
+
+    // Should never get this far.
+    $this->EE->db->expectNever('delete');
+
+		$this->assertIdentical(FALSE, $this->_subject->uninstall_module());
+  }
+
+
+  public function test__update_module__returns_false_if_no_update_required()
+  {
+    $subject = $this->_subject;
+
+    $this->assertIdentical(FALSE, $subject->update_module('1.0.0', '0.9.0'));
+    $this->assertIdentical(FALSE, $subject->update_module('1.0b2', '1.0b1'));
+    $this->assertIdentical(FALSE, $subject->update_module('1.0.0', ''));
+  }
+
+
+  public function test__update_module__returns_true_if_update_required()
+  {
+    $subject = $this->_subject;
+
+    $this->assertIdentical(TRUE, $subject->update_module('1.0.0', '1.0.1'));
+    $this->assertIdentical(TRUE, $subject->update_module('1.0b2', '1.0b3'));
+    $this->assertIdentical(TRUE, $subject->update_module('', '0.1.0'));
+  }
+	
+	
 }
 
 /* End of file		: test_testee_model.php */
-/* File location	: third_party/testee/tests/test_testee_model.php */
+/* File location	: third_party/testee/tests/test.testee_model.php */
