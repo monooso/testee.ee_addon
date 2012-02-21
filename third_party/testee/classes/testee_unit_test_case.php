@@ -11,13 +11,13 @@
 // Classes extended by, but not 'required' by the 'mock' classes, below.
 require_once BASEPATH .'database/DB_driver.php';
 require_once BASEPATH .'libraries/Email.php';
+require_once BASEPATH .'libraries/Javascript.php';
 
 // Classes mocked by Testee.
 require_once BASEPATH .'database/DB_active_rec.php';
 require_once BASEPATH .'database/DB_forge.php';
 require_once BASEPATH .'database/DB_result.php';
 require_once BASEPATH .'database/DB_utility.php';
-require_once BASEPATH .'libraries/Javascript.php';
 
 require_once APPPATH .'core/EE_Config.php';
 require_once APPPATH .'core/EE_Input.php';
@@ -28,6 +28,7 @@ require_once APPPATH .'core/EE_URI.php';
 
 require_once APPPATH .'libraries/Cp.php';
 require_once APPPATH .'libraries/EE_Email.php';
+require_once APPPATH .'libraries/EE_Javascript.php';
 require_once APPPATH .'libraries/Extensions.php';
 require_once APPPATH .'libraries/Functions.php';
 require_once APPPATH .'libraries/Layout.php';
@@ -116,7 +117,7 @@ class Testee_unit_test_case extends UnitTestCase {
     Mock::generate('EE_Extensions', $class_prefix .'_mock_extensions');
     Mock::generate('EE_Functions',  $class_prefix .'_mock_functions');
     Mock::generate('EE_Input',      $class_prefix .'_mock_input');
-    Mock::generate('CI_Javascript', $class_prefix .'_mock_javascript');
+    Mock::generate('EE_Javascript', $class_prefix .'_mock_javascript');
     Mock::generate('EE_Lang',       $class_prefix .'_mock_lang');
     Mock::generate('Layout',        $class_prefix .'_mock_layout');
     Mock::generate('EE_Loader',     $class_prefix .'_mock_loader');
