@@ -6,23 +6,23 @@
  * @author      Stephen Lewis (http://github.com/experience/)
  * @copyright   Experience Internet
  * @package     Testee
- * @version     2.1.0
+ * @version     2.1.1
  */
 
 require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
 
 class Testee_model extends CI_Model {
-    
+
   private $EE;
   private $_package_name;
   private $_package_version;
-  
-  
-  
+
+
+
   /* --------------------------------------------------------------
    * PUBLIC METHODS
    * ------------------------------------------------------------ */
-  
+
   /**
    * Constructor.
    *
@@ -37,10 +37,10 @@ class Testee_model extends CI_Model {
 
     $this->EE               =& get_instance();
     $this->_package_name    = $package_name ? $package_name : 'Testee';
-    $this->_package_version = $package_version ? $package_version : '2.1.0';
+    $this->_package_version = $package_version ? $package_version : '2.1.1';
   }
-  
-  
+
+
   /**
    * Returns the child sub-directories of the specified directory.
    *
@@ -52,8 +52,8 @@ class Testee_model extends CI_Model {
   {
     return $this->_get_directory_contents($dir_path, 'DIRECTORY');
   }
-  
-  
+
+
   /**
    * Returns the child files of the specified directory.
    *
@@ -65,8 +65,8 @@ class Testee_model extends CI_Model {
   {
     return $this->_get_directory_contents($dir_path, 'FILE');
   }
-  
-  
+
+
   /**
    * Returns the package name.
    *
@@ -77,8 +77,8 @@ class Testee_model extends CI_Model {
   {
     return $this->_package_name;
   }
-  
-  
+
+
   /**
    * Returns the package version.
    *
@@ -89,8 +89,8 @@ class Testee_model extends CI_Model {
   {
     return $this->_package_version;
   }
-  
-  
+
+
   /**
    * Returns an array of all the available tests. Testee assumes that
    * each add-on will define its own tests, in a /third_party/add_on/tests/
@@ -102,17 +102,17 @@ class Testee_model extends CI_Model {
   public function get_tests()
   {
     $tests  = array();
-    
+
     // Retrieve the contents of the third-party add-ons directory.
     if ( ! $all_addons = $this->get_directory_names(PATH_THIRD))
     {
       return $tests;
     }
-    
+
     foreach ($all_addons AS $addon)
     {
       $test_dir_path = PATH_THIRD .$addon .DIRECTORY_SEPARATOR .'tests';
-      
+
       if ( ! $all_tests = $this->get_file_names($test_dir_path))
       {
         continue;
@@ -120,20 +120,20 @@ class Testee_model extends CI_Model {
 
       $test_pattern = '/^test[_|\.]([^\.]*)\.php$/i';
       $addon_tests  = array();
-      
+
       foreach ($all_tests AS $test)
       {
         if ( ! preg_match($test_pattern, $test))
         {
           continue;
         }
-        
+
         $addon_tests[] = new Testee_test(array(
           'file_name' => $test,
           'file_path' => $test_dir_path .DIRECTORY_SEPARATOR .$test
         ));
       }
-      
+
       if ($addon_tests)
       {
         $tests[] = new Testee_addon(array(
@@ -142,11 +142,11 @@ class Testee_model extends CI_Model {
         ));
       }
     }
-    
+
     return $tests;
   }
 
-  
+
   /**
    * Run the tests.
    *
@@ -162,19 +162,19 @@ class Testee_model extends CI_Model {
     {
       throw new Exception('Missing test path(s).');
     }
-    
+
     // Get rid of E_DEPRECATION errors for anybody using PHP5.3.
     if (phpversion() >= 5.3)
     {
       error_reporting(error_reporting() & ~E_DEPRECATED);
     }
-    
+
     // Load the unit tester base class, so the tests don't have to.
     require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
-    
+
     // Load the custom reporter.
     require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
-    
+
     // Create the Test Suite.
     $test_suite = new TestSuite('Testee Test Suite');
 
@@ -187,10 +187,10 @@ class Testee_model extends CI_Model {
        * @author  Bjørn Børresen (http://twitter.com/bjornbjorn)
        * @since   0.9.0
        */
-      
+
       $package_path = explode(DIRECTORY_SEPARATOR,
         str_replace(PATH_THIRD, '', $path));
-      
+
       if (count($package_path) == 3
         && $package_path[1] == 'tests'
         && file_exists($path)
@@ -251,8 +251,8 @@ class Testee_model extends CI_Model {
 
     return $test_results;
   }
-  
-  
+
+
   /**
    * Returns the `theme` folder URL.
    *
@@ -264,11 +264,11 @@ class Testee_model extends CI_Model {
     $url = $this->EE->config->item('theme_folder_url');
     $url .= substr($url, -1) == '/' ? 'third_party/' : '/third_party/';
     $url .= strtolower($this->get_package_name()) .'/';
-    
+
     return $url;
   }
-  
-  
+
+
   /**
    * Installs the module.
    *
@@ -332,16 +332,16 @@ class Testee_model extends CI_Model {
     {
       return FALSE;
     }
-    
+
     return TRUE;
   }
-  
-  
-  
+
+
+
   /* --------------------------------------------------------------
    * PRIVATE METHODS
    * ------------------------------------------------------------ */
-  
+
   /**
    * Returns the contents of a directory.
    *
@@ -356,12 +356,12 @@ class Testee_model extends CI_Model {
   {
     $return     = array();
     $item_type  = strtoupper($item_type);
-    
+
     if ($dir_handle = @opendir($dir_path))
     {
       $dir_path = rtrim(realpath($dir_path), DIRECTORY_SEPARATOR)
         .DIRECTORY_SEPARATOR;
-      
+
       while (($dir_item = readdir($dir_handle)) !== FALSE)
       {
         // Ignore any hidden files or directories.
@@ -369,7 +369,7 @@ class Testee_model extends CI_Model {
         {
           continue;
         }
-        
+
         switch ($item_type)
         {
           case 'DIRECTORY':
@@ -378,25 +378,27 @@ class Testee_model extends CI_Model {
               $return[] = $dir_item;
             }
             break;
-              
+
           case 'FILE':
             if (is_file($dir_path .$dir_item))
             {
               $return[] = $dir_item;
             }
             break;
-              
+
           default:
             continue;
             break;
         }
       }
     }
-    
+
     return $return;
   }
-    
+
+
 }
+
 
 /* End of file      : testee_model.php */
 /* File location    : third_party/testee/models/testee_model.php */
