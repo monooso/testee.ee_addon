@@ -12,6 +12,7 @@
 require_once BASEPATH .'database/DB_driver.php';
 require_once BASEPATH .'libraries/Email.php';
 require_once BASEPATH .'libraries/Javascript.php';
+require_once BASEPATH .'libraries/Typography.php';
 
 // Classes mocked by Testee.
 require_once BASEPATH .'database/DB_active_rec.php';
@@ -29,6 +30,7 @@ require_once APPPATH .'core/EE_URI.php';
 require_once APPPATH .'libraries/Cp.php';
 require_once APPPATH .'libraries/EE_Email.php';
 require_once APPPATH .'libraries/EE_Javascript.php';
+require_once APPPATH .'libraries/EE_Typography.php';
 require_once APPPATH .'libraries/Extensions.php';
 require_once APPPATH .'libraries/Functions.php';
 require_once APPPATH .'libraries/Layout.php';
@@ -108,23 +110,24 @@ class Testee_unit_test_case extends UnitTestCase {
       $this->_mysql_methods);
 
     // Everything else is much more straightforward.
-    Mock::generate('EE_Config',     $class_prefix .'_mock_config');
-    Mock::generate('Cp',            $class_prefix .'_mock_cp');
     Mock::generate('CI_DB_result',  $class_prefix .'_mock_db_query');
     Mock::generate('CI_DB_forge',   $class_prefix .'_mock_dbforge');
     Mock::generate('CI_DB_utility', $class_prefix .'_mock_dbutil');
+    Mock::generate('Cp',            $class_prefix .'_mock_cp');
+    Mock::generate('EE_Config',     $class_prefix .'_mock_config');
     Mock::generate('EE_Email',      $class_prefix .'_mock_email');
     Mock::generate('EE_Extensions', $class_prefix .'_mock_extensions');
     Mock::generate('EE_Functions',  $class_prefix .'_mock_functions');
     Mock::generate('EE_Input',      $class_prefix .'_mock_input');
     Mock::generate('EE_Javascript', $class_prefix .'_mock_javascript');
     Mock::generate('EE_Lang',       $class_prefix .'_mock_lang');
-    Mock::generate('Layout',        $class_prefix .'_mock_layout');
     Mock::generate('EE_Loader',     $class_prefix .'_mock_loader');
     Mock::generate('EE_Output',     $class_prefix .'_mock_output');
     Mock::generate('EE_Session',    $class_prefix .'_mock_session');
     Mock::generate('EE_Template',   $class_prefix .'_mock_template');
+    Mock::generate('EE_Typography', $class_prefix .'_mock_typography');
     Mock::generate('EE_URI',        $class_prefix .'_mock_uri');
+    Mock::generate('Layout',        $class_prefix .'_mock_layout');
 
     // Assign the mock objects to the EE superglobal.
     $this->EE->config       = $this->_get_mock('config');
@@ -142,6 +145,7 @@ class Testee_unit_test_case extends UnitTestCase {
     $this->EE->output       = $this->_get_mock('output');
     $this->EE->session      = $this->_get_mock('session');
     $this->EE->TMPL         = $this->_get_mock('template');
+    $this->EE->typography   = $this->_get_mock('typography');
     $this->EE->uri          = $this->_get_mock('uri');
     
     // EE compatibility layer

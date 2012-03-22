@@ -224,6 +224,9 @@ class Testee_model extends CI_Model {
     $real_layout    = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
     $real_template  = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
 
+    $real_typography = (isset($this->EE->typography))
+      ? $this->EE->typography : FALSE;
+
     // Prepare the view variables.
     ob_start();
     $test_suite->run(new Testee_reporter());
@@ -244,10 +247,11 @@ class Testee_model extends CI_Model {
     $this->EE->uri        = $real_uri;
 
     // The optional extras.
-    if ($real_dbforge)    $this->EE->dbforge = $real_dbforge;
-    if ($real_email)      $this->EE->email   = $real_email;
-    if ($real_layout)     $this->EE->layout  = $real_layout;
-    if ($real_template)   $this->EE->TMPL    = $real_template;
+    if ($real_dbforge)    $this->EE->dbforge    = $real_dbforge;
+    if ($real_email)      $this->EE->email      = $real_email;
+    if ($real_layout)     $this->EE->layout     = $real_layout;
+    if ($real_template)   $this->EE->TMPL       = $real_template;
+    if ($real_typography) $this->EE->typography = $real_typography;
 
     return $test_results;
   }
