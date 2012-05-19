@@ -211,7 +211,6 @@ class Testee_model extends CI_Model {
     $real_extensions  = $this->EE->extensions;
     $real_functions   = $this->EE->functions;
     $real_input       = $this->EE->input;
-    $real_javascript  = $this->EE->javascript;
     $real_lang        = $this->EE->lang;
     $real_loader      = $this->EE->load;
     $real_output      = $this->EE->output;
@@ -222,7 +221,11 @@ class Testee_model extends CI_Model {
     $real_dbforge   = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
     $real_email     = (isset($this->EE->email)) ? $this->EE->email : FALSE;
     $real_layout    = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
+    $real_table     = (isset($this->EE->table)) ? $this->EE->table : FALSE;
     $real_template  = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
+
+    $real_javascript = (isset($this->EE->javascript))
+      ? $this->EE->javascript : FALSE;
 
     $real_typography = (isset($this->EE->typography))
       ? $this->EE->typography : FALSE;
@@ -239,7 +242,6 @@ class Testee_model extends CI_Model {
     $this->EE->extensions = $real_extensions;
     $this->EE->functions  = $real_functions;
     $this->EE->input      = $real_input;
-    $this->EE->javascript = $real_javascript;
     $this->EE->lang       = $real_lang;
     $this->EE->load       = $real_loader;
     $this->EE->output     = $real_output;
@@ -249,8 +251,10 @@ class Testee_model extends CI_Model {
     // The optional extras.
     if ($real_dbforge)    $this->EE->dbforge    = $real_dbforge;
     if ($real_email)      $this->EE->email      = $real_email;
+    if ($real_javascript) $this->EE->javascript = $real_javascript;
     if ($real_layout)     $this->EE->layout     = $real_layout;
     if ($real_template)   $this->EE->TMPL       = $real_template;
+    if ($real_table)      $this->EE->table      = $real_table;
     if ($real_typography) $this->EE->typography = $real_typography;
 
     return $test_results;

@@ -12,6 +12,7 @@
 require_once BASEPATH .'database/DB_driver.php';
 require_once BASEPATH .'libraries/Email.php';
 require_once BASEPATH .'libraries/Javascript.php';
+require_once BASEPATH .'libraries/Table.php';
 require_once BASEPATH .'libraries/Typography.php';
 
 // Classes mocked by Testee.
@@ -30,6 +31,7 @@ require_once APPPATH .'core/EE_URI.php';
 require_once APPPATH .'libraries/Cp.php';
 require_once APPPATH .'libraries/EE_Email.php';
 require_once APPPATH .'libraries/EE_Javascript.php';
+require_once APPPATH .'libraries/EE_Table.php';
 require_once APPPATH .'libraries/EE_Typography.php';
 require_once APPPATH .'libraries/Extensions.php';
 require_once APPPATH .'libraries/Functions.php';
@@ -124,6 +126,7 @@ class Testee_unit_test_case extends UnitTestCase {
     Mock::generate('EE_Loader',     $class_prefix .'_mock_loader');
     Mock::generate('EE_Output',     $class_prefix .'_mock_output');
     Mock::generate('EE_Session',    $class_prefix .'_mock_session');
+    Mock::generate('EE_Table',      $class_prefix .'_mock_table');
     Mock::generate('EE_Template',   $class_prefix .'_mock_template');
     Mock::generate('EE_Typography', $class_prefix .'_mock_typography');
     Mock::generate('EE_URI',        $class_prefix .'_mock_uri');
