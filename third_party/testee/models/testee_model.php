@@ -218,11 +218,12 @@ class Testee_model extends CI_Model {
     $real_uri         = $this->EE->uri;
 
     // These don't always exist.
-    $real_dbforge   = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
-    $real_email     = (isset($this->EE->email)) ? $this->EE->email : FALSE;
-    $real_layout    = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
-    $real_table     = (isset($this->EE->table)) ? $this->EE->table : FALSE;
-    $real_template  = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
+    $real_dbforge  = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
+    $real_email    = (isset($this->EE->email)) ? $this->EE->email : FALSE;
+    $real_layout   = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
+    $real_table    = (isset($this->EE->table)) ? $this->EE->table : FALSE;
+    $real_template = (isset($this->EE->template)) ? $this->EE->template : FALSE;
+    $real_tmpl     = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
 
     $real_javascript = (isset($this->EE->javascript))
       ? $this->EE->javascript : FALSE;
@@ -253,8 +254,9 @@ class Testee_model extends CI_Model {
     if ($real_email)      $this->EE->email      = $real_email;
     if ($real_javascript) $this->EE->javascript = $real_javascript;
     if ($real_layout)     $this->EE->layout     = $real_layout;
-    if ($real_template)   $this->EE->TMPL       = $real_template;
     if ($real_table)      $this->EE->table      = $real_table;
+    if ($real_template)   $this->EE->template   = $real_template;
+    if ($real_tmpl)       $this->EE->TMPL       = $real_tmpl;
     if ($real_typography) $this->EE->typography = $real_typography;
 
     return $test_results;
