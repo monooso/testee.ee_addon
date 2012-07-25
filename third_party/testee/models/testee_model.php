@@ -298,15 +298,17 @@ class Testee_model extends CI_Model {
    */
   public function install_module()
   {
-    $this->EE->db->insert(
-      'modules',
-      array(
-        'has_cp_backend'      => 'y',
-        'has_publish_fields'  => 'n',
-        'module_name'         => $this->get_package_name(),
-        'module_version'      => $this->get_package_version()
-      )
-    );
+    // Register the module.
+    $this->EE->db->insert('modules', array(
+      'has_cp_backend'      => 'y',
+      'has_publish_fields'  => 'n',
+      'module_name'         => $this->get_package_name(),
+      'module_version'      => $this->get_package_version()
+    ));
+
+    // Register the module actions.
+    $this->EE->db->insert('actions',
+      array('class' => $this->get_package_name(), 'method' => 'run_tests'));
 
     return TRUE;
   }
@@ -335,6 +337,9 @@ class Testee_model extends CI_Model {
     $this->EE->db->delete('modules',
       array('module_name' => $this->get_package_name()));
 
+    $this->EE->db->delete('actions',
+      array('class' => $this->get_package_name()));
+
     return TRUE;
   }
 
@@ -352,6 +357,11 @@ class Testee_model extends CI_Model {
     if (version_compare($installed_version, $package_version, '>='))
     {
       return FALSE;
+    }
+
+    if (version_compare($installed_version, '2.2.0b1', '<'))
+    {
+      // Register the action.
     }
 
     return TRUE;

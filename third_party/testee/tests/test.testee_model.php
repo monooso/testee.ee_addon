@@ -86,11 +86,19 @@ class Test_testee_model extends Testee_unit_test_case {
     $module_data = array(
 			'has_cp_backend'		  => 'y',
 			'has_publish_fields'	=> 'n',
-			'module_name'			    => $this->_subject->get_package_name(),
-			'module_version'		  => $this->_subject->get_package_version()
+			'module_name'			    => $this->_package_name,
+			'module_version'		  => $this->_package_version
     );
 
-		$this->EE->db->expectOnce('insert', array('modules', $module_data));
+    $action_data = array(
+      'class'  => $this->_package_name,
+      'method' => 'run_tests'
+    );
+
+    $this->EE->db->expectCallCount('insert', 2);
+		$this->EE->db->expectAt(0, 'insert', array('modules', $module_data));
+		$this->EE->db->expectAt(1, 'insert', array('actions', $action_data));
+
 		$this->assertIdentical(TRUE, $this->_subject->install_module());
 	}
 
@@ -116,13 +124,16 @@ class Test_testee_model extends Testee_unit_test_case {
 		$db_result->setReturnReference('row', $db_row);
 
     // Delete the module.
-    $this->EE->db->expectCallCount('delete', 2);
+    $this->EE->db->expectCallCount('delete', 3);
 
     $this->EE->db->expectAt(0, 'delete', array('module_member_groups',
       array('module_id' => $module_id)));
 		
     $this->EE->db->expectAt(1, 'delete', array('modules',
       array('module_name' => $this->_package_name)));
+
+    $this->EE->db->expectAt(2, 'delete', array('actions',
+      array('class' => $this->_package_name)));
 
 		$this->assertIdentical(TRUE, $this->_subject->uninstall_module());
   }
