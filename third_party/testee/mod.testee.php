@@ -10,6 +10,9 @@
 
 class Testee {
 
+  private $EE;
+
+
   /* --------------------------------------------------------------
    * PUBLIC METHODS
    * ------------------------------------------------------------ */
@@ -22,8 +25,21 @@ class Testee {
 	 */
 	public function __construct()
 	{
-		// Does nothing.
+    $this->EE =& get_instance();
 	}
+
+
+  /**
+   * Handles the 'run_tests' ACTion. Runs all of the available tests for the 
+   * specified add-on, and outputs the results in JSON format.
+   *
+   * @access  public
+   * @return  void
+   */
+  public function run_tests()
+  {
+    
+  }
 
 	
 }
