@@ -362,6 +362,8 @@ class Testee_model extends CI_Model {
     if (version_compare($installed_version, '2.2.0b1', '<'))
     {
       // Register the action.
+      $this->EE->db->insert('actions',
+        array('class' => $this->get_package_name(), 'method' => 'run_tests'));
     }
 
     return TRUE;

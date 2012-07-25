@@ -176,10 +176,20 @@ class Test_testee_model extends Testee_unit_test_case {
   {
     $subject = $this->_subject;
 
-    $this->assertIdentical(TRUE, $subject->update_module('1.0.0', '1.0.1'));
-    $this->assertIdentical(TRUE, $subject->update_module('1.0b2', '1.0b3'));
+    $this->assertIdentical(TRUE, $subject->update_module('10.0.0', '10.0.1'));
+    $this->assertIdentical(TRUE, $subject->update_module('10.0b2', '10.0b3'));
     $this->assertIdentical(TRUE, $subject->update_module('', '0.1.0'));
   }
+
+
+  public function test__update_module__registers_the_run_tests_action_if_upgrading_to_version_220b1()
+  {
+    $this->EE->db->expectOnce('insert', array('actions',
+      array('class' => $this->_package_name, 'method' => 'run_tests')));
+  
+    $this->_subject->update_module('2.1.0', '2.2.0b1');
+  }
+  
 	
 	
 }
