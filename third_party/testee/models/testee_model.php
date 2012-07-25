@@ -6,10 +6,10 @@
  * @author      Stephen Lewis (http://github.com/experience/)
  * @copyright   Experience Internet
  * @package     Testee
- * @version     2.1.1
  */
 
-require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
+require_once dirname(__FILE__) .'/../config.php';
+require_once dirname(__FILE__) .'/../classes/testee_addon.php';
 
 class Testee_model extends CI_Model {
 
@@ -35,9 +35,20 @@ class Testee_model extends CI_Model {
   {
     parent::__construct();
 
-    $this->EE               =& get_instance();
-    $this->_package_name    = $package_name ? $package_name : 'Testee';
-    $this->_package_version = $package_version ? $package_version : '2.1.1';
+    $this->EE =& get_instance();
+
+    /**
+     * Constants defined in the NSM Add-on Updater config.php file, so we don't 
+     * have the package name and version defined in multiple locations.
+     */
+
+    $this->_package_name = $package_name
+      ? $package_name
+      : TESTEE_NAME;
+
+    $this->_package_version = $package_version
+      ? $package_version
+      : TESTEE_VERSION;
   }
 
 
