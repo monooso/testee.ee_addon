@@ -102,7 +102,7 @@ class Testee_mcp {
       'form_action'     => $this->_base_qs .AMP .'method=run_test',
       'tests_index_url' => $this->_base_url,
       'cp_page_title'   => 'Testee Test Results',
-      'test_results'    => $test_results,
+      'results'         => $test_results,
       'tests'           => $test_path
     );
     

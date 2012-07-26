@@ -240,7 +240,20 @@ class Testee_model extends CI_Model {
     $real_typography = (isset($this->EE->typography))
       ? $this->EE->typography : FALSE;
 
-    // Prepare the view variables.
+    /**
+     * TRICKY:
+     * Ideally, we'd just like to run our tests, and return the result to the 
+     * caller to do with as they please. This would let the reporter return 
+     * whatever is most appropriate (raw HTML, structured data, etc).
+     *
+     * Unfortunately, that's not how SimpleTest works. The run() method returns 
+     * a boolean value indicating whether the test suite ran, and the reporter 
+     * is expected to echo out its results to the buffer.
+     *
+     * We capture said buffer to prevent it from being echoed directly to the 
+     * screen, and return it to the caller.
+     */
+
     ob_start();
     $test_suite->run($reporter);
     $test_results = ob_get_clean();
