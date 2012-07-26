@@ -242,6 +242,21 @@ class Testee_model extends CI_Model {
 
     /**
      * TRICKY:
+     * If the tests are being run via an ACTion, certain EE constants appear to 
+     * be undefined. So far, I've only run into this issue with the BASE 
+     * constant, but it's quite possible that there are others.
+     *
+     * The current solution, which works fine for now, is to define the missing 
+     * constants here, before the tests are run.
+     */
+
+    if ( ! defined('BASE'))
+    {
+      define('BASE', 'http://testee.com/admin.php');
+    }
+
+    /**
+     * TRICKY:
      * Ideally, we'd just like to run our tests, and return the result to the 
      * caller to do with as they please. This would let the reporter return 
      * whatever is most appropriate (raw HTML, structured data, etc).
