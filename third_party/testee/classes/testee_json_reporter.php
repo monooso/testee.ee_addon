@@ -52,11 +52,11 @@ class Testee_json_reporter extends Testee_reporter {
       array_push($$target, $result->to_array());
     }
 
-    $failed = ($errors OR $exceptions OR $fails OR $skips);
+    $fail = ($errors OR $exceptions OR $fails OR $skips);
 
     $result = array(
       'summary' => array(
-        'result'          => $failed ? 'failed' : 'passed',
+        'result'          => $failed ? 'fail' : 'pass',
         'pass_count'      => $this->getPassCount(),
         'error_count'     => count($errors),
         'exception_count' => count($exceptions),
