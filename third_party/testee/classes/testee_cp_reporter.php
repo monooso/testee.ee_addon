@@ -36,7 +36,7 @@ class Testee_cp_reporter extends Testee_reporter {
    * @param   string    $test_name    The test name.
    * @return  void
    */
-  public function paintFooter($test_name = '')
+  public function paintFooter($test_name)
   {
     parent::paintFooter($test_name);
 
