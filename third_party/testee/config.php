@@ -6,13 +6,13 @@
  * @author          Stephen Lewis (http://github.com/experience/)
  * @copyright       Experience Internet
  * @package         Testee
- * @version         2.1.1
+ * @version         2.2.0b1
  */
 
 if ( ! defined('TESTEE_NAME'))
 {
   define('TESTEE_NAME', 'Testee');
-  define('TESTEE_VERSION', '2.1.1');
+  define('TESTEE_VERSION', '2.2.0b1');
 }
 
 $config['name']     = TESTEE_NAME;
