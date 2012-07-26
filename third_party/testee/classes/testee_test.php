@@ -1,17 +1,19 @@
-<?php if ( ! defined('BASEPATH')) exit('Invalid file request');
+<?php
 
 /**
- * @author		  Stephen Lewis (http://github.com/experience/)
+ * Testee Test datatype.
+ *
+ * @author		  Stephen Lewis
  * @copyright	  Experience Internet
  * @package		  Testee
  */
 
-require_once PATH_THIRD .'testee/classes/testee_base.php';
+if ( ! class_exists('EI_datatype'))
+{
+  require_once dirname(__FILE__) .'/EI_datatype.php';
+}
 
-class Testee_test extends Testee_base {
-	
-	protected $_file_name = '';
-	protected $_file_path = '';
+class Testee_test extends EI_datatype {
 	
 	
 	/* --------------------------------------------------------------
@@ -31,6 +33,43 @@ class Testee_test extends Testee_base {
 	}
 
 	
+  /**
+   * Magic setter.
+   *
+   * @access  public
+   * @param   string    $prop_name    The property name.
+   * @param   mixed     $prop_value   The property value.
+   * @return  void
+   */
+  public function __set($prop_name, $prop_value)
+  {
+    switch ($prop_name)
+    {
+      case 'file_name':
+      case 'file_path':
+        $this->_set_string_property($prop_name, $prop_value);
+        break;
+    }
+  }
+
+
+  /**
+   * Resets the instance properties.
+   *
+   * @access  public
+   * @return  Testee_test
+   */
+  public function reset()
+  {
+    $this->_props = array(
+      'file_name' => '',
+      'file_path' => ''
+    );
+
+    return $this;
+  }
+
+
 }
 
 

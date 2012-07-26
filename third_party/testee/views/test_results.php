@@ -1,12 +1,30 @@
-<?=$test_results; ?>
+<!-- Test results -->
+<?php echo $results; ?>
 
-<?=form_open($form_action); ?>
-	<?php foreach ($tests AS $test): ?>
-	<?=form_hidden('tests[]', $test); ?>
-	<?php endforeach; ?>
+<!-- Hidden form, so we can re-run the tests. -->
+<?php
+
+  echo form_open($form_action);
+
+  foreach ($tests AS $test)
+  {
+    echo form_hidden('tests[]', $test);
+  }
+
+  echo '<div class="submit_wrapper">';
 	
-	<div class="submit_wrapper">
-		<?=form_submit(array('class' => 'submit', 'id' => 'retest_submit', 'name' => 'retest_submit', 'value' => lang('retest'))); ?>
-		&nbsp;&nbsp;<?=lang('or'); ?> <a href="<?=$tests_index_url; ?>" title="<?=lang('start_over'); ?>"><?=lang('start_over'); ?></a>.
-	</div>
-<?=form_close(); ?>
+  echo form_submit(array(
+    'class' => 'submit',
+    'id'    => 'retest_submit',
+    'name'  => 'retest_submit',
+    'value' => lang('retest')
+  ));
+
+  echo '&nbsp;&nbsp;' .lang('or') .'&nbsp;&nbsp;';
+  echo '<a href="' .$tests_index_url .'" title="' .lang('start_over') .'">';
+  echo lang('start_over');
+  echo '</a>';
+  echo '</div>';
+  echo form_close();
+
+?>

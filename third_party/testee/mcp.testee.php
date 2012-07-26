@@ -3,10 +3,12 @@
 /**
  * Testee module control panel.
  *
- * @author      Stephen Lewis (http://github.com/experience/)
+ * @author      Stephen Lewis
  * @copyright   Experience Internet
  * @package     Testee
  */
+
+require_once dirname(__FILE__) .'/classes/testee_cp_reporter.php';
 
 class Testee_mcp {
   
@@ -87,7 +89,8 @@ class Testee_mcp {
     
     try
     {
-      $test_results = $this->EE->testee_model->run_tests($test_path);
+      $test_results = $this->EE->testee_model->run_tests($test_path,
+        new Testee_cp_reporter());
     }
     catch (Exception $e)
     {
@@ -99,7 +102,7 @@ class Testee_mcp {
       'form_action'     => $this->_base_qs .AMP .'method=run_test',
       'tests_index_url' => $this->_base_url,
       'cp_page_title'   => 'Testee Test Results',
-      'test_results'    => $test_results,
+      'results'         => $test_results,
       'tests'           => $test_path
     );
     

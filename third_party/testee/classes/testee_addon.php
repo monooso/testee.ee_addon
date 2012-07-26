@@ -1,59 +1,77 @@
-<?php if ( ! defined('BASEPATH')) exit('Invalid file request');
+<?php
 
 /**
- * @author      Stephen Lewis (http://github.com/experience/)
- * @copyright   Experience Internet
- * @package     Testee
+ * Testee Add-on datatype.
+ *
+ * @author		  Stephen Lewis
+ * @copyright	  Experience Internet
+ * @package		  Testee
  */
 
-require_once PATH_THIRD .'testee/classes/testee_base' .EXT;
-require_once PATH_THIRD .'testee/classes/testee_test' .EXT;
+if ( ! class_exists('EI_datatype'))
+{
+  require_once dirname(__FILE__) .'/EI_datatype.php';
+}
 
-class Testee_addon extends Testee_base {
+require_once dirname(__FILE__) .'/testee_test.php';
+
+class Testee_addon extends EI_datatype {
   
-  protected $_name = '';
-  protected $_tests = array();
-  
-  
-  
+
   /* --------------------------------------------------------------
    * PUBLIC METHODS
    * ------------------------------------------------------------ */
   
+	/**
+	 * Constructor.
+	 *
+	 * @access	public
+	 * @param 	array 		$props		An associative array of properties.
+	 * @return	void
+	 */
+	public function __construct(Array $props = array())
+	{
+		parent::__construct($props);
+	}
+
+	
   /**
-   * Sets a private property, if it exists.
+   * Magic setter.
    *
    * @access  public
    * @param   string    $prop_name    The property name.
-   * @param   string    $prop_value   The property value.
+   * @param   mixed     $prop_value   The property value.
    * @return  void
    */
-  public function __set($prop_name = '', $prop_value = '')
+  public function __set($prop_name, $prop_value)
   {
-    // Everything bar the tests is simple.
-    if ($prop_name != 'tests')
+    switch ($prop_name)
     {
-      parent::__set($prop_name, $prop_value);
-    }
+      case 'name':
+        $this->_set_string_property($prop_name, $prop_value);
+        break;
 
-    // Tests require a bit more work.
-    $this->_tests = array();
+      case 'tests':
+        // Start by resetting the tests array.
+        $this->_set_array_property($prop_name, array());
 
-    if ( ! is_array($prop_value))
-    {
-      $prop_value = array($prop_value);
-    }
+        if ( ! is_array($prop_value))
+        {
+          $prop_value = array($prop_value);
+        }
 
-    foreach ($prop_value AS $test)
-    {
-      if ($test instanceof Testee_test)
-      {
-        $this->add_test($test);
-      }
+        foreach ($prop_value AS $test)
+        {
+          if ($test instanceof Testee_test)
+          {
+            $this->add_test($test);
+          }
+        }
+        break;
     }
   }
-  
-  
+
+
   /**
    * Adds a test to the tests array.
    *
@@ -63,8 +81,8 @@ class Testee_addon extends Testee_base {
    */
   public function add_test(Testee_test $test)
   {
-    $this->_tests[] = $test;
-    return $this->_tests;
+    $this->_props['tests'][] = $test;
+    return $this->tests;
   }
   
   
@@ -76,10 +94,27 @@ class Testee_addon extends Testee_base {
    */
   public function remove_all_tests()
   {
-    $this->_tests = array();
-    return $this->_tests;
+    $this->_props['tests'] = array();
+    return $this->tests;
   }
   
+
+  /**
+   * Resets the instance properties.
+   *
+   * @access  public
+   * @return  Testee_addon
+   */
+  public function reset()
+  {
+    $this->_props = array(
+      'name'  => '',
+      'tests' => array()
+    );
+
+    return $this;
+  }
+
 
 }
 
