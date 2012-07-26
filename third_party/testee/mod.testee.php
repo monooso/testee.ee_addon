@@ -29,6 +29,7 @@ class Testee {
 	{
     $this->EE =& get_instance();
     $this->EE->load->model('testee_model');
+    $this->EE->lang->loadfile('testee');
 	}
 
 
@@ -47,8 +48,11 @@ class Testee {
 
     if ( ! $input_tests)
     {
-      // @TODO : "no tests" JSON.
-      exit('No tests specified');
+      // HTTP status code 412: Precondition Failed.
+      $json = array('code' => 412,
+        'message' => $this->EE->lang->line('json_error__412'));
+
+      $this->_output_json(json_encode($json), 412);
       return;
     }
 
@@ -72,8 +76,11 @@ class Testee {
     // Do we have anything to run?
     if ( ! $run_tests)
     {
-      // @TODO : "no valid tests" JSON.
-      exit('No valid tests');
+      // HTTP status code 404: (Tests) Not Found.
+      $json = array('code' => 404,
+        'message' => $this->EE->lang->line('json_error__404'));
+
+      $this->_output_json(json_encode($json), 404);
       return;
     }
     
@@ -85,15 +92,39 @@ class Testee {
     }
     catch (Exception $e)
     {
-      // @TODO : "error" JSON.
-      $json = '';
+      // HTTP status code 500: Internal Server Error.
+      $json = array('code' => 500,
+        'message' => $this->EE->lang->line('json_error__500'));
+
+      $this->_output_json(json_encode($json), 500);
+      return;
     }
     
-    @header('Content-Type: application/json');
-    exit($json);
+    $this->_output_json($json);
   }
 
-	
+
+
+  /* --------------------------------------------------------------
+   * PROTECTED METHODS
+   * ------------------------------------------------------------ */
+  
+  /**
+   * Outputs the supplied JSON.
+   *
+   * @access  protected
+   * @param   string    $json    The JSON content.
+   * @param   int    $code    The HTTP response code.
+   * @return  void
+   */
+  protected function _output_json($json, $code = 200)
+  {
+    set_status_header($code);
+    @header('Content-type: application/json');
+    exit($json);
+  }
+  
+
 }
 
 
