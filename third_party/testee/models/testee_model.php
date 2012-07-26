@@ -6,17 +6,17 @@
  * @author      Stephen Lewis (http://github.com/experience/)
  * @copyright   Experience Internet
  * @package     Testee
- * @version     2.1.1
  */
 
-require_once PATH_THIRD .'testee/classes/testee_addon' .EXT;
+require_once dirname(__FILE__) .'/../config.php';
+require_once dirname(__FILE__) .'/../classes/testee_addon.php';
+require_once dirname(__FILE__) .'/../classes/testee_unit_test_case.php';
 
 class Testee_model extends CI_Model {
 
   private $EE;
   private $_package_name;
   private $_package_version;
-
 
 
   /* --------------------------------------------------------------
@@ -35,9 +35,20 @@ class Testee_model extends CI_Model {
   {
     parent::__construct();
 
-    $this->EE               =& get_instance();
-    $this->_package_name    = $package_name ? $package_name : 'Testee';
-    $this->_package_version = $package_version ? $package_version : '2.1.1';
+    $this->EE =& get_instance();
+
+    /**
+     * Constants defined in the NSM Add-on Updater config.php file, so we don't 
+     * have the package name and version defined in multiple locations.
+     */
+
+    $this->_package_name = $package_name
+      ? $package_name
+      : TESTEE_NAME;
+
+    $this->_package_version = $package_version
+      ? $package_version
+      : TESTEE_VERSION;
   }
 
 
@@ -152,10 +163,14 @@ class Testee_model extends CI_Model {
    *
    * @author  Stephen Lewis
    * @author  Jamie Rumbelow
-   * @param   array       $test_path      The tests to run.
+   * @author  Bjørn Børresen
+   * @param   array             $test_path  The tests to run.
+   * @param   Testee_reporter   $reporter   The custom reporter used for output.
    * @return  string
    */
-  public function run_tests($test_path = array())
+  public function run_tests(Array $test_path = array(),
+    Testee_reporter $reporter
+  )
   {
     // Can't do anything without tests to run.
     if ( ! $test_path)
@@ -168,12 +183,6 @@ class Testee_model extends CI_Model {
     {
       error_reporting(error_reporting() & ~E_DEPRECATED);
     }
-
-    // Load the unit tester base class, so the tests don't have to.
-    require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
-
-    // Load the custom reporter.
-    require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
 
     // Create the Test Suite.
     $test_suite = new TestSuite('Testee Test Suite');
@@ -206,12 +215,10 @@ class Testee_model extends CI_Model {
      */
 
     $real_config      = $this->EE->config;
-    $real_cp          = $this->EE->cp;
     $real_db          = $this->EE->db;
     $real_extensions  = $this->EE->extensions;
     $real_functions   = $this->EE->functions;
     $real_input       = $this->EE->input;
-    $real_javascript  = $this->EE->javascript;
     $real_lang        = $this->EE->lang;
     $real_loader      = $this->EE->load;
     $real_output      = $this->EE->output;
@@ -219,14 +226,51 @@ class Testee_model extends CI_Model {
     $real_uri         = $this->EE->uri;
 
     // These don't always exist.
-    $real_dbforge   = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
-    $real_email     = (isset($this->EE->email)) ? $this->EE->email : FALSE;
-    $real_layout    = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
-    $real_template  = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
+    $real_cp       = (isset($this->EE->cp)) ? $this->EE->cp : FALSE;
+    $real_dbforge  = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
+    $real_email    = (isset($this->EE->email)) ? $this->EE->email : FALSE;
+    $real_layout   = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
+    $real_table    = (isset($this->EE->table)) ? $this->EE->table : FALSE;
+    $real_template = (isset($this->EE->template)) ? $this->EE->template : FALSE;
+    $real_tmpl     = (isset($this->EE->TMPL)) ? $this->EE->TMPL : FALSE;
 
-    // Prepare the view variables.
+    $real_javascript = (isset($this->EE->javascript))
+      ? $this->EE->javascript : FALSE;
+
+    $real_typography = (isset($this->EE->typography))
+      ? $this->EE->typography : FALSE;
+
+    /**
+     * TRICKY:
+     * If the tests are being run via an ACTion, certain EE constants appear to 
+     * be undefined. So far, I've only run into this issue with the BASE 
+     * constant, but it's quite possible that there are others.
+     *
+     * The current solution, which works fine for now, is to define the missing 
+     * constants here, before the tests are run.
+     */
+
+    if ( ! defined('BASE'))
+    {
+      define('BASE', 'http://testee.com/admin.php');
+    }
+
+    /**
+     * TRICKY:
+     * Ideally, we'd just like to run our tests, and return the result to the 
+     * caller to do with as they please. This would let the reporter return 
+     * whatever is most appropriate (raw HTML, structured data, etc).
+     *
+     * Unfortunately, that's not how SimpleTest works. The run() method returns 
+     * a boolean value indicating whether the test suite ran, and the reporter 
+     * is expected to echo out its results to the buffer.
+     *
+     * We capture said buffer to prevent it from being echoed directly to the 
+     * screen, and return it to the caller.
+     */
+
     ob_start();
-    $test_suite->run(new Testee_reporter());
+    $test_suite->run($reporter);
     $test_results = ob_get_clean();
 
     // Reinstate the real EE objects.
@@ -236,7 +280,6 @@ class Testee_model extends CI_Model {
     $this->EE->extensions = $real_extensions;
     $this->EE->functions  = $real_functions;
     $this->EE->input      = $real_input;
-    $this->EE->javascript = $real_javascript;
     $this->EE->lang       = $real_lang;
     $this->EE->load       = $real_loader;
     $this->EE->output     = $real_output;
@@ -244,10 +287,15 @@ class Testee_model extends CI_Model {
     $this->EE->uri        = $real_uri;
 
     // The optional extras.
-    if ($real_dbforge)    $this->EE->dbforge = $real_dbforge;
-    if ($real_email)      $this->EE->email   = $real_email;
-    if ($real_layout)     $this->EE->layout  = $real_layout;
-    if ($real_template)   $this->EE->TMPL    = $real_template;
+    if ($real_cp)         $this->EE->cp         = $real_cp;
+    if ($real_dbforge)    $this->EE->dbforge    = $real_dbforge;
+    if ($real_email)      $this->EE->email      = $real_email;
+    if ($real_javascript) $this->EE->javascript = $real_javascript;
+    if ($real_layout)     $this->EE->layout     = $real_layout;
+    if ($real_table)      $this->EE->table      = $real_table;
+    if ($real_template)   $this->EE->template   = $real_template;
+    if ($real_tmpl)       $this->EE->TMPL       = $real_tmpl;
+    if ($real_typography) $this->EE->typography = $real_typography;
 
     return $test_results;
   }
@@ -277,15 +325,17 @@ class Testee_model extends CI_Model {
    */
   public function install_module()
   {
-    $this->EE->db->insert(
-      'modules',
-      array(
-        'has_cp_backend'      => 'y',
-        'has_publish_fields'  => 'n',
-        'module_name'         => $this->get_package_name(),
-        'module_version'      => $this->get_package_version()
-      )
-    );
+    // Register the module.
+    $this->EE->db->insert('modules', array(
+      'has_cp_backend'      => 'y',
+      'has_publish_fields'  => 'n',
+      'module_name'         => $this->get_package_name(),
+      'module_version'      => $this->get_package_version()
+    ));
+
+    // Register the module actions.
+    $this->EE->db->insert('actions',
+      array('class' => $this->get_package_name(), 'method' => 'run_tests'));
 
     return TRUE;
   }
@@ -314,6 +364,9 @@ class Testee_model extends CI_Model {
     $this->EE->db->delete('modules',
       array('module_name' => $this->get_package_name()));
 
+    $this->EE->db->delete('actions',
+      array('class' => $this->get_package_name()));
+
     return TRUE;
   }
 
@@ -331,6 +384,13 @@ class Testee_model extends CI_Model {
     if (version_compare($installed_version, $package_version, '>='))
     {
       return FALSE;
+    }
+
+    if (version_compare($installed_version, '2.2.0b1', '<'))
+    {
+      // Register the action.
+      $this->EE->db->insert('actions',
+        array('class' => $this->get_package_name(), 'method' => 'run_tests'));
     }
 
     return TRUE;
