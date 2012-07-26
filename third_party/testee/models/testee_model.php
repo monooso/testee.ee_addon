@@ -10,13 +10,13 @@
 
 require_once dirname(__FILE__) .'/../config.php';
 require_once dirname(__FILE__) .'/../classes/testee_addon.php';
+require_once dirname(__FILE__) .'/../classes/testee_unit_test_case.php';
 
 class Testee_model extends CI_Model {
 
   private $EE;
   private $_package_name;
   private $_package_version;
-
 
 
   /* --------------------------------------------------------------
@@ -163,10 +163,14 @@ class Testee_model extends CI_Model {
    *
    * @author  Stephen Lewis
    * @author  Jamie Rumbelow
-   * @param   array       $test_path      The tests to run.
+   * @author  Bjørn Børresen
+   * @param   array             $test_path  The tests to run.
+   * @param   Testee_reporter   $reporter   The custom reporter used for output.
    * @return  string
    */
-  public function run_tests($test_path = array())
+  public function run_tests(Array $test_path = array(),
+    Testee_reporter $reporter
+  )
   {
     // Can't do anything without tests to run.
     if ( ! $test_path)
@@ -179,12 +183,6 @@ class Testee_model extends CI_Model {
     {
       error_reporting(error_reporting() & ~E_DEPRECATED);
     }
-
-    // Load the unit tester base class, so the tests don't have to.
-    require_once PATH_THIRD .'testee/classes/testee_unit_test_case' .EXT;
-
-    // Load the custom reporter.
-    require_once PATH_THIRD .'testee/classes/testee_reporter' .EXT;
 
     // Create the Test Suite.
     $test_suite = new TestSuite('Testee Test Suite');
@@ -244,7 +242,7 @@ class Testee_model extends CI_Model {
 
     // Prepare the view variables.
     ob_start();
-    $test_suite->run(new Testee_reporter());
+    $test_suite->run($reporter);
     $test_results = ob_get_clean();
 
     // Reinstate the real EE objects.
