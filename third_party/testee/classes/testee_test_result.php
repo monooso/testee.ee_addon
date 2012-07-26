@@ -36,14 +36,14 @@ class Testee_test_result extends EI_datatype
    */
   public function __construct(Array $props = array())
   {
-    parent::__construct($props);
-
     $this->_known_types = array(
       self::TYPE_ERROR,
       self::TYPE_EXCEPTION,
       self::TYPE_FAIL,
       self::TYPE_SKIP
     );
+
+    parent::__construct($props);
   }
 
 
