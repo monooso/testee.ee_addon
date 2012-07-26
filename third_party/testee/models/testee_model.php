@@ -215,7 +215,6 @@ class Testee_model extends CI_Model {
      */
 
     $real_config      = $this->EE->config;
-    $real_cp          = $this->EE->cp;
     $real_db          = $this->EE->db;
     $real_extensions  = $this->EE->extensions;
     $real_functions   = $this->EE->functions;
@@ -227,6 +226,7 @@ class Testee_model extends CI_Model {
     $real_uri         = $this->EE->uri;
 
     // These don't always exist.
+    $real_cp       = (isset($this->EE->cp)) ? $this->EE->cp : FALSE;
     $real_dbforge  = (isset($this->EE->dbforge)) ? $this->EE->dbforge : FALSE;
     $real_email    = (isset($this->EE->email)) ? $this->EE->email : FALSE;
     $real_layout   = (isset($this->EE->layout)) ? $this->EE->layout : FALSE;
@@ -259,6 +259,7 @@ class Testee_model extends CI_Model {
     $this->EE->uri        = $real_uri;
 
     // The optional extras.
+    if ($real_cp)         $this->EE->cp         = $real_cp;
     if ($real_dbforge)    $this->EE->dbforge    = $real_dbforge;
     if ($real_email)      $this->EE->email      = $real_email;
     if ($real_javascript) $this->EE->javascript = $real_javascript;
