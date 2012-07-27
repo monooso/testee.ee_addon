@@ -74,12 +74,15 @@ class Testee_mcp {
       .'?ACT=' .$this->EE->cp->fetch_action_id(
           $this->_model->get_package_name(), 'run_tests')
       .'&addon={addon_name}';
+
+    $docs_url = $this->EE->cp->masked_url(
+      'http://exhq.co/software/testee/docs/');
     
     $vars = array(
       'action_url'    => $action_url,
       'form_action'   => $this->_base_qs .AMP .'method=run_test',
       'cp_page_title' => $this->EE->lang->line('testee_module_name'),
-      'docs_url'      => 'http://exhq.co/software/testee/docs/',
+      'docs_url'      => $docs_url,
       'tests'         => $this->_model->get_tests()
     );
     
