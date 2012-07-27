@@ -117,7 +117,7 @@ class Testee {
           .implode('; ', $bad_tests)
       );
 
-      $this->_output_json(json_encode($json, 404));
+      $this->_output_json(json_encode($json), 404);
     }
 
     /**
