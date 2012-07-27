@@ -56,32 +56,55 @@ class Testee {
       return;
     }
 
-    // Are these known tests?
+    // Guard against nonsense.
+    $input_tests = array_unique($input_tests);
+
+    // Retrieve all of the available tests, organised by add-on.
     $all_tests = $this->EE->testee_model->get_tests();
     $bad_tests = array();
     $run_tests = array();
 
-    foreach ($input_tests AS $input_test)
+
+    if (in_array('all', $input_tests))
     {
-      // Locate the requested test.
+      /**
+       * The special 'all' keyword tells us to run all the available tests. If 
+       * it is present in the list of requested tests, we ignore anything else 
+       * (including unknown add-ons), and just run everything.
+       */
+
       foreach ($all_tests AS $addon)
       {
-        if ($addon->name != $input_test)
-        {
-          continue;
-        }
-
-        // The add-on exists. Grab all the associated tests.
         foreach ($addon->tests AS $addon_test)
         {
           $run_tests[] = $addon_test->file_path;
         }
-
-        continue 2;   // Move to the next input add-on.
       }
+    }
+    else
+    {
+      // Only interested in specific tests.
+      foreach ($input_tests AS $input_test)
+      {
+        foreach ($all_tests AS $addon)
+        {
+          if ($addon->name != $input_test)
+          {
+            continue;
+          }
 
-      // Make a note of any missing tests.
-      $bad_tests[] = $input_test;
+          // The add-on exists. Grab all the associated tests.
+          foreach ($addon->tests AS $addon_test)
+          {
+            $run_tests[] = $addon_test->file_path;
+          }
+
+          continue 2;   // Move to the next input add-on.
+        }
+
+        // Unknown add-on.
+        $bad_tests[] = $input_test;
+      }
     }
 
     // Were there any unknown tests?
