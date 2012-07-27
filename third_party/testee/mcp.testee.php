@@ -66,10 +66,16 @@ class Testee_mcp {
   {
     $this->EE->load->helper('form');
     $this->EE->load->library('table');
+
+    $action_url = $this->EE->functions->fetch_site_index()
+      .'?ACT=' .$this->EE->cp->fetch_action_id($this->EE->testee_model->get_package_name(), 'run_tests')
+      .'&addon={addon_name}';
     
     $vars = array(
+      'action_url'    => $action_url,
       'form_action'   => $this->_base_qs .AMP .'method=run_test',
       'cp_page_title' => $this->EE->lang->line('testee_module_name'),
+      'docs_url'      => 'http://exhq.co/software/testee/docs/',
       'tests'         => $this->EE->testee_model->get_tests()
     );
     
