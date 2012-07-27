@@ -58,33 +58,61 @@ class Testee {
 
     // Are these known tests?
     $all_tests = $this->EE->testee_model->get_tests();
+    $bad_tests = array();
     $run_tests = array();
 
-    foreach ($all_tests AS $addon)
+    foreach ($input_tests AS $input_test)
     {
-      if (in_array($addon->name, $input_tests))
+      // Locate the requested test.
+      foreach ($all_tests AS $addon)
       {
+        if ($addon->name != $input_test)
+        {
+          continue;
+        }
+
+        // The add-on exists. Grab all the associated tests.
         foreach ($addon->tests AS $addon_test)
         {
           $run_tests[] = $addon_test->file_path;
         }
 
-        unset($input_tests[$addon->name]);
+        continue 2;   // Move to the next input add-on.
       }
+
+      // Make a note of any missing tests.
+      $bad_tests[] = $input_test;
     }
 
-    // Do we have anything to run?
+    // Were there any unknown tests?
+    if ($bad_tests)
+    {
+      // HTTP status code 404: Unknown Test(s).
+      $json = array(
+        'code'    => 404,
+        'message' => $this->EE->lang->line('json_error__404_details')
+          .implode('; ', $bad_tests)
+      );
+
+      $this->_output_json(json_encode($json, 404));
+    }
+
+    /**
+     * It's possible, although highly unlikely, that we could have found an 
+     * add-on's test suite, but no associated tests.
+     */
+
     if ( ! $run_tests)
     {
       // HTTP status code 404: (Tests) Not Found.
       $json = array('code' => 404,
-        'message' => $this->EE->lang->line('json_error__404'));
+        'message' => $this->EE->lang->line('json_error__404_general'));
 
       $this->_output_json(json_encode($json), 404);
       return;
     }
     
-    // Run the tests.
+    // Finally, we can run the tests.
     try
     {
       $json = $this->EE->testee_model->run_tests($run_tests,
