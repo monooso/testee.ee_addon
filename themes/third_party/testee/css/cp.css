@@ -73,6 +73,15 @@ padding-left : 28px;
 .addon_tests li {border-bottom-style : dotted;}
 
 
+/* =quiet
+ * ------------------------------------------------------------ */
+.quiet {
+  color     : rgb(153, 153, 153);
+  font-size : 0.9em;
+  margin    : 1.5em 0 0;
+}
+
+
 /* =submit_wrapper
  -------------------------------------------------------------*/
 .submit_wrapper {

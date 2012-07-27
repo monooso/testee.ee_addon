@@ -24,7 +24,11 @@
 <?php endforeach; ?>
 </ul><!-- /.addons_index -->
 
-<div class="submit_wrapper"><?=form_submit(array('name' => 'submit', 'value' => lang('run_tests'), 'class' => 'submit')); ?></div>
+<div class="submit_wrapper">
+  <?=form_submit(array('name' => 'submit', 'value' => lang('run_tests'), 'class' => 'submit')); ?>
+  <p class="quiet">You can also run your tests via <strong><?php echo $action_url; ?></strong>.
+    <a href="<?php echo $docs_url; ?>">See the documentation</a> for more information.</p>
+</div>
 <?=form_close(); ?>
 
 <?php else: ?>

@@ -12,9 +12,10 @@ require_once dirname(__FILE__) .'/classes/testee_cp_reporter.php';
 
 class Testee_mcp {
   
-  private $_base_qs = '';
-  private $_base_url = '';
-  private $EE;
+  protected $_base_qs;
+  protected $_base_url;
+  protected $_model;
+  protected $EE;
   
   
   
@@ -34,6 +35,8 @@ class Testee_mcp {
     $this->EE =& get_instance();
     $this->EE->load->model('testee_model');
 
+    $this->_model =& $this->EE->testee_model;
+
     $this->_base_qs = 'C=addons_modules' .AMP .'M=show_module_cp'
       .AMP .'module=testee';
 
@@ -43,7 +46,7 @@ class Testee_mcp {
       $this->EE->lang->line('testee_module_name'));
 
     // Retrieve the theme folder URL.
-    $theme_url = $this->EE->testee_model->get_theme_url();
+    $theme_url = $this->_model->get_theme_url();
     
     // Include the custom CSS and JS on all pages.
     $this->EE->cp->add_to_head('<link rel="stylesheet" href="'
@@ -66,11 +69,21 @@ class Testee_mcp {
   {
     $this->EE->load->helper('form');
     $this->EE->load->library('table');
+
+    $action_url = $this->EE->functions->fetch_site_index()
+      .'?ACT=' .$this->EE->cp->fetch_action_id(
+          $this->_model->get_package_name(), 'run_tests')
+      .'&addon={addon_name}';
+
+    $docs_url = $this->EE->cp->masked_url(
+      'http://exhq.co/software/testee/docs/');
     
     $vars = array(
+      'action_url'    => $action_url,
       'form_action'   => $this->_base_qs .AMP .'method=run_test',
       'cp_page_title' => $this->EE->lang->line('testee_module_name'),
-      'tests'         => $this->EE->testee_model->get_tests()
+      'docs_url'      => $docs_url,
+      'tests'         => $this->_model->get_tests()
     );
     
     return $this->EE->load->view('tests_index', $vars, TRUE);
@@ -89,7 +102,7 @@ class Testee_mcp {
     
     try
     {
-      $test_results = $this->EE->testee_model->run_tests($test_path,
+      $test_results = $this->_model->run_tests($test_path,
         new Testee_cp_reporter());
     }
     catch (Exception $e)

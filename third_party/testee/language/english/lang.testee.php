@@ -31,9 +31,10 @@ $lang = array(
 /* --------------------------------------------------------------
  * JSON ERRORS
  * ------------------------------------------------------------ */
-'json_error__404' => "We couldn't find any tests for the requested add-on.",
-'json_error__412' => "Your request was missing a valid 'addon' query string parameter.",
-'json_error__500' => "Epic add-on fail! Something went wrong when running the tests. This usually means we couldn't locate the test files.",
+'json_error__404_details' => "We couldn't find any tests for the following add-on(s): ",
+'json_error__404_general' => "We couldn't find any tests for the requested add-on(s).",
+'json_error__412'         => "Your request was missing a valid 'addon' query string parameter.",
+'json_error__500'         => "Epic add-on fail! Something went wrong when running the tests. This usually means we couldn't locate the test files.",
 
 // All done.
 '' => ''
