@@ -11,6 +11,9 @@ interpret the results. If you know how to write a SimpleTest unit test, you
 already know how to write a Testee unit test; and if you don’t, SimpleTest is
 [well documented][simpletest_docs].
 
+Full installation and usage instructions for Testee may be found here:
+https://github.com/experience/testee.ee_addon/wiki/_pages/
+
 [simpletest]:http://simpletest.org/ "Find out more about SimpleTest"
 [simpletest_docs]:http://simpletest.org/en/unit_test_documentation.html "Read the SimpleTest documentation"
 
